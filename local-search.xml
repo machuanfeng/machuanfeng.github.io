@@ -47,9 +47,9 @@
     
     <tags>
       
-      <tag>专注笔记</tag>
-      
       <tag>教程</tag>
+      
+      <tag>专注笔记</tag>
       
     </tags>
     
@@ -75,6 +75,8 @@
     <tags>
       
       <tag>FPGA</tag>
+      
+      <tag>教程</tag>
       
     </tags>
     
@@ -128,7 +130,7 @@
       
       <tag>教程</tag>
       
-      <tag>远程</tag>
+      <tag>电脑远程</tag>
       
     </tags>
     
@@ -181,6 +183,8 @@
     <tags>
       
       <tag>教程</tag>
+      
+      <tag>hexo</tag>
       
     </tags>
     
