@@ -16,29 +16,23 @@
   <meta name="author" content="马钏烽">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Markdown图片管理-图床与转码">
+    <meta name="description" content="本篇文章简单记录一些专注笔记的快捷方式，方便书写">
 <meta property="og:type" content="article">
-<meta property="og:title" content="图床搭建">
-<meta property="og:url" content="http://findm.cf/2022/06/17/Markdown%E5%9B%BE%E7%89%87%E7%AE%A1%E7%90%86--%E5%9B%BE%E5%BA%8A%E4%B8%8E%E8%BD%AC%E7%A0%81/index.html">
+<meta property="og:title" content="FocusNote快捷操作">
+<meta property="og:url" content="http://findm.cf/2022/06/28/FocusNote%E5%BF%AB%E6%8D%B7%E6%93%8D%E4%BD%9C/index.html">
 <meta property="og:site_name" content="小马和小秦的博客">
-<meta property="og:description" content="Markdown图片管理-图床与转码">
+<meta property="og:description" content="本篇文章简单记录一些专注笔记的快捷方式，方便书写">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/machuanfeng/picture/main/img/2022-6-17-1.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/machuanfeng/picture/main/img/2022-6-17-2.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/machuanfeng/picture/main/img/2022-6-17-3.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/machuanfeng/picture/main/img/2022-6-17-4.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/machuanfeng/picture/main/img/2022-6-17-5.jpg">
-<meta property="article:published_time" content="2022-06-17T07:56:23.000Z">
-<meta property="article:modified_time" content="2022-06-28T04:06:40.223Z">
+<meta property="article:published_time" content="2022-06-28T00:58:31.000Z">
+<meta property="article:modified_time" content="2022-06-28T04:05:12.773Z">
 <meta property="article:author" content="马钏烽">
+<meta property="article:tag" content="专注笔记">
 <meta property="article:tag" content="教程">
-<meta property="article:tag" content="图床">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/machuanfeng/picture/main/img/2022-6-17-1.jpg">
   
   
   
-  <title>图床搭建 - 小马和小秦的博客</title>
+  <title>FocusNote快捷操作 - 小马和小秦的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -201,7 +195,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="图床搭建"></span>
+            <span id="subtitle" data-typed-text="FocusNote快捷操作"></span>
           
         </div>
 
@@ -212,8 +206,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-06-17 15:56" pubdate>
-          2022年6月17日 下午
+        <time datetime="2022-06-28 08:58" pubdate>
+          2022年6月28日 早上
         </time>
       </span>
     
@@ -224,7 +218,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.7k 字
+          422 字
         
       </span>
     
@@ -235,7 +229,7 @@
         
         
         
-          15 分钟
+          4 分钟
         
       </span>
     
@@ -273,46 +267,101 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">图床搭建</h1>
+            <h1 style="display: none">FocusNote快捷操作</h1>
             
             <div class="markdown-body">
               
-              <h2 id="一、图床"><a href="#一、图床" class="headerlink" title="一、图床"></a>一、图床</h2><h3 id="1-图床介绍"><a href="#1-图床介绍" class="headerlink" title="1 图床介绍"></a>1 图床介绍</h3><p>对于不写博客的伙伴，图床可能是一个陌生的词汇。从名字来看，应该和存储图片有关，但为什么要叫做“床”呢？</p>
-<p>图床其实是互联网上进行图片存储的空间。因为博客往往是以markdown的形式发布，而markdown不同于平时编辑的word文档，它其中显示的图片并不是嵌入在文件中，而是引用外部的源。语法如下：</p>
-<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs scss">!<span class="hljs-selector-attr">[]</span>(这里写图片在本服务器或本计算机的存储地址，或者网上图片的网址)<br></code></pre></td></tr></table></figure>
-
-<p>这样以来，就会出现两个问题：</p>
-<ol>
-<li>如果是引用存储在本地的图片<ul>
-<li>图片的路径不容易写对</li>
-<li>如果误将本地的图片删除，那么博客中就会报错</li>
-</ul>
-</li>
-<li>如果随便引用一个网上的图片<ul>
-<li>这个图片可能随时会被作者删除或者其他原消失</li>
-</ul>
-</li>
-</ol>
-<p>在这种情况下，自己在网络上开辟一个安全可靠的网络空间就很重要。本文就记录一下图床的搭建与使用。</p>
-<h3 id="2-图床搭建"><a href="#2-图床搭建" class="headerlink" title="2 图床搭建"></a>2 图床搭建</h3><p>github、Gitee、阿里云等都可以开辟空间上传图片，所以本身就具备了作为图床的能力，我们就可以利用这些免费的空间来搭建图床。然而每次手动上传操作时比较困难的，这是出现了一个图床的管理工具叫picgo，这是一个免费开源的工具。界面如下：</p>
-<p><img src="https://raw.githubusercontent.com/machuanfeng/picture/main/img/2022-6-17-1.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p>配置好连接后，将图片拖到虚线框中就可以方便的上传到图床空间，实现的机制就是token验证。</p>
-<p>建立连接的方法也很简单，在picgo的官方文档就给出了详细的教程（包含github、七牛图库、阿里云OSS都有）：<a target="_blank" rel="noopener" href="https://picgo.github.io/PicGo-Doc/zh/guide/config.html#github%E5%9B%BE%E5%BA%8A">配置手册 | PicGo</a></p>
-<p><img src="https://raw.githubusercontent.com/machuanfeng/picture/main/img/2022-6-17-2.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p>如果在配置过程中有疑问可以观看这个B站视频<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Lt411J7Mp?spm_id_from=333.337.search-card.all.click">PicGo五分钟打造你的私人图床（稳定、快速、免费）_哔哩哔哩_bilibili</a></p>
-<p>这是SMMS图床上传后的界面：</p>
-<p><img src="https://raw.githubusercontent.com/machuanfeng/picture/main/img/2022-6-17-3.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
-<h2 id="二、转码"><a href="#二、转码" class="headerlink" title="二、转码"></a>二、转码</h2><p>这个方法简单粗暴，就是将图片转换为一段代码，就可以将其以文字的形式嵌入markdown文档</p>
-<h3 id="1-通过在线网站"><a href="#1-通过在线网站" class="headerlink" title="1 通过在线网站"></a>1 通过在线网站</h3><p><a target="_blank" rel="noopener" href="http://www.jsons.cn/img2base64">图片在线转换base64编码-在线base64编码转换成图片工具 (jsons.cn)</a></p>
-<p><img src="https://raw.githubusercontent.com/machuanfeng/picture/main/img/2022-6-17-4.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
-<h3 id="2-通过运行python代码"><a href="#2-通过运行python代码" class="headerlink" title="2 通过运行python代码"></a>2 通过运行python代码</h3><p>参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_35757704/article/details/123466261">python图片转base64编码，与base64编码转图片_呆萌的代Ma的博客-CSDN博客_python 图片base64编码</a></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> base64<br><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image<br><span class="hljs-keyword">from</span> io <span class="hljs-keyword">import</span> BytesIO<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">img_to_base64</span>(<span class="hljs-params">image_path</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;图片转base64，返回byte类型&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(image_path, <span class="hljs-string">&quot;rb&quot;</span>) <span class="hljs-keyword">as</span> image_file:<br>        data = base64.b64encode(image_file.read())<br>        <span class="hljs-keyword">return</span> data<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">base64_to_img</span>(<span class="hljs-params">base64_data</span>):<br>    <span class="hljs-string">&quot;&quot;&quot;base64转图片&quot;&quot;&quot;</span><br>    source_image = Image.<span class="hljs-built_in">open</span>(BytesIO(base64.b64decode(base64_data)))<br>    source_image.show()  <span class="hljs-comment"># 展示图片</span><br>    <span class="hljs-keyword">return</span> source_image<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    base64_d = img_to_base64(<span class="hljs-string">&quot;this_img.png&quot;</span>)  <span class="hljs-comment"># 路径转base64</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;base64的值：&quot;</span>, base64_d.decode(<span class="hljs-string">&quot;utf-8&quot;</span>)[:<span class="hljs-number">40</span>], <span class="hljs-string">&quot;....&quot;</span>)  <span class="hljs-comment"># 打印base64的前40个字符</span><br>    image = base64_to_img(base64_d)<br>    image.save(<span class="hljs-string">&quot;本地图片.png&quot;</span>)  <span class="hljs-comment"># 保存图片</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="3-通过typora"><a href="#3-通过typora" class="headerlink" title="3 通过typora"></a>3 通过typora</h3><p>刚刚发现将图片复制进typora后会自动转换。所以就可以实现一种操作：</p>
-<p>先在word的工具上写好文档，然后整个复制到typora中，就生成了最终能上传的文档。</p>
-<h3 id="4-缺点"><a href="#4-缺点" class="headerlink" title="4 缺点"></a>4 缺点</h3><p>图片的信息量很大，转换出来的编码也很长，如下</p>
-<p><img src="https://raw.githubusercontent.com/machuanfeng/picture/main/img/2022-6-17-5.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本篇总结了markdown中图片的处理方法，第一种是利用图床，方便快捷，但需要进行相关配置；第二种利用转码，可以将图片嵌入markdown文件，但是编码很长，很不美观。但是两种方法的操作都不困难。</p>
+              <blockquote>
+<p>现在写博客的顺序是：现在FocusNote（专注笔记）上写好，然后复制到typora上，之后再写到博客相应的markdown文档中。</p>
+</blockquote>
+<p>FocusNote是国产的笔记软件，界面很好看，书写也很方便，写一些复盘或者总结资料都在这个上面，在几年前也买下了永久版本。因此在这里简单记录一下常用的快捷方式，之后就不用经常跑官网去找了。</p>
+<p><strong>段落相关：</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">标题</th>
+<th align="center">Ctrl+alt+1&#x2F;2&#x2F;3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">清除标题</td>
+<td align="center">Ctrl+alt+0</td>
+</tr>
+<tr>
+<td align="center">有序列表</td>
+<td align="center">Ctrl+shift+i</td>
+</tr>
+<tr>
+<td align="center">无序列表</td>
+<td align="center">Ctrl+shift+u</td>
+</tr>
+<tr>
+<td align="center">待办事宜</td>
+<td align="center">Ctrl+shift+y</td>
+</tr>
+<tr>
+<td align="center">引用</td>
+<td align="center">Ctrl+shift+q</td>
+</tr>
+<tr>
+<td align="center">代码块</td>
+<td align="center">Ctrl+shift+c</td>
+</tr>
+<tr>
+<td align="center">链接</td>
+<td align="center">Ctrl+l</td>
+</tr>
+<tr>
+<td align="center">公式</td>
+<td align="center">Ctrl+alt+c</td>
+</tr>
+<tr>
+<td align="center">附件</td>
+<td align="center">Ctrl+alt+f</td>
+</tr>
+</tbody></table>
+<p><strong>字体相关：</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">加粗</th>
+<th align="center">Ctrl+b</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">斜体</td>
+<td align="center">Ctrl+i</td>
+</tr>
+<tr>
+<td align="center">下划线</td>
+<td align="center">Ctrl+u</td>
+</tr>
+<tr>
+<td align="center">中划线</td>
+<td align="center">Ctrl+t</td>
+</tr>
+<tr>
+<td align="center">高亮</td>
+<td align="center">Ctrl+1&#x2F;2…&#x2F;9</td>
+</tr>
+<tr>
+<td align="center">清除高亮</td>
+<td align="center">Ctrl+0</td>
+</tr>
+</tbody></table>
+<p><strong>页面相关：</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">查看页面信息</th>
+<th align="center">alt+ctrl+l</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">打开大纲</td>
+<td align="center">alt+ctrl+o</td>
+</tr>
+</tbody></table>
 
               
             </div>
@@ -345,9 +394,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E6%95%99%E7%A8%8B/">#教程</a>
+        <a href="/tags/%E4%B8%93%E6%B3%A8%E7%AC%94%E8%AE%B0/">#专注笔记</a>
       
-        <a href="/tags/%E5%9B%BE%E5%BA%8A/">#图床</a>
+        <a href="/tags/%E6%95%99%E7%A8%8B/">#教程</a>
       
     </div>
   
@@ -359,8 +408,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>图床搭建</div>
-      <div>http://findm.cf/2022/06/17/Markdown图片管理--图床与转码/</div>
+      <div>FocusNote快捷操作</div>
+      <div>http://findm.cf/2022/06/28/FocusNote快捷操作/</div>
     </div>
     <div class="license-meta">
       
@@ -372,7 +421,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年6月17日</div>
+          <div>2022年6月28日</div>
         </div>
       
       
@@ -402,9 +451,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/06/20/1.%E5%88%9D%E5%A7%8BFPGA/" title="1.初始FPGA">
+                      <a href="/2022/06/28/%E9%A1%B9%E7%9B%AE%E7%94%B3%E8%AF%B7%E4%B9%A6-%E4%B9%A6%E5%86%99%E7%BB%8F%E9%AA%8C%E6%80%BB%E7%BB%93/" title="项目申请书-书写经验总结">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">1.初始FPGA</span>
+                        <span class="hidden-mobile">项目申请书-书写经验总结</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -412,8 +461,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/06/16/%E7%94%B5%E8%84%91%E8%BF%9C%E7%A8%8B%E6%8E%A7%E5%88%B6/" title="电脑远程控制">
-                        <span class="hidden-mobile">电脑远程控制</span>
+                      <a href="/2022/06/20/1.%E5%88%9D%E5%A7%8BFPGA/" title="1.初始FPGA">
+                        <span class="hidden-mobile">1.初始FPGA</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
