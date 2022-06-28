@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>FocusNote快捷操作</title>
+    <link href="/2022/06/28/FocusNote%E5%BF%AB%E6%8D%B7%E6%93%8D%E4%BD%9C/"/>
+    <url>/2022/06/28/FocusNote%E5%BF%AB%E6%8D%B7%E6%93%8D%E4%BD%9C/</url>
+    
+    <content type="html"><![CDATA[<blockquote><p>现在写博客的顺序是：现在FocusNote（专注笔记）上写好，然后复制到typora上，之后再写到博客相应的markdown文档中。</p></blockquote><p>FocusNote是国产的笔记软件，界面很好看，书写也很方便，写一些复盘或者总结资料都在这个上面，在几年前也买下了永久版本。因此在这里简单记录一下常用的快捷方式，之后就不用经常跑官网去找了。</p><p><strong>段落相关：</strong></p><table><thead><tr><th align="center">标题</th><th align="center">Ctrl+alt+1&#x2F;2&#x2F;3</th></tr></thead><tbody><tr><td align="center">清除标题</td><td align="center">Ctrl+alt+0</td></tr><tr><td align="center">有序列表</td><td align="center">Ctrl+shift+i</td></tr><tr><td align="center">无序列表</td><td align="center">Ctrl+shift+u</td></tr><tr><td align="center">待办事宜</td><td align="center">Ctrl+shift+y</td></tr><tr><td align="center">引用</td><td align="center">Ctrl+shift+q</td></tr><tr><td align="center">代码块</td><td align="center">Ctrl+shift+c</td></tr><tr><td align="center">链接</td><td align="center">Ctrl+l</td></tr><tr><td align="center">公式</td><td align="center">Ctrl+alt+c</td></tr><tr><td align="center">附件</td><td align="center">Ctrl+alt+f</td></tr></tbody></table><p><strong>字体相关：</strong></p><table><thead><tr><th align="center">加粗</th><th align="center">Ctrl+b</th></tr></thead><tbody><tr><td align="center">斜体</td><td align="center">Ctrl+i</td></tr><tr><td align="center">下划线</td><td align="center">Ctrl+u</td></tr><tr><td align="center">中划线</td><td align="center">Ctrl+t</td></tr><tr><td align="center">高亮</td><td align="center">Ctrl+1&#x2F;2…&#x2F;9</td></tr><tr><td align="center">清除高亮</td><td align="center">Ctrl+0</td></tr></tbody></table><p><strong>页面相关：</strong></p><table><thead><tr><th align="center">查看页面信息</th><th align="center">alt+ctrl+l</th></tr></thead><tbody><tr><td align="center">打开大纲</td><td align="center">alt+ctrl+o</td></tr></tbody></table>]]></content>
+    
+    
+    <categories>
+      
+      <category>各类教程</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>专注笔记</tag>
+      
+      <tag>教程</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>1.初始FPGA</title>
     <link href="/2022/06/20/1.%E5%88%9D%E5%A7%8BFPGA/"/>
     <url>/2022/06/20/1.%E5%88%9D%E5%A7%8BFPGA/</url>
@@ -95,9 +122,9 @@
     
     <tags>
       
-      <tag>MarkDown</tag>
-      
       <tag>教程</tag>
+      
+      <tag>MarkDown</tag>
       
     </tags>
     
