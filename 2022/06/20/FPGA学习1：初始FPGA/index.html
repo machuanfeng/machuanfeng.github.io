@@ -16,25 +16,27 @@
   <meta name="author" content="马钏烽">
   <meta name="keywords" content="">
   
-    <meta name="description" content="最近段时间在帮老师写项目申请书。第一次写，遇到了不少问题，在这里记录一下，写一点经验与心得，方便之后的再次书写。">
+    <meta name="description" content="本节介绍FPGA的基本原理、分类以及优势与运用">
 <meta property="og:type" content="article">
-<meta property="og:title" content="项目申请书-书写经验总结">
-<meta property="og:url" content="http://findm.cf/2022/06/28/%E9%A1%B9%E7%9B%AE%E7%94%B3%E8%AF%B7%E4%B9%A6-%E4%B9%A6%E5%86%99%E7%BB%8F%E9%AA%8C%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:title" content="1.初始FPGA">
+<meta property="og:url" content="http://findm.cf/2022/06/20/FPGA%E5%AD%A6%E4%B9%A01%EF%BC%9A%E5%88%9D%E5%A7%8BFPGA/index.html">
 <meta property="og:site_name" content="小马和小秦的博客">
-<meta property="og:description" content="最近段时间在帮老师写项目申请书。第一次写，遇到了不少问题，在这里记录一下，写一点经验与心得，方便之后的再次书写。">
+<meta property="og:description" content="本节介绍FPGA的基本原理、分类以及优势与运用">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2022/06/28/2NATOWsG48nkbwl.jpg">
-<meta property="og:image" content="https://s2.loli.net/2022/06/28/t3XQJh9k5GNzcmO.jpg">
-<meta property="article:published_time" content="2022-06-28T03:29:59.000Z">
-<meta property="article:modified_time" content="2022-06-28T04:10:00.970Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/machuanfeng/picture/main/img/2022-06-20.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/machuanfeng/picture/main/img/2022-06-20_2.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/machuanfeng/picture/main/img/2022-06-20_3.jpg">
+<meta property="article:published_time" content="2022-06-20T00:06:20.000Z">
+<meta property="article:modified_time" content="2022-06-28T04:08:09.944Z">
 <meta property="article:author" content="马钏烽">
-<meta property="article:tag" content="项目书">
+<meta property="article:tag" content="FPGA">
+<meta property="article:tag" content="教程">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2022/06/28/2NATOWsG48nkbwl.jpg">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/machuanfeng/picture/main/img/2022-06-20.jpg">
   
   
   
-  <title>项目申请书-书写经验总结 - 小马和小秦的博客</title>
+  <title>1.初始FPGA - 小马和小秦的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="项目申请书-书写经验总结"></span>
+            <span id="subtitle" data-typed-text="1.初始FPGA"></span>
           
         </div>
 
@@ -208,8 +210,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-06-28 11:29" pubdate>
-          2022年6月28日 上午
+        <time datetime="2022-06-20 08:06" pubdate>
+          2022年6月20日 早上
         </time>
       </span>
     
@@ -220,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.3k 字
+          1.3k 字
         
       </span>
     
@@ -231,7 +233,7 @@
         
         
         
-          19 分钟
+          11 分钟
         
       </span>
     
@@ -269,102 +271,47 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">项目申请书-书写经验总结</h1>
+            <h1 style="display: none">1.初始FPGA</h1>
             
             <div class="markdown-body">
               
-              <blockquote>
-<p>最近段时间在帮老师写项目申请书。第一次写，遇到了不少问题，在这里记录一下，写一点经验与心得，方便之后的再次书写。</p>
-</blockquote>
-<h2 id="一、内容板块"><a href="#一、内容板块" class="headerlink" title="一、内容板块"></a>一、内容板块</h2><p>本次的项目申请书的主题是芯片缺陷检测。按照研究所给出的书写模板，主要分为九个主要版块</p>
-<ol>
-<li><p>项目的基本信息</p>
+              <h2 id="1-FPGA是什么"><a href="#1-FPGA是什么" class="headerlink" title="1 FPGA是什么"></a>1 FPGA是什么</h2><p>​	FPGA(Field Programmable Gate Array,简称FPGA)，<strong>现场可编程</strong>门阵列，一种以数字电路为主的集成芯片，属于可编程逻辑器件PLD（Programmable Logic Device)的一种。</p>
+<h3 id="FPGA的分类"><a href="#FPGA的分类" class="headerlink" title="FPGA的分类"></a><strong>FPGA的分类</strong></h3><p><img src="https://raw.githubusercontent.com/machuanfeng/picture/main/img/2022-06-20.jpg" srcset="/img/loading.gif" lazyload></p>
+<h3 id="FPGA工作原理"><a href="#FPGA工作原理" class="headerlink" title="FPGA工作原理"></a><strong>FPGA工作原理</strong></h3><p>​		FPGA是可以通过编程<strong>改变芯片内部电路结构</strong>，以此来满足不同硬件产品的应用需求。FPGA可编程跟软件编程有着本质的区别，对于CPU或者单片机的编程，往往是通过改变上面的寄存器的配置来实现的，但是并不会改变这个芯片的逻辑功能，但FPGA是确确实实把芯片内部的电路改变了，比如，上图分类中的第二种叫反熔丝技术，熔丝就是将电路烧断，而反熔丝就是将烧断的电路在连接起来。</p>
+<p>​		并不能通过软件编程，让一枚图形处理芯片编程为一枚通信芯片，FPGA则可以。FPGA的可编程性，叫硬件可编程。他让FPGA可以从逻辑门阵列进行编程，从而使FPGA可以在逻辑电路层面上改变。</p>
+<p>​		上面是比较直观的理解，接下来给出学术上的原理解释：</p>
+<p>​		FPGA采用了逻辑单元阵列LCA（Logic Cell Array）这样一个概念，内部包括可配置逻辑模块CLB（Configurable Logic Block）、输入输出模块IOB（Input Output Block）和内部连线（Interconnect）三个部分。 现场可编程门阵列（FPGA）是可编程器件，与传统逻辑电路和门阵列（如PAL，GAL及CPLD器件）相比，FPGA具有不同的结构。FPGA利用小型查找表（16×1RAM）来实现组合逻辑，每个查找表连接到一个D触发器的输入端，触发器再来驱动其他逻辑电路或驱动I&#x2F;O，由此构成了既可实现组合逻辑功能又可实现时序逻辑功能的基本逻辑单元模块，这些模块间利用金属连线互相连接或连接到I&#x2F;O模块。FPGA的逻辑是通过向内部静态存储单元加载编程数据来实现的，存储在存储器单元中的值决定了逻辑单元的逻辑功能以及各模块之间或模块与I&#x2F;O间的联接方式，并最终决定了FPGA所能实现的功能，FPGA允许无限次的编程。</p>
+<h3 id="“现场可编程”特性"><a href="#“现场可编程”特性" class="headerlink" title="“现场可编程”特性"></a><strong>“现场可编程”特性</strong></h3><p>​		FPGA可以在现场完成编程，而不需要把芯片拆下来，或是送回厂商来完成这个编程的操作，可通过远程或本地完成真正意义上的实时编程。</p>
+<h2 id="2-FPGA的优势"><a href="#2-FPGA的优势" class="headerlink" title="2 FPGA的优势"></a><strong>2 FPGA的优势</strong></h2><p>​		FPGA可以实现任意电路组合，我们可以把FPGA看成是一堆乐高，根据需要既可以组成非常简单的模型，也可以组合出非常复杂的模型。这就使得FPGA具备高度的灵活性。</p>
+<p>​		因为FPGA是通过逻辑电路来实现功能的，所以它的算力非常强，同时功耗非常低。因此很多人称它成为“芯片之王”。目前在很多行业被广泛使用。</p>
+<p>总结，FPGA的优势：</p>
+<p>1、编程灵活，开发周期短（可以替代ASIC）；</p>
+<p>2、并发处理，速度非常快；</p>
+<p>3、功耗低；</p>
+<p>4、FPGA技术趋于成熟，成本已经和ASIC相当。</p>
+<h2 id="3-FPGA的应用方向"><a href="#3-FPGA的应用方向" class="headerlink" title="3 FPGA的应用方向"></a>3 FPGA的应用方向</h2><ol>
+<li>通信领域<ul>
+<li>低延时 高效率</li>
+<li>产品快速开发 各种协议的切换</li>
+</ul>
 </li>
-<li><p>项目负责人及主要成员</p>
+<li>视频图像处理<ul>
+<li>最高的实时性</li>
+</ul>
 </li>
-<li><p><strong>项目的基本情况</strong></p>
-<p>项目的研究背景、研究目标、研究意义、国内外研究现状、本项目研究成果的重要性和应用前景</p>
+<li>人工智能<ul>
+<li>加速深度学习</li>
+</ul>
 </li>
-<li><p><strong>主要研究内容和目标</strong></p>
-<p>项目的研究内容、研究方案、技术路线、关键技术、创新点</p>
-</li>
-<li><p>项目负责人及团队信息</p>
-</li>
-<li><p>研究基础和团队代表性研究成果</p>
-</li>
-<li><p><strong>项目实施进度计划</strong></p>
-</li>
-<li><p>预期成果</p>
-</li>
-<li><p><strong>社会效益与风险评估</strong></p>
+<li>汽车驾驶<ul>
+<li>低延时</li>
+</ul>
 </li>
 </ol>
-<p>在这九个主要的板块之中加黑的部分，也就是：<strong>3.项目的基本情况、4.主要研究内容和目标、7.项目实施进度计划、9.社会效益与风险评估</strong> 是主要的内容。其他几个部分填的都是一些相关的信息，可能就是填写几个表格。因此主要介绍一下这几块内容一个写法。</p>
-<h2 id="二、书写技巧"><a href="#二、书写技巧" class="headerlink" title="二、书写技巧"></a>二、书写技巧</h2><p>在写项目书之前，通常会得到一个叫做“指南”的东西，这个里面说清楚了对方希望解决的问题还有希望达到的预期效果，比如本项目的指南，就说明了，想要用深度学习算法去完成芯片的缺陷检测，且列举了希望解决芯片缺陷中的哪些基本类型，并指明了要求是准确度达到95%以上。</p>
-<p>所以各个部分都是围绕这些来写，也就是说，指南中的话反复出现在各个版块，且不要害怕重复。</p>
-<h2 id="三、重点部分"><a href="#三、重点部分" class="headerlink" title="三、重点部分"></a>三、重点部分</h2><h3 id="1-项目的基本情况"><a href="#1-项目的基本情况" class="headerlink" title="1.项目的基本情况"></a>1.项目的基本情况</h3><ul>
-<li>研究背景及意义。（研究背景和意义经常放一块去说，所以就可以归为一个小标题）<ul>
-<li>首先芯片是什么，它在哪些方面广泛应用，有什么重要性和必要性。然后说《国家相关战略支持》对该产业的支持；</li>
-<li>然后引到芯片缺陷检测方面，说一下为什么要进行芯片缺陷检测，指明这项任务的意义；</li>
-<li>现有的芯片检测方法有哪些缺陷与不足，如果不改变会有什么后果；</li>
-<li>引出当今机器视觉技术和深度学习技术的当今发展趋势，这项技术有什么优点。一些国外大公司已经开始布局。</li>
-<li>使用深度学习进行芯片检测的意义：对国家、对产业、对落实某项国家政策。</li>
-</ul>
-</li>
-<li>研究目标<ul>
-<li>先用一句话概述：针对什么问题、利用&#x2F;基于什么技术优势、开发什么东西。</li>
-<li>然后围绕着指南中的内容。算法要能解决哪些问题、应该具备什么样的特性（比如鲁棒性、可进化等）、准确度要达到什么程度。</li>
-<li>还要超出指南，提出一些新的东西，比如本文讲算法部署到智能硬件。</li>
-</ul>
-</li>
-<li>国内外研究现状<ul>
-<li>搜集在芯片缺陷检测领域的相关文章，最好对不同的方法进行分类与归纳</li>
-<li>最后要“综上所述”，概括出现有技术的问题，强调本项目研究的先进性与合理性。</li>
-<li>记得要把引用的文献也写上。</li>
-</ul>
-</li>
-</ul>
-<h3 id="2-重要性与应用前景"><a href="#2-重要性与应用前景" class="headerlink" title="2.重要性与应用前景"></a>2.重要性与应用前景</h3><ul>
-<li>“没我不行”。芯片缺陷检测很重要但国内技术落后。如果继续利用传统方法造成什么后果</li>
-<li>“有我更好”。说一下用到的技术，这些技术有什么优势，用了之后可以解决指南中的那些问题。</li>
-<li>应用前景，先简单提及背景：芯片产业很大，芯片缺陷的质检环节比不可少，有很大的应用前景。</li>
-</ul>
-<h3 id="3-研究内容和目标"><a href="#3-研究内容和目标" class="headerlink" title="3.研究内容和目标"></a>3.研究内容和目标</h3><ul>
-<li>研究内容<ul>
-<li>围绕着“指南”，将要解决的问题或者说要做的事，分为几个层级。每一个层级就是一个研究内容，这几个研究内容之间既相互独立又一脉相承，可以通过一个示意图先画出来。需要注意的是，这里每个研究内容要起一个小标题，要专业且完整。</li>
-<li>示意图：<img src="https://s2.loli.net/2022/06/28/2NATOWsG48nkbwl.jpg" srcset="/img/loading.gif" lazyload></li>
-<li>然后在示意图下面，每一个内容描述一段话，并不涉及到具体技术，就是简单论述研究什么内容，算是对示意图的一个展开。</li>
-</ul>
-</li>
-<li>研究方案<ul>
-<li>研究方案也不是具体的内容，首先也是画一张图，讲清楚研究的步骤，对于每个研究内容，先做什么、后做什么</li>
-<li>示意图：<img src="https://s2.loli.net/2022/06/28/t3XQJh9k5GNzcmO.jpg" srcset="/img/loading.gif" lazyload></li>
-<li>然后再用语句详细的描述步骤</li>
-</ul>
-</li>
-<li>技术路线<ul>
-<li>这里就需要写每一部分的详细技术了，比如对于数据集的准备，要对数据集的数量、专家标注、用到的图像处理技术展开写，以及展示具体的芯片缺陷图片。对于用到的算法，就需要将结构、公示等都写上。</li>
-<li>还是可以根据研究内容去分点写。</li>
-</ul>
-</li>
-<li>关键技术和创新点<ul>
-<li>因为纯写创新内容并不好写，所以这里可以分为：拟解决的关键问题、主要创新点。</li>
-<li>这里的主要创新点就不一定非要是创新，就可以对应的写 如何去解决那些关键问题，当然最好还是展示出创新。 比如你既觉得关键问题是：目标检测算法的优化。那么对应的创新点就是：针对微小芯片缺陷检测的检测算法优化。这里面不用写太多具体技术，那些公式、算法的大头还是放在技术路线里面。</li>
-</ul>
-</li>
-</ul>
-<h3 id="3-项目的实施进度"><a href="#3-项目的实施进度" class="headerlink" title="3.项目的实施进度"></a>3.项目的实施进度</h3><p>这一部分根据协商好的时间，将过程按照半年来分，把研究的内容分号，然后对于每一部分，再写一些具体研究的步骤就可以。</p>
-<h3 id="4-社会效益与风险评估"><a href="#4-社会效益与风险评估" class="headerlink" title="4.社会效益与风险评估"></a>4.社会效益与风险评估</h3><ul>
-<li>对于社会效益。主要就是项目实施之后对社会能起到的积极的作用。主要的方面有：促进经济发展、促进社会进步、带动就业、提高企业的产能与质量、提高人民生活水平之类的，就往里面套着写。</li>
-<li>风险评估分为几个版块：技术风险、商业风险、管理风险，还有风险如何规避。对于风险，都要落脚在风险较小之上。<ul>
-<li>技术风险。对于关键技术、本单位进行了深入理论研究、关键技术进行了大量实验、证明可行。本单位致力于研究什么、有资质。得出结论：基本无风险和不确定因素。</li>
-<li>管理风险。	本项目承担单位，——机构承担过多项国家级重点项目的管理与实施，具有很好的项目管理措施和经验，在管理上无风险。</li>
-<li>商业风险。	国产率上看，中国—–比重不断提升。中国—–国产化率提升，市场规模有较大的发展空间。因此，本项目的市场前景非常广阔。</li>
-<li>规避风险的主要措施。	对实验室和学校的情况进行介绍。对该行业之前有所涉及与研究。对关键技术进行了论证之类的。</li>
-</ul>
-</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这篇文章根据对几天书写项目书的经验进行了总结。主要展示了项目书分为那些版块，每个版块主要写些什么内容。虽然可能并不适用于各类项目申请书的书写，但是也算是有了一个大致了解，不至于上手后不知道要干什么、不知道要查找哪些</p>
+<h2 id="4-产业现状"><a href="#4-产业现状" class="headerlink" title="4 产业现状"></a>4 产业现状</h2><p><img src="https://raw.githubusercontent.com/machuanfeng/picture/main/img/2022-06-20_2.jpg" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/machuanfeng/picture/main/img/2022-06-20_3.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>​	国外的赛灵思比较厉害，是巨头</p>
+<p>​	国内普遍性能落后一些</p>
 
               
             </div>
@@ -382,7 +329,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E7%BB%8F%E9%AA%8C%E6%80%BB%E7%BB%93/" class="category-chain-item">经验总结</a>
+  <a href="/categories/FPGA%E5%AD%A6%E4%B9%A0/" class="category-chain-item">FPGA学习</a>
   
   
 
@@ -397,7 +344,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E9%A1%B9%E7%9B%AE%E4%B9%A6/">#项目书</a>
+        <a href="/tags/FPGA/">#FPGA</a>
+      
+        <a href="/tags/%E6%95%99%E7%A8%8B/">#教程</a>
       
     </div>
   
@@ -409,8 +358,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>项目申请书-书写经验总结</div>
-      <div>http://findm.cf/2022/06/28/项目申请书-书写经验总结/</div>
+      <div>1.初始FPGA</div>
+      <div>http://findm.cf/2022/06/20/FPGA学习1：初始FPGA/</div>
     </div>
     <div class="license-meta">
       
@@ -422,7 +371,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年6月28日</div>
+          <div>2022年6月20日</div>
         </div>
       
       
@@ -452,9 +401,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/06/30/FPGA-%E7%9B%B8%E5%85%B3%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/" title="FPGA学习1：相关软件安装">
+                      <a href="/2022/06/28/FocusNote%E5%BF%AB%E6%8D%B7%E6%93%8D%E4%BD%9C/" title="FocusNote快捷操作">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">FPGA学习1：相关软件安装</span>
+                        <span class="hidden-mobile">FocusNote快捷操作</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -462,8 +411,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/06/28/FocusNote%E5%BF%AB%E6%8D%B7%E6%93%8D%E4%BD%9C/" title="FocusNote快捷操作">
-                        <span class="hidden-mobile">FocusNote快捷操作</span>
+                      <a href="/2022/06/17/Markdown%E5%9B%BE%E7%89%87%E7%AE%A1%E7%90%86--%E5%9B%BE%E5%BA%8A%E4%B8%8E%E8%BD%AC%E7%A0%81/" title="图床搭建">
+                        <span class="hidden-mobile">图床搭建</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
