@@ -16,27 +16,27 @@
   <meta name="author" content="马钏烽">
   <meta name="keywords" content="">
   
-    <meta name="description" content="耗时三天，踩过无数的坑，终于成功将quartus、modelsim安装破解并建立关联操作">
+    <meta name="description" content="本节介绍FPGA的基本原理、分类以及优势与运用">
 <meta property="og:type" content="article">
-<meta property="og:title" content="FPGA学习2：相关软件安装">
-<meta property="og:url" content="http://findm.cf/2022/06/30/FPGA%E5%AD%A6%E4%B9%A02%EF%BC%9A%E7%9B%B8%E5%85%B3%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/index.html">
+<meta property="og:title" content="FPGA学习1：初始FPGA">
+<meta property="og:url" content="http://findm.cf/2022/06/20/05FPGA%E5%AD%A6%E4%B9%A01%EF%BC%9A%E5%88%9D%E5%A7%8BFPGA/index.html">
 <meta property="og:site_name" content="小马和小秦的博客">
-<meta property="og:description" content="耗时三天，踩过无数的坑，终于成功将quartus、modelsim安装破解并建立关联操作">
+<meta property="og:description" content="本节介绍FPGA的基本原理、分类以及优势与运用">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2022/06/30/fNY8PZ4s1J6RkHT.jpg">
-<meta property="og:image" content="https://s2.loli.net/2022/06/30/CuFdve7VfPNmU3k.jpg">
-<meta property="og:image" content="https://s2.loli.net/2022/06/30/S2kwjEirXPFJ46e.jpg">
-<meta property="og:image" content="https://s2.loli.net/2022/06/30/LEeQ3Nv6I5kXqzr.jpg">
-<meta property="article:published_time" content="2022-06-30T13:59:53.000Z">
-<meta property="article:modified_time" content="2022-06-30T14:17:56.376Z">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656750559990-9a0d9775-2cb6-4823-acf7-1c785e34566d.png#clientId=u194feb0d-a974-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=226&id=u3c63d900&name=image.png&originHeight=296&originWidth=660&originalType=binary&ratio=1&rotation=0&showTitle=false&size=166931&status=done&style=none&taskId=ubdb33b0e-c9c8-4bbb-9ac3-2576512a064&title=&width=502.85714285714283">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656750535779-1b383c83-cacc-442b-9f2e-72a5980a474e.png#clientId=u194feb0d-a974-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=283&id=ue1421cac&name=image.png&originHeight=371&originWidth=801&originalType=binary&ratio=1&rotation=0&showTitle=false&size=173730&status=done&style=none&taskId=u7bf320cc-af51-421a-bb3f-99c17b18693&title=&width=610.2857142857143">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656750543785-19099077-2ce0-4263-a078-aca86ca6cc73.png#clientId=u194feb0d-a974-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=314&id=u6764d9f4&name=image.png&originHeight=412&originWidth=785&originalType=binary&ratio=1&rotation=0&showTitle=false&size=126887&status=done&style=none&taskId=u80e370b6-f687-4f17-9e25-3c632eefe7d&title=&width=598.0952380952381">
+<meta property="article:published_time" content="2022-06-20T00:06:20.000Z">
+<meta property="article:modified_time" content="2022-07-02T08:30:02.438Z">
 <meta property="article:author" content="马钏烽">
 <meta property="article:tag" content="FPGA">
+<meta property="article:tag" content="教程">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2022/06/30/fNY8PZ4s1J6RkHT.jpg">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656750559990-9a0d9775-2cb6-4823-acf7-1c785e34566d.png#clientId=u194feb0d-a974-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=226&id=u3c63d900&name=image.png&originHeight=296&originWidth=660&originalType=binary&ratio=1&rotation=0&showTitle=false&size=166931&status=done&style=none&taskId=ubdb33b0e-c9c8-4bbb-9ac3-2576512a064&title=&width=502.85714285714283">
   
   
   
-  <title>FPGA学习2：相关软件安装 - 小马和小秦的博客</title>
+  <title>FPGA学习1：初始FPGA - 小马和小秦的博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="FPGA学习2：相关软件安装"></span>
+            <span id="subtitle" data-typed-text="FPGA学习1：初始FPGA"></span>
           
         </div>
 
@@ -210,8 +210,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-06-30 21:59" pubdate>
-          2022年6月30日 晚上
+        <time datetime="2022-06-20 08:06" pubdate>
+          2022年6月20日 早上
         </time>
       </span>
     
@@ -222,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.8k 字
+          1.3k 字
         
       </span>
     
@@ -233,7 +233,7 @@
         
         
         
-          24 分钟
+          11 分钟
         
       </span>
     
@@ -271,52 +271,47 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">FPGA学习2：相关软件安装</h1>
+            <h1 style="display: none">FPGA学习1：初始FPGA</h1>
             
             <div class="markdown-body">
               
-              <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>前前后后耗时三天，终于将用到的quartus、器件库、modelsim软件下载、破解、关联配置做好了。一路上碰到了各种奇奇怪怪的问题，有一点点地查找解决方案，现在把踩过的坑，以及找好的安装包分享到这里，便于自己以后使用，也给大家提供便捷。</p>
-<p>首先要清楚quartus和modelsim分别是干什么的，Quartus是开发软件，可以进行项目开发、Verilog代码的编写等，就像是写Python所使用的pycharm；Modelsim是仿真软件，仿真顾名思义，就是将实际的工作电路模拟出来，可以方便查看输出等结果是否正确。</p>
-<p>主要参考的教程是野火出品的这个视频，它的网址如下，但是其中没有具体说明软件的下载地址与破解方法，会遇到的常见问题也没有进行说明。<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV17z411i7er?p=3&vd_source=efae70b1a755d9c960b4d6e78ad98612">【野火】FPGA系列教学视频，真正的手把手教学，“波形图”教学法，现场画波形图写代码，硬件基于野火FPGA EP4CE10征途系列开发板，已完结_哔哩哔哩_bilibili</a></p>
-<h2 id="一、quartus下载与破解"><a href="#一、quartus下载与破解" class="headerlink" title="一、quartus下载与破解"></a>一、quartus下载与破解</h2><p>quartus的下载地址为：<a target="_blank" rel="noopener" href="https://www.jb51.net/softs/545630.html">quartus ii 13.0破解版下载 quartus ii(PLD&#x2F;FPGA开发软件) 13.0 免费特别版(附注册机) 下载-脚本之家 (jb51.net)</a></p>
-<p><img src="https://s2.loli.net/2022/06/30/fNY8PZ4s1J6RkHT.jpg" srcset="/img/loading.gif" lazyload></p>
-<p>在这个网盘中下载下来之后会带有破解器，该网页也有破解的具体操作，这里不做过多的讲解，这一步遇到的坑:</p>
-<ol>
-<li>一定要将该软件安装在全英文路径，如果有中文路径的话会出现软件打不开的情况。</li>
-<li>破解的原理可能与电脑的网卡有关，在电脑有多个网卡或者有虚拟网卡时会有多个NIC(ID)，这时候复制第一个就可以。</li>
-</ol>
-<p>破解完如何查看是否破解成功：</p>
-<ol>
-<li>在进入软件的时候，没有出现相关提醒</li>
-<li>在license setup中可以看到到期的日期为2035年 <img src="https://s2.loli.net/2022/06/30/CuFdve7VfPNmU3k.jpg" srcset="/img/loading.gif" lazyload></li>
-</ol>
-<h2 id="二、quartus器件库的下载"><a href="#二、quartus器件库的下载" class="headerlink" title="二、quartus器件库的下载"></a>二、quartus器件库的下载</h2><p>器件库的安装可以参考这篇文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/sou_nuo/article/details/117092405">Quartus II 13.0 添加器件库教程(包含下载地址)_阿聍的博客-CSDN博客_quartus器件库下载</a></p>
-<p>但是一定要注意，不能用里面提供下载的器件库，因为器件库的版本必须与quartus完全一致，这里我就踩过坑，虽然版本都是13.0，但在这后面还有几位是不一致的，所以在网上找了很久才下载下来合适的器件库版本，下载地址如下：</p>
-<p>链接：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1yIKSO0cfoZ0eYESn3lhv-g">https://pan.baidu.com/s/1yIKSO0cfoZ0eYESn3lhv-g</a>   提取码：ucm3</p>
-<p>还有一点可能遇到的问题，就是教程里安装器件库的程序是从这个地方打开的</p>
-<p><img src="https://s2.loli.net/2022/06/30/S2kwjEirXPFJ46e.jpg" srcset="/img/loading.gif" lazyload></p>
-<h2 id="三、modelsim的下载与破解"><a href="#三、modelsim的下载与破解" class="headerlink" title="三、modelsim的下载与破解"></a>三、modelsim的下载与破解</h2><p>modelsim的下载地址如下：[modelsim se 10.5破解版下载_HDL语言仿真软件 v2020.5<a target="_blank" rel="noopener" href="https://www.xiazai99.com/down/soft159256.html">网盘资源] - 99下载站 (xiazai99.com)</a></p>
-<p>同样，在这个文章中也说明了破解的方法，但是如果按其操作，会出现各种错误，这部分错误的解决也是我花费时间最多的地方。</p>
-<ol>
-<li>在安装modelsim的过程中，不要一直选择是或者next，在其中有一步让选择是否安装相关驱动，一定要选择否，不然电脑就会蓝屏。这是血的教训。</li>
-<li>如果按照教程的破解方法处理完毕，还是没有成功，很可能还是网卡有多个原因，这时可以直接将电脑的WiFi关掉，在进行破解</li>
-<li>破解之后首次打开要使用管理员身份。</li>
-</ol>
-<h2 id="四、quartus与modelsim相关联"><a href="#四、quartus与modelsim相关联" class="headerlink" title="四、quartus与modelsim相关联"></a>四、quartus与modelsim相关联</h2><p>这一操作在引言部分的野火教程中有，但是按其操作还是会出现问题（但首先还是得先按着里面的操作一遍）。</p>
-<ol>
-<li><p>这个教程里跳过了新建项目，编写Verilog代码的步骤，直接进行仿真测试，我们没有相关程序的话是没发测试的，所以也要先建项目，写代码，这里看可以参考这个文章:<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37424623/article/details/123207484">Quartus软件创建第一个工程_驽马同学的博客-CSDN博客_quartus 创建工程</a>。但是这里面的代码又只展示了一半，还是图片，作为新手，完全不懂，无法操作，所以找了一段简单的代码，替换掉这篇文章中的Verilog进行测试，代码如下：  </p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs markdown">`timescale  1ns/1ns<br>///////////////////////////////////////////////////////////////////////////<br>// Author        : EmbedFire<br>// Create Date   : 2019/03/12<br>// Module Name   : led<br>// Project Name  : led<br>// Target Devices: Altera EP4CE10F17C8N<br>// Tool Versions : Quartus 13.0<br>// Description   : 按键控制LED灯<br>//<br>// Revision      : V1.0<br>// Additional Comments:<br>// <br>// 实验平台: 野火<span class="hljs-emphasis">_征途Pro_</span>FPGA开发板<br>// 公司    : http://www.embedfire.com<br>// 论坛    : http://www.firebbs.cn<br>// 淘宝    : https://fire-stm32.taobao.com<br>//////////////////////////////////////////////////////////////////////////<br><br><br>module  myled<br>(<br><span class="hljs-code">    input   wire    key_in  ,   //输入按键</span><br><span class="hljs-code"></span><br><br><span class="hljs-code">    output  wire    led_out     //输出控制led灯</span><br><span class="hljs-code">);</span><br><span class="hljs-code"></span><br><br>//<span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span>//<br>//<span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-emphasis">* Main Code <span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span>//</span><br><span class="hljs-emphasis">//<span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span>//</span><br><span class="hljs-emphasis">//led_out:led灯输出的结果为key_in按键的输入值</span><br><span class="hljs-emphasis">assign  led_out = key_in;</span><br><span class="hljs-emphasis"></span><br><span class="hljs-emphasis"></span><br><span class="hljs-emphasis">endmodule</span><br></code></pre></td></tr></table></figure>
-
-
+              <h2 id="1-FPGA是什么"><a href="#1-FPGA是什么" class="headerlink" title="1 FPGA是什么"></a>1 FPGA是什么</h2><p>​	FPGA(Field Programmable Gate Array,简称FPGA)，<strong>现场可编程</strong>门阵列，一种以数字电路为主的集成芯片，属于可编程逻辑器件PLD（Programmable Logic Device)的一种。</p>
+<h3 id="FPGA的分类"><a href="#FPGA的分类" class="headerlink" title="FPGA的分类"></a><strong>FPGA的分类</strong></h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656750559990-9a0d9775-2cb6-4823-acf7-1c785e34566d.png#clientId=u194feb0d-a974-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=226&id=u3c63d900&name=image.png&originHeight=296&originWidth=660&originalType=binary&ratio=1&rotation=0&showTitle=false&size=166931&status=done&style=none&taskId=ubdb33b0e-c9c8-4bbb-9ac3-2576512a064&title=&width=502.85714285714283" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="FPGA工作原理"><a href="#FPGA工作原理" class="headerlink" title="FPGA工作原理"></a><strong>FPGA工作原理</strong></h3><p>​		FPGA是可以通过编程<strong>改变芯片内部电路结构</strong>，以此来满足不同硬件产品的应用需求。FPGA可编程跟软件编程有着本质的区别，对于CPU或者单片机的编程，往往是通过改变上面的寄存器的配置来实现的，但是并不会改变这个芯片的逻辑功能，但FPGA是确确实实把芯片内部的电路改变了，比如，上图分类中的第二种叫反熔丝技术，熔丝就是将电路烧断，而反熔丝就是将烧断的电路在连接起来。</p>
+<p>​		并不能通过软件编程，让一枚图形处理芯片编程为一枚通信芯片，FPGA则可以。FPGA的可编程性，叫硬件可编程。他让FPGA可以从逻辑门阵列进行编程，从而使FPGA可以在逻辑电路层面上改变。</p>
+<p>​		上面是比较直观的理解，接下来给出学术上的原理解释：</p>
+<p>​		FPGA采用了逻辑单元阵列LCA（Logic Cell Array）这样一个概念，内部包括可配置逻辑模块CLB（Configurable Logic Block）、输入输出模块IOB（Input Output Block）和内部连线（Interconnect）三个部分。 现场可编程门阵列（FPGA）是可编程器件，与传统逻辑电路和门阵列（如PAL，GAL及CPLD器件）相比，FPGA具有不同的结构。FPGA利用小型查找表（16×1RAM）来实现组合逻辑，每个查找表连接到一个D触发器的输入端，触发器再来驱动其他逻辑电路或驱动I&#x2F;O，由此构成了既可实现组合逻辑功能又可实现时序逻辑功能的基本逻辑单元模块，这些模块间利用金属连线互相连接或连接到I&#x2F;O模块。FPGA的逻辑是通过向内部静态存储单元加载编程数据来实现的，存储在存储器单元中的值决定了逻辑单元的逻辑功能以及各模块之间或模块与I&#x2F;O间的联接方式，并最终决定了FPGA所能实现的功能，FPGA允许无限次的编程。</p>
+<h3 id="“现场可编程”特性"><a href="#“现场可编程”特性" class="headerlink" title="“现场可编程”特性"></a><strong>“现场可编程”特性</strong></h3><p>​		FPGA可以在现场完成编程，而不需要把芯片拆下来，或是送回厂商来完成这个编程的操作，可通过远程或本地完成真正意义上的实时编程。</p>
+<h2 id="2-FPGA的优势"><a href="#2-FPGA的优势" class="headerlink" title="2 FPGA的优势"></a><strong>2 FPGA的优势</strong></h2><p>​		FPGA可以实现任意电路组合，我们可以把FPGA看成是一堆乐高，根据需要既可以组成非常简单的模型，也可以组合出非常复杂的模型。这就使得FPGA具备高度的灵活性。</p>
+<p>​		因为FPGA是通过逻辑电路来实现功能的，所以它的算力非常强，同时功耗非常低。因此很多人称它成为“芯片之王”。目前在很多行业被广泛使用。</p>
+<p>总结，FPGA的优势：</p>
+<p>1、编程灵活，开发周期短（可以替代ASIC）；</p>
+<p>2、并发处理，速度非常快；</p>
+<p>3、功耗低；</p>
+<p>4、FPGA技术趋于成熟，成本已经和ASIC相当。</p>
+<h2 id="3-FPGA的应用方向"><a href="#3-FPGA的应用方向" class="headerlink" title="3 FPGA的应用方向"></a>3 FPGA的应用方向</h2><ol>
+<li>通信领域<ul>
+<li>低延时 高效率</li>
+<li>产品快速开发 各种协议的切换</li>
+</ul>
 </li>
-<li><p>在替换了上面的代码之后，新的问题出现，quartus无法分析成功，因为命名的问题，因为代码中主程序名还有文件名、以及项目名有一定的关系，把它们几个全设置为myled就可以成功。</p>
+<li>视频图像处理<ul>
+<li>最高的实时性</li>
+</ul>
 </li>
-<li><p>在分析成功之后，点击仿真，按理说就应该打开modelsim软件了，但是可能并没有打开，而是报错，这是有可能是没有把默认的仿真软件设置为modelsim，在这里可以设置  <img src="https://s2.loli.net/2022/06/30/LEeQ3Nv6I5kXqzr.jpg" srcset="/img/loading.gif" lazyload></p>
+<li>人工智能<ul>
+<li>加速深度学习</li>
+</ul>
 </li>
-<li><p>点击仿真后，modelsim的图标出现，却又再次提醒没有激活，但是单独打开modelsim是已经破解了正常打开的，这时有可能是quartus和modelsim两个破解过程中的使用的NIC(ID)不一样，把二者改为一样应该可以解决这个问题。</p>
+<li>汽车驾驶<ul>
+<li>低延时</li>
+</ul>
 </li>
 </ol>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>磨刀不误砍柴工，学习FPGA之前，把这些必要的软件设置舒服是很重要的。之前在上学时也安装下载过许多的软件，这几个是遇到过流程最麻烦的，可能也是不熟悉的原因，花了几天时间，还是挺有成就感的，终于可以开始正式的学习了。</p>
+<h2 id="4-产业现状"><a href="#4-产业现状" class="headerlink" title="4 产业现状"></a>4 产业现状</h2><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656750535779-1b383c83-cacc-442b-9f2e-72a5980a474e.png#clientId=u194feb0d-a974-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=283&id=ue1421cac&name=image.png&originHeight=371&originWidth=801&originalType=binary&ratio=1&rotation=0&showTitle=false&size=173730&status=done&style=none&taskId=u7bf320cc-af51-421a-bb3f-99c17b18693&title=&width=610.2857142857143" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656750543785-19099077-2ce0-4263-a078-aca86ca6cc73.png#clientId=u194feb0d-a974-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=314&id=u6764d9f4&name=image.png&originHeight=412&originWidth=785&originalType=binary&ratio=1&rotation=0&showTitle=false&size=126887&status=done&style=none&taskId=u80e370b6-f687-4f17-9e25-3c632eefe7d&title=&width=598.0952380952381" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>​	国外的赛灵思比较厉害，是巨头</p>
+<p>​	国内普遍性能落后一些</p>
 
               
             </div>
@@ -351,6 +346,8 @@
       
         <a href="/tags/FPGA/">#FPGA</a>
       
+        <a href="/tags/%E6%95%99%E7%A8%8B/">#教程</a>
+      
     </div>
   
 </div>
@@ -361,8 +358,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>FPGA学习2：相关软件安装</div>
-      <div>http://findm.cf/2022/06/30/FPGA学习2：相关软件安装/</div>
+      <div>FPGA学习1：初始FPGA</div>
+      <div>http://findm.cf/2022/06/20/05FPGA学习1：初始FPGA/</div>
     </div>
     <div class="license-meta">
       
@@ -374,7 +371,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年6月30日</div>
+          <div>2022年6月20日</div>
         </div>
       
       
@@ -404,9 +401,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/07/01/%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%E7%AC%AC%E4%B8%80%E5%A4%A9-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%87%86%E5%A4%87/" title="面试准备第一天-常见问题准备">
+                      <a href="/2022/06/28/06FocusNote%E5%BF%AB%E6%8D%B7%E6%93%8D%E4%BD%9C/" title="FocusNote快捷操作">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">面试准备第一天-常见问题准备</span>
+                        <span class="hidden-mobile">FocusNote快捷操作</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -414,8 +411,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/06/28/%E9%A1%B9%E7%9B%AE%E7%94%B3%E8%AF%B7%E4%B9%A6-%E4%B9%A6%E5%86%99%E7%BB%8F%E9%AA%8C%E6%80%BB%E7%BB%93/" title="项目申请书-书写经验总结">
-                        <span class="hidden-mobile">项目申请书-书写经验总结</span>
+                      <a href="/2022/06/17/04Markdown%E5%9B%BE%E7%89%87%E7%AE%A1%E7%90%86--%E5%9B%BE%E5%BA%8A%E4%B8%8E%E8%BD%AC%E7%A0%81/" title="图床搭建">
+                        <span class="hidden-mobile">图床搭建</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
