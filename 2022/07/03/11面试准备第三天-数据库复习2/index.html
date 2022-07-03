@@ -1,0 +1,890 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="马钏烽">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="第三天继续复试数据库，复习概念类知识。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试准备第三天-数据库复习2">
+<meta property="og:url" content="http://findm.cf/2022/07/03/11%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%E7%AC%AC%E4%B8%89%E5%A4%A9-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%8D%E4%B9%A02/index.html">
+<meta property="og:site_name" content="小马和小秦的博客">
+<meta property="og:description" content="第三天继续复试数据库，复习概念类知识。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656856502643-47817fc7-fcb9-4814-a5c6-9e33cbe86eaa.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656857058711-29c7572c-4aae-4196-95f3-befe70c77074.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656857834016-605613ff-a510-4d53-8cf0-28fd98dff622.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656857882545-dd23ca1e-9513-44fd-9f8e-ec329bda7c43.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656857955898-99e19104-0edf-4109-9fd4-6735cc1b59ee.png">
+<meta property="article:published_time" content="2022-07-03T14:30:34.000Z">
+<meta property="article:modified_time" content="2022-07-03T14:33:25.660Z">
+<meta property="article:author" content="马钏烽">
+<meta property="article:tag" content="面试">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656856502643-47817fc7-fcb9-4814-a5c6-9e33cbe86eaa.png">
+  
+  
+  
+  <title>面试准备第三天-数据库复习2 - 小马和小秦的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"findm.cf","root":"/","version":"1.9.1","typing":{"enable":true,"typeSpeed":70,"cursorChar":"__","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>记录美好生活</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="面试准备第三天-数据库复习2"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-07-03 22:30" pubdate>
+          2022年7月3日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          9.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          80 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">面试准备第三天-数据库复习2</h1>
+            
+            <div class="markdown-body">
+              
+              <meta name="referrer" content="no-referrer" />
+> 今天是面试准备的第三天，复习一下数据库概念性问题，参考资料来自up主：https://space.bilibili.com/949043
+
+<h2 id="第一章：绪论"><a href="#第一章：绪论" class="headerlink" title="第一章：绪论"></a>第一章：绪论</h2><h3 id="1、数据库的4个基本概念"><a href="#1、数据库的4个基本概念" class="headerlink" title="1、数据库的4个基本概念"></a>1、数据库的4个基本概念</h3><p>①数据data：描述事物的符号，数据库中存储的基本对象</p>
+<p>②数据库DataBase, DB：长期存储在计算机内的、有组织的、可共享的大量数据的集合</p>
+<p>③数据库管理系统DataBase Management System, DBMS：位于用户与操作系统之间的一层数据管理软件</p>
+<p>④数据库系统DataBase System,DBS：由数据库、数据库管理系统、应用程序和数据库管理员（DBA）组成</p>
+<h3 id="2、数据库系统的特点"><a href="#2、数据库系统的特点" class="headerlink" title="2、数据库系统的特点"></a>2、数据库系统的特点</h3><p>①数据结构化</p>
+<p>②数据的共享性高，冗余度低而且容易扩充</p>
+<p>③数据独立性高：物理独立性（应用程序与物理存储相互独立，数据的物理存储改变，应用程序不改变），逻辑独立性（应用程序与逻辑结构相互独立，数据的逻辑结构改变，应用程序不改变）</p>
+<p>④数据由数据库管理系统统一管理和控制</p>
+<h3 id="3、数据模型"><a href="#3、数据模型" class="headerlink" title="3、数据模型"></a>3、数据模型</h3><p>数据模型包括概念模型（信息模型）和逻辑模型模型</p>
+<p>概念模型按用户的观点建模，用于数据库设计，表示方法有E—R模型</p>
+<p>逻辑模型按计算机的观点建模，用于DBMS实现，包括网状模型、层次模型、关系模型等等物理模型是对数据最底层的抽象</p>
+<h3 id="4、数据模型的组成要素：数据结构、数据操作、数据的完整性约束条件"><a href="#4、数据模型的组成要素：数据结构、数据操作、数据的完整性约束条件" class="headerlink" title="4、数据模型的组成要素：数据结构、数据操作、数据的完整性约束条件"></a><font color='red'>4、数据模型的组成要素：数据结构、数据操作、数据的完整性约束条件</font></h3><p>数据模型是严格定义的一组概念的集合，需要精确描述系统的静态特性、动态特性和完整性约束条件因此数据模型由以下三个部分组成：</p>
+<p>①数据结构：描述系统的静态特性→描述数据库的组成对象以及对象之间的联系</p>
+<p>②数据操作：描述系统的动态特性→是对数据库中各种对象的实例所允许的操作的集合，其类型有查询和更新（增删改）</p>
+<p>③数据的完整性约束条件：用以限定符合数据模型的数据库状态以及状态的变化，以保证数据的正确、有效与相容，完整性约束条件是一组完整性规则的集合</p>
+<h3 id="5、数据库系统的三级模式结构：外模式、模式（逻辑模式）、内模式应用"><a href="#5、数据库系统的三级模式结构：外模式、模式（逻辑模式）、内模式应用" class="headerlink" title="5、数据库系统的三级模式结构：外模式、模式（逻辑模式）、内模式应用"></a><font color='red'>5、数据库系统的三级模式结构：外模式、模式（逻辑模式）、内模式应用</font></h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656856502643-47817fc7-fcb9-4814-a5c6-9e33cbe86eaa.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>①外模式（子模式&#x2F;用户模式）：数据库用户能够看见和使用的局部数据的逻辑结构和特征的描述，数据库用户的数据视图，是与某应用有关的数据的逻辑表示</p>
+<p>②模式（逻辑模式）：数据库中全体数据的逻辑结构和特征的描述，是所有用户的公共数据视图③内模式（存储模式）：数据物理结构和存储方法的描述，是数据在数据库内部的组织方式</p>
+<h3 id="6、数据库的二级映像功能与数据独立性"><a href="#6、数据库的二级映像功能与数据独立性" class="headerlink" title="6、数据库的二级映像功能与数据独立性"></a>6、数据库的二级映像功能与数据独立性</h3><p>①外模式&#x2F;模式映像：保证了数据的逻辑独立性</p>
+<p>当模式改变时，对外模式&#x2F;模式的映像做出改变，保证外模式不变，应用程序由外模式编写，从而应用程序不变</p>
+<p>②模式&#x2F;内模式映像：保证了数据的物理独立性</p>
+<p>当数据库的存储结构改变时，对模式&#x2F;内模式映像做出改变，使模式不变，进而应用程序不变</p>
+<h2 id="第四章：数据库安全性"><a href="#第四章：数据库安全性" class="headerlink" title="第四章：数据库安全性"></a>第四章：数据库安全性</h2><h3 id="1、不安全因素"><a href="#1、不安全因素" class="headerlink" title="1、不安全因素"></a>1、不安全因素</h3><p>①非授权用户对数据库的恶意存取和破坏②数据库中重要数据的泄露</p>
+<p>③安全环境的脆弱性</p>
+<h3 id="2、数据库安全性控制"><a href="#2、数据库安全性控制" class="headerlink" title="2、数据库安全性控制"></a>2、数据库安全性控制</h3><p>①用户身份鉴别：静态口令鉴别、动态口令鉴别、生物特征鉴别、智能卡鉴别②存取控制</p>
+<p>③自主存取控制方法</p>
+<h3 id="3、为什么要授权"><a href="#3、为什么要授权" class="headerlink" title="3、为什么要授权"></a><font color='red'>3、为什么要授权</font></h3><p>授权是指授予（GRANT）和收回（REVOKE），是数据库安全性控制中的自主存取控制方法。是为了保护数据库，防止不合法使用所造成的数据泄露、更改或破坏</p>
+<h3 id="4、如何授权：授予GRANT"><a href="#4、如何授权：授予GRANT" class="headerlink" title="4、如何授权：授予GRANT"></a>4、如何授权：授予GRANT</h3><p>发出如下语句的可以是数据库管理员、也可以是数据库对象创建者、也可以是已经拥有该权限的用户</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">GRANT</span> 权限 <span class="hljs-keyword">ON</span> 对象类型 对象名 <span class="hljs-keyword">TO</span> 用户名 [<span class="hljs-keyword">WITH</span> <span class="hljs-keyword">GRANT</span> OPTION]；<br></code></pre></td></tr></table></figure>
+
+<p><strong>权限：</strong>查询权限 SELECT，全部操作权限 ALL PRIVILEGES</p>
+<p><strong>对象类型&amp;对象名：</strong>对象类型可以是TABLE也可以是VIEW，对象名为对应的表名或者视图名</p>
+<p><strong>用户名：</strong>可以是指定用户，也可以是全体用户PUBLIC</p>
+<p>如果没有指定WITH GRANT OPTION 子句，则获得某种权限的用户只能使用该权限，不能传播该权限</p>
+<p><strong>注意：</strong> SQL不允许循环授权，即被授权者不能把权限再授回给授权者或其祖先</p>
+<p>eg.把查询权限授给用户U1</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">GRANT</span> <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">ON</span> <span class="hljs-keyword">TABLE</span> Student <span class="hljs-keyword">TO</span> U1;<br></code></pre></td></tr></table></figure>
+
+<h3 id="5、收回授权：收回REVOKE"><a href="#5、收回授权：收回REVOKE" class="headerlink" title="5、收回授权：收回REVOKE"></a><font color='red'>5、收回授权：收回REVOKE</font></h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">REVOKE</span> 权限 <span class="hljs-keyword">ON</span> 对象类型 对象名<span class="hljs-keyword">FROM</span> 用户名 [CASCADEJRESTRICT];<br></code></pre></td></tr></table></figure>
+
+<p>CASCADE：级联回收。将用户传播出去的权限一并收回</p>
+<p>RESTRICT：受限回收。若用户传播过该权限，回收将会失败</p>
+<p>eg.把用户U4修改学生学号的权限收回</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">REVOKE</span> <span class="hljs-keyword">UPDATE</span>(Sno) <span class="hljs-keyword">ON</span> <span class="hljs-keyword">TABLE</span> Student <span class="hljs-keyword">FROM</span> U4;<br></code></pre></td></tr></table></figure>
+
+<h3 id="6、创建数据库模式的权限"><a href="#6、创建数据库模式的权限" class="headerlink" title="6、创建数据库模式的权限"></a>6、创建数据库模式的权限</h3><p>对创建数据库模式一类的数据库对象的授权再数据库管理员创建用户时实现：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">USER</span> username [<span class="hljs-keyword">WITH</span> DBAJRESOURCEICONNECT];<br></code></pre></td></tr></table></figure>
+
+<p>只有系统的超级用户才有权创建一个新的数据库用户，新创建的数据库用户有三种权限：DBA、RESOURCE、CONNECT （此为默认）</p>
+<p>DBA：可以创建新用户、创建模式、创建基本表和视图等，拥有对所有数据库对象的存取权限，还可以把这些权限授予一般用户</p>
+<p>RESOURCE：可以创建基本表和视图，但不能创建模式和新用户。数据库对象的属主可以用GRANT 语句把该对象上的存取权限授予其他用户</p>
+<p>CONNECT：只能登陆数据库，根据其他用户或者数据库管理员授予的权限的情况对数据库对象进行权限范围内的操作</p>
+<h3 id="7、数据库角色"><a href="#7、数据库角色" class="headerlink" title="7、数据库角色"></a>7、数据库角色</h3><p>角色是权限的集合。可以为一组具有相同权限的用户创建一个角色，使用角色来管理数据库权限可以简化授权的过程</p>
+<p><strong>创建角色：</strong>CREATE ROLE 角色名；</p>
+<p><strong>在一个角色中添加角色或者用户：</strong> GRANT 角色TO 某角色&#x2F;某用户[WITH ADMIN OPTION]；</p>
+<p>指定WITH ADMIN OPTION 子句，则获得某种权限的角色或者用户还可以把这种权限再授予其他角色</p>
+<p><strong>给角色授权：</strong> GRANT 权限 ON 对象类型 对象名TO角色；</p>
+<p><strong>角色权限收回：</strong>REVOKE 权限ON 对象类型 对象名FROM 角色；</p>
+<h3 id="8、视图机制"><a href="#8、视图机制" class="headerlink" title="8、视图机制"></a>8、视图机制</h3><p>为不同的用户定义不同的视图，把不需要的数据隐藏，这样用户就不会误操作</p>
+<h3 id="9、审计"><a href="#9、审计" class="headerlink" title="9、审计"></a>9、审计</h3><p>把对数据库的所有操作都记录到审计日志中，然后就可以通过日志审查这个里面是否有一些非法的行为</p>
+<h3 id="10、数据加密"><a href="#10、数据加密" class="headerlink" title="10、数据加密"></a>10、数据加密</h3><p>通过一些加密算法，把明文变成密文。这样别人就无法查看</p>
+<h2 id="第五章：数据库完整性"><a href="#第五章：数据库完整性" class="headerlink" title="第五章：数据库完整性"></a>第五章：数据库完整性</h2><h3 id="1、数据库的完整性是指数据的正确性和相容性"><a href="#1、数据库的完整性是指数据的正确性和相容性" class="headerlink" title="1、数据库的完整性是指数据的正确性和相容性"></a>1、数据库的完整性是指数据的正确性和相容性</h3><p>正确性：符合现实世界语义</p>
+<p>相容性：同一对象在不同表中的数据符合逻辑</p>
+<h3 id="2、维护完整性需要实现的功能"><a href="#2、维护完整性需要实现的功能" class="headerlink" title="2、维护完整性需要实现的功能"></a>2、维护完整性需要实现的功能</h3><p>①提供定义完整性约束条件的机制</p>
+<p>②提供完整性检查的方法</p>
+<p>③进行违约处理</p>
+<h3 id="3、三大完整性"><a href="#3、三大完整性" class="headerlink" title="3、三大完整性"></a>3、三大完整性</h3><p>①实体完整性：主码唯一且非空</p>
+<p>检查与违约处理：检查主码是否唯一，如果不唯一则拒绝插入或修改；检查主码各个属性是否为空，只要有一个为空就拒绝插入或修改</p>
+<p>②参照完整性：外码的约束</p>
+<p>检查：对被参照表和参照表进行增删改操作时可能会破坏参照完整性，必须检查以保证两个表的相容性</p>
+<p>违约处理：外码约束可以在创建参照表时说明不同的违约策略</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656857058711-29c7572c-4aae-4196-95f3-befe70c77074.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>③用户定义完整性：属性上约束条件的定义</p>
+<p>1.属性上的约束条件</p>
+<p>非空NOT NULL列值唯—UNIQUE</p>
+<p>检查列值是否满足一个表达式CHECK</p>
+<p>检查和违约处理：当向表中插入元组或者修改属性值时，关系数据库管理系统将检查属性上的约束条件是否被满足，如果不满足则操作被拒绝</p>
+<p>2.元组上的约束条件</p>
+<p>在CREATE TABLE 语句中可以用 CHECK短语定义元组上的约束条件，元组级的限制可以设置不同属性之间的取值的相互约束条件</p>
+<p>检查和违约处理：当向表中插入元组或者修改属性值时，关系数据库管理系统将检查元组上的约束条件是否被满足，如果不满足则操作被拒绝</p>
+<h2 id="第七章：数据库设计的步骤"><a href="#第七章：数据库设计的步骤" class="headerlink" title="第七章：数据库设计的步骤"></a>第七章：数据库设计的步骤</h2><h3 id="1、需求分析"><a href="#1、需求分析" class="headerlink" title="1、需求分析"></a>1、需求分析</h3><p>调查机构情况与熟悉业务活动，明确用户的需求，确定系统的边界，生成数据字典和用户需求规格说明书</p>
+<h3 id="2、概念结构设计"><a href="#2、概念结构设计" class="headerlink" title="2、概念结构设计"></a>2、概念结构设计</h3><p>将需求分析得到的用户需求抽象为概念模型，绘制E—R图</p>
+<h3 id="3、逻辑结构设计"><a href="#3、逻辑结构设计" class="headerlink" title="3、逻辑结构设计"></a>3、逻辑结构设计</h3><p>将E—R图转换为与DBMS相符合的逻辑结构（包括数据库模式和外模式），例如E—R图向关系模型转换，再根据规范化理论对数据模型进行优化，设计用户子模式</p>
+<h3 id="4、物理结构设计"><a href="#4、物理结构设计" class="headerlink" title="4、物理结构设计"></a>4、物理结构设计</h3><p>通常关系数据库物理设计的内容包括关系模式选择存取方法、以及设计关系、索引等数据库文件的物理存储结构</p>
+<h3 id="5、数据库实施"><a href="#5、数据库实施" class="headerlink" title="5、数据库实施"></a>5、数据库实施</h3><p>建立实际数据库结构、试运行、装入数据</p>
+<h3 id="6、数据库运行和维护"><a href="#6、数据库运行和维护" class="headerlink" title="6、数据库运行和维护"></a>6、数据库运行和维护</h3><p>维护数据库的安全性、完整性控制以及系统的转储和恢复；性能的监督、分析和改进；增加新功能；发现错误和修改错误</p>
+<h2 id="第八章：数据库编程"><a href="#第八章：数据库编程" class="headerlink" title="第八章：数据库编程"></a>第八章：数据库编程</h2><h3 id="1、嵌入式-SQL与主语言之间的通信"><a href="#1、嵌入式-SQL与主语言之间的通信" class="headerlink" title="1、嵌入式 SQL与主语言之间的通信"></a><font color='red'>1、嵌入式 SQL与主语言之间的通信</font></h3><p>SQL是描述性的面向集合的语句，负责操纵数据库；高级语言语句是过程性的面向记录的语句，负责控制程序流程通信。</p>
+<p>在嵌入式SQL中，当主语言为C语言时，语法格式为EXEC SQL &lt;SQL语句&gt;；当主语言为Java，语法格式为 #SQL （&lt;SQL语句&gt;；</p>
+<p>嵌入式SQL与主语言之间的通信包括：</p>
+<p>① SQL向主语言传递执行状态信息，主要用SQL通信区实现</p>
+<p>②主语言向SQL提供参数，主要用主变量实现</p>
+<p>③将SQL语句查询数据库的结果交给主语言处理，主要用主变量和游标实现</p>
+<ul>
+<li><strong>SQL通信区:</strong></li>
+</ul>
+<p>SQL语句执行后的执行状态信息将送到SQL通信区中，应用程序从中取出这些信息，据此决定接下来执行的语句SQL通信区在应用程序中用EXEC SQL INCLUDE SQLCA 加以定义</p>
+<ul>
+<li><strong>主变量：</strong></li>
+</ul>
+<p>SQL语句中使用的主语言程序变量简称为主变量（即SQL使用主语言的变量）</p>
+<p>输入主变量由应用程序赋值，SQL引用；输出主变量由SQL赋值或设置状态信息，返回应用程序</p>
+<p>一个主变量可以附带一个任选的指示变量（整型），用来指示所指主变量的值或条件</p>
+<p>主变量名和指示变量名前面要加冒号（:）作为标志</p>
+<p>所有主变量和指示变量必须在SQL语句 BEGIN DECLARE SECTION 与 END DECLARE SECTION 之间进行说明</p>
+<ul>
+<li><strong>游标：</strong></li>
+</ul>
+<p>SQL是面向集合的，一条SQL 语句可以产生或处理多条记录，而主语言是面向记录的，一组变量一次只能存放一条记录，因此引入游标来协调这两种不同的处理方式</p>
+<p>一个数据缓冲区，用来存放SQL语句的执行结果，每个游标区都有自己的名字</p>
+<ul>
+<li><strong>建立连接：</strong></li>
+</ul>
+<p>嵌入式SQL访问数据库必须先连接数据库</p>
+<p>建立连接的嵌入式SQL 语句为EXEC SQL CONNECT TO target [AS connection-name][USER user-name]; 其中target是要连接的数据库服务器， connection—name是可选的连接名</p>
+<p>运行过程如果要修改当前连接,对应的嵌入式语句为EXEC SQL SET CONNECTION connection-name|DEFAULT; .</p>
+<ul>
+<li><strong>关闭连接:</strong></li>
+</ul>
+<p>对应的嵌入式SQL语句为EXEC SQL DISCONNECT [connection]；</p>
+<h3 id="2、嵌入式SQL与主语言通信的程序实例"><a href="#2、嵌入式SQL与主语言通信的程序实例" class="headerlink" title="2、嵌入式SQL与主语言通信的程序实例"></a><font color='red'>2、嵌入式SQL与主语言通信的程序实例</font></h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">EXEC</span> <span class="hljs-keyword">SQL</span> <span class="hljs-keyword">BEGIN</span> <span class="hljs-keyword">DECLARE</span> SECTION; <span class="hljs-comment">/*主变量说明开始*/</span><br><span class="hljs-type">char</span> Deptname[<span class="hljs-number">20</span>]；<br><span class="hljs-type">char</span> Hsno[<span class="hljs-number">9</span>];<br><span class="hljs-type">char</span> Hsname[<span class="hljs-number">20</span>]；<span class="hljs-type">char</span> Hssex[<span class="hljs-number">2</span>]; <span class="hljs-type">int</span> HSage；<br><span class="hljs-type">int</span> NEWAGE；<br><span class="hljs-keyword">EXEC</span> <span class="hljs-keyword">SQL</span> <span class="hljs-keyword">END</span> <span class="hljs-keyword">DECLARE</span> SECTION;   <span class="hljs-comment">/*主变量说明结束*/</span><br>long SQLCODE;<br><span class="hljs-keyword">EXEC</span> <span class="hljs-keyword">SQL</span> INCLUDE SQLCA;         <span class="hljs-comment">/*定义 SQL 通信区*/</span><br><span class="hljs-type">int</span> main(void)                  <span class="hljs-comment">/*C语言主程序开始*/</span><br><span class="hljs-type">int</span> count <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; <span class="hljs-type">char</span> yn;         <span class="hljs-comment">/*变量yn代表yes 或no*/</span><br>printf(&quot;Please choose the department name(CS/MA/IS): &quot;);<br>scanf(&quot;%s&quot;,deptname);           <span class="hljs-comment">/*为主变量deptname 赋值*/</span><br><span class="hljs-keyword">EXEC</span> <span class="hljs-keyword">SQL</span> <span class="hljs-keyword">CONNECT</span> <span class="hljs-keyword">TO</span> TEST<span class="hljs-variable">@localhost</span>：<span class="hljs-number">54321</span> <span class="hljs-keyword">USER</span> “<span class="hljs-keyword">SYSTEM</span>”<span class="hljs-operator">/</span>“MANAGER”； <span class="hljs-comment">/*连接数据库 TEST*/</span><br><span class="hljs-keyword">EXEC</span> <span class="hljs-keyword">SQL</span> <span class="hljs-keyword">DECLARE</span> SX <span class="hljs-keyword">CURSOR</span> <span class="hljs-keyword">FOR</span>  <span class="hljs-comment">/*定义游标SX*/</span><br><span class="hljs-keyword">SELECT</span> Sno，Sname，Ssex，Sage    <span class="hljs-comment">/*SX 对应的语*/</span><br><span class="hljs-keyword">FROM</span> Student<br><span class="hljs-keyword">WHERE</span> SDept <span class="hljs-operator">=</span> :deptname;<br><span class="hljs-keyword">EXEC</span> <span class="hljs-keyword">SQL</span> <span class="hljs-keyword">OPEN</span> SX； 							<span class="hljs-comment">/*打开游标SX，指向查询结果的第一行*/</span><br><span class="hljs-keyword">for</span> (;;)												 <span class="hljs-comment">/*用循环结构逐条处理结果集中的记录*/</span><br><span class="hljs-keyword">EXEC</span> <span class="hljs-keyword">SQL</span> <span class="hljs-keyword">FETCH</span> SX <span class="hljs-keyword">INTO</span> :HSno,:Hsname,:HSsex,:HSage; <span class="hljs-comment">/*推进游标,将当前数据放入主变量*/</span> <br>if (SQLCA.SQLCODE<span class="hljs-operator">!=</span> <span class="hljs-number">0</span>)           <span class="hljs-comment">/*SQLCODE！=0，表示操作不成功*/</span><br>break;                           <span class="hljs-comment">/*利用SQLCA中的状态信息决定何时退出循环*/</span><br>if(count<span class="hljs-operator">+</span><span class="hljs-operator">+</span> <span class="hljs-operator">=</span><span class="hljs-operator">=</span> <span class="hljs-number">0</span>)                 <span class="hljs-comment">/*如果是第一行的话，先打出行头*/</span><br>printf(&quot;in%-10s %-20s %-10s %-10sln&quot;, &quot;Sno&quot;,&quot;Sname&quot;,&quot;Ssex&quot;, &quot;Sage&quot;); <br>printf(&quot;%-10s %-20s %-10s %-10din&quot;, HSno,Hsname, Hssex, HSage);<br><span class="hljs-comment">/*打印查询结果*/</span>printf(“<span class="hljs-keyword">UPDATE</span> AGE(y<span class="hljs-operator">/</span>n)?”)； <span class="hljs-comment">/*询问用户是否要更新该学生的年龄*/</span><br>do (scanf(&quot;%c&quot;,<span class="hljs-operator">&amp;</span>yn);)<br>while(yn<span class="hljs-operator">!=</span><span class="hljs-string">&#x27;N&#x27;</span><span class="hljs-operator">&amp;&amp;</span>yn<span class="hljs-operator">!=</span><span class="hljs-string">&#x27;n&#x27;</span><span class="hljs-operator">&amp;&amp;</span>yn<span class="hljs-operator">!=</span><span class="hljs-string">&#x27;Y&#x27;</span> <span class="hljs-operator">&amp;&amp;</span>yn<span class="hljs-operator">!=</span><span class="hljs-string">&#x27;y&#x27;</span>); <br>if (yn<span class="hljs-operator">=</span><span class="hljs-operator">=</span><span class="hljs-string">&#x27;y&#x27;</span>llyn<span class="hljs-operator">-</span><span class="hljs-string">&#x27;Y&#x27;</span>)               <span class="hljs-comment">/*如果选择更新操作*/</span><br>printf(&quot;INPUT NEW AGE:&quot;); scanf(&quot;%d&quot;,<span class="hljs-operator">&amp;</span>NEWAGE);  <span class="hljs-comment">/*用户输入新年龄到主变量中*/</span><br><span class="hljs-keyword">EXEC</span> <span class="hljs-keyword">SQL</span> <span class="hljs-keyword">UPDATE</span> Student            <span class="hljs-comment">/*嵌入式SQL 更新语句*/</span><span class="hljs-keyword">SET</span> Sage <span class="hljs-operator">=</span> :NEWAGE<br><span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">CURRENT</span> <span class="hljs-keyword">OF</span> SX；              <span class="hljs-comment">/*对当前游标指向的学生年龄进行更新*/</span><br><span class="hljs-keyword">EXEC</span> <span class="hljs-keyword">SQL</span> <span class="hljs-keyword">CLOSE</span> SX;                 <span class="hljs-comment">/*关闭游标SX，不再和查询结果对应*/</span><br><span class="hljs-keyword">EXEC</span> <span class="hljs-keyword">SQL</span> <span class="hljs-keyword">COMMIT</span> WORK;              <span class="hljs-comment">/*提交更新* /</span><br><span class="hljs-comment">EXEC SQL DISCONNECT TEST；				  /*断开数据库连接*/</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="第十章：数据库恢复技术"><a href="#第十章：数据库恢复技术" class="headerlink" title="第十章：数据库恢复技术"></a>第十章：数据库恢复技术</h2><h3 id="1、事务的概念"><a href="#1、事务的概念" class="headerlink" title="1、事务的概念"></a>1、事务的概念</h3><p>①事务是数据库操作序列，这些操作要么全做，要么全不做，是不可分割的工作单位。一个事务可以是一个sql语句，一组sql语句，或者整个程序。一般来说，一个程序包含多个事务。</p>
+<p>②事务是恢复的基本单位，也是并发控制的基本单位。</p>
+<h3 id="2、定义事务的SQL语句"><a href="#2、定义事务的SQL语句" class="headerlink" title="2、定义事务的SQL语句"></a>2、定义事务的SQL语句</h3><p>开始语句： BEGIN TRANSACTION；</p>
+<p>结束语句： COMMIT； &#x2F;&#x2F;表示提交事务的所有操作</p>
+<p>或者ROLLBACK； &#x2F;&#x2F;表示回滚，即事务运行中发生了某种故障，需要对已完成的操作进行撤销，回滚到事务开始的状态。</p>
+<h3 id="3、事务的4个特性（ACID）：原子性，一致性，隔离性，持续性"><a href="#3、事务的4个特性（ACID）：原子性，一致性，隔离性，持续性" class="headerlink" title="3、事务的4个特性（ACID）：原子性，一致性，隔离性，持续性"></a><font color='red'>3、事务的4个特性（ACID）：原子性，一致性，隔离性，持续性</font></h3><p>①原子性：一个事务要么全做，要么全不做</p>
+<p>②一致性：事务执行的结果必须一致。如果一个事务被迫中断，即事务中的一些操作做了，剩下的还没做，且做了的对数据库造成的修改已经存入物理数据库的话，就会造成数据库处于不一致的状态。因此事务要么全做，要么全不做，一致性和原子性是密切相关的</p>
+<p>③隔离性：一个事务的执行不能被其他事务干扰</p>
+<p>④持续性（也称为永久性）：一个事务一旦提交，它对数据库中数据的改变应该是永久性的</p>
+<h3 id="4、数据库系统的故障种类：事物内部的故障、系统故障、介质故障、计算机病毒"><a href="#4、数据库系统的故障种类：事物内部的故障、系统故障、介质故障、计算机病毒" class="headerlink" title="4、数据库系统的故障种类：事物内部的故障、系统故障、介质故障、计算机病毒"></a>4、数据库系统的故障种类：事物内部的故障、系统故障、介质故障、计算机病毒</h3><p>①事务内部的故障</p>
+<p>事务内部的故障有的是可以通过事务程序本身发现的，有的是非预期的、不能由事务程序处理的</p>
+<p>事务故障的情况下，数据库可能处于不正确的状态。恢复程序要在不影响其他事务运行的情况下，强行回滚该事务，即撤销该事务造成的修改，这类恢复操作称为UNDO （事务撤销）</p>
+<p>②系统故障(软故障)</p>
+<p>系统故障是指造成系统停止运转的任何事件，使得系统要重新启动（例如硬件错误、操作系统故障、DBMS代码错误、系统断电等等）</p>
+<p>系统故障的情况下，在系统重新启动后，恢复子系统除了需要撤销未完成的事务以外，还需要REDO （事务重做）所有已提交的事务</p>
+<p>③介质故障(硬故障)</p>
+<p>外存故障，如磁盘损坏、磁头碰撞、瞬时强磁场干扰等④计算机病毒</p>
+<h3 id="5、数据库恢复技术：数据转储、登记日志文件"><a href="#5、数据库恢复技术：数据转储、登记日志文件" class="headerlink" title="5、数据库恢复技术：数据转储、登记日志文件"></a><font color='red'>5、数据库恢复技术：数据转储、登记日志文件</font></h3><p>恢复机制涉及的两个关键问题：1、如何建立冗余数据；2、如何利用这些冗余数据实施数据库的恢复恢复的基本原理：利用存储在后备副本、日志文件和数据库镜像中的冗余数据来重建数据库</p>
+<p>建立冗余数据的技术包括：</p>
+<p>①数据转储</p>
+<p>数据库管理员定期将整个数据库复制到磁带、磁盘或其他存储介质上保存起来，这些备用数据称为后备副本或后援副本。当数据库遭到破坏后可以将后备副本重新装入，但重装后备副本只能将数据库恢复到存储时的状态，要想恢复到故障发生时的状态，则必须重新运行自转储后的所有更新事务</p>
+<p>数据转储分为：静态转储（在系统中无运行事务时进行）、动态转储（转储期间允许对数据库进行存取或修改）数据转储也可分为：海量转储（每次转储全部数据库）、增量转储（每次只转储上一次转储后更新过的数据）数据转储方法分为：动态海量转储、动态增量转储，静态海量转储、静态增量转储</p>
+<p>②登记日志文件</p>
+<p>日志文件是用来记录事务对数据库的更新操作的文件，有两种格式：以记录为单位、以数据块为单位.</p>
+<ul>
+<li>以记录为单位的日志文件</li>
+</ul>
+<p>需要登记的内容：各个事务的开始（BEGIN TRANSACTION）标记、各个事务的结束（COMMIT&#x2F;ROLLBACK）标记、各个事务的所有更新操作</p>
+<p>日志记录的内容：事务标识（标明哪个是事务）、操作的类型（增删改）、操作对象（记录内部标识）、更新前数据的旧值（对插入而言，此项为空值）、更新后数据的新值（对删除而言，此项为空值）</p>
+<ul>
+<li>以数据块为单位的日志文件</li>
+</ul>
+<p>日志记录的内容：事务标识、被更新的数据块</p>
+<p>日志文件的作用：</p>
+<p>（1）事务故障恢复和系统故障恢复必须用日志文件</p>
+<p>（2）在动态转储方式中必须建立日志文件，后备副本和日志文件结合才能有效恢复数据库</p>
+<p>（3）在静态转储方式中也可以建立日志文件，当数据库毁坏后可以重新装入后备副本把数据库恢复到转储结束时刻的正确状态，然后利用日志文件，把已完成的事务进行重做处理，对故障发生时尚未完成的事务进行撤销处理</p>
+<p>登记日志文件的两条原则：</p>
+<p>（1）登记的次序严格按并发事务执行的时间次序</p>
+<p>（2）必须先写日志文件，后写数据库</p>
+<h3 id="6、不同的数据库系统故障下的恢复策略"><a href="#6、不同的数据库系统故障下的恢复策略" class="headerlink" title="6、不同的数据库系统故障下的恢复策略"></a>6、不同的数据库系统故障下的恢复策略</h3><p>①事务故障的恢复</p>
+<p>由系统自动完成，对用户透明：利用日志文件撤销（UNDO）此事务已对数据库进行的修改</p>
+<p>②系统故障的恢复</p>
+<p>由系统重新启动时自动完成，不需要用户干预：撤销（UNDO）故障发生时未完成的事务，重做（REDO）已完成的事务</p>
+<p>③介质故障的恢复</p>
+<p>最严重的一种故障：重装数据库，重做（REDO）已完成的事务</p>
+<p>*为避免磁盘介质出现故障影响数据库，许多数据库管理系统提供了数据库镜像功能（复制数据实现）</p>
+<h3 id="7、具有检查点的恢复技术"><a href="#7、具有检查点的恢复技术" class="headerlink" title="7、具有检查点的恢复技术"></a>7、具有检查点的恢复技术</h3><p>这种技术在日志文件中增加了检查点记录：检查点之前的事务已经做完了，不需要重做，检查点期间和之后的事务需要重做，可以改善恢复效率</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656857834016-605613ff-a510-4d53-8cf0-28fd98dff622.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h2 id="第十一章：并发控制"><a href="#第十一章：并发控制" class="headerlink" title="第十一章：并发控制"></a>第十一章：并发控制</h2><h3 id="1、并发控制：为了保证事务的隔离性和一致性，数据库管理系统需要对并发操作进行正确调度"><a href="#1、并发控制：为了保证事务的隔离性和一致性，数据库管理系统需要对并发操作进行正确调度" class="headerlink" title="1、并发控制：为了保证事务的隔离性和一致性，数据库管理系统需要对并发操作进行正确调度"></a>1、并发控制：为了保证事务的隔离性和一致性，数据库管理系统需要对并发操作进行正确调度</h3><p>并发控制的主要技术有：封锁、时间截、乐观控制法、多版本并发控制等</p>
+<p>并发操作带来的数据不一致性：</p>
+<p>①丢失修改：两个事务T1和T2 读入同一数据并修改，T2提交的结果破坏了T1提交的结果，导致T1的修改被丢失</p>
+<p>②不可重复读：指事务T1读取数据后，事务T2执行更新操作，使T1无法再现前一次读取结果</p>
+<p>③读脏数据：事务T1修改某一数据后并将其写回磁盘，事务T2读取同一数据后，T1由于某种原因被撤销，这时T1修改过的数据恢复原值，T2读到的数据就与数据库中的数据不一致</p>
+<h3 id="2、并发控制的基本方法：封锁（X锁、S锁）"><a href="#2、并发控制的基本方法：封锁（X锁、S锁）" class="headerlink" title="2、并发控制的基本方法：封锁（X锁、S锁）"></a><font color='red'>2、并发控制的基本方法：封锁（X锁、S锁）</font></h3><p>①排他锁&#x2F;写锁，X锁</p>
+<p>若事务T对数据对象A加上X锁，则只允许事务T读取和修改A</p>
+<p>事务T释放A上的锁之前：其他事务不能读取和修改A，不能再对A加任何类型的锁</p>
+<p>②共享锁&#x2F;读锁,S锁</p>
+<p>若事务T对数据对象A加上S锁，则事务T可以读取A，但不能修改A</p>
+<p>事务T释放A上的S锁之前：其他事务可以读取A，可以对A加S锁，但不能修改A，也不能对A加X锁封锁类型的相容矩阵：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656857882545-dd23ca1e-9513-44fd-9f8e-ec329bda7c43.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h3 id="3、封锁协议：约定何时申请X锁-x2F-S锁、持续时间、何时释放等等"><a href="#3、封锁协议：约定何时申请X锁-x2F-S锁、持续时间、何时释放等等" class="headerlink" title="3、封锁协议：约定何时申请X锁&#x2F;S锁、持续时间、何时释放等等"></a>3、封锁协议：约定何时申请X锁&#x2F;S锁、持续时间、何时释放等等</h3><p>①一级封锁协议</p>
+<p>事务T在修改数据R之前必须先对其加X锁，直到事务结束才释放</p>
+<p>②二级封锁协议</p>
+<p>事务T在修改数据R之前必须先对其加X锁（一级封锁协议），并且其他事务在读取数据之前必须先对其加S锁，读完后即可释放S锁</p>
+<p>③三级封锁协议</p>
+<p>事务T在修改数据R之前必须先对其加X锁（一级封锁协议），并且其他事务在读取数据之前必须先对其加S锁，直到事务结束才释放（二级封锁协议是读完就能释放）</p>
+<p>不同级别的封锁协议和一致性保证：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656857955898-99e19104-0edf-4109-9fd4-6735cc1b59ee.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h3 id="4、活锁和死锁"><a href="#4、活锁和死锁" class="headerlink" title="4、活锁和死锁"></a>4、活锁和死锁</h3><p>①活锁</p>
+<p>事务T1封锁了数据R，事务T2又请求封锁R，于是T2等待；T3也请求封锁R，当T1释放了R上的封锁之后系统首先批准了T3的请求，T2仍然等待； T4 又请求封锁R，当T3释放了R上的封锁之后系统又批准了T4的请求T2有可能永远等待，产生活锁</p>
+<p>避免活锁：采用先来先服务的策略</p>
+<p>②死锁</p>
+<p>事务T1封锁了数据R1， T2封锁了数据R2， T1又请求封锁R2，因T2已封锁了R2，于是T1等待T2释放R2上的锁，接着T2又申请封锁R1，因T1已封锁了R1， T2也只能等待T1，释放R1上的锁，这样T1在等待T2，而T2又在等待T1， T1和T2两个事务永远不能结束，形成死锁</p>
+<p>解决活锁的方法：</p>
+<p>(1)死锁的预防</p>
+<p>1.一次封锁法：每个事务必须一次将所有要使用的数据全部加锁，否则就不能继续执行</p>
+<p>2.顺序封锁法：预先对数据对象规定一个封锁顺序，所有事务按这个顺序实施封锁</p>
+<p>（2）死锁的诊断与解除</p>
+<p>诊断：1.超时法：如果一个事务的等待时间超过了规定的时限，就认为发生了死锁</p>
+<p>​     2.等待图法：构建事务等待图（有向图：节点表示运行的事务，边表示事务等待的情</p>
+<p>​      况），存在回路即死锁</p>
+<p> 解除：选择一个处理死锁代价最小的事务，将其撤销（UNDO），释放此事务持有的所有的锁</p>
+<h3 id="5、可串行化调度：多个事务并发执行的结果-x3D-这些事务按某种次序串行执行的结果"><a href="#5、可串行化调度：多个事务并发执行的结果-x3D-这些事务按某种次序串行执行的结果" class="headerlink" title="5、可串行化调度：多个事务并发执行的结果&#x3D;这些事务按某种次序串行执行的结果"></a><font color='red'>5、可串行化调度：多个事务并发执行的结果&#x3D;这些事务按某种次序串行执行的结果</font></h3><p>一个给定的并发调度，当且仅当它是可串行化的，才认为是正确调度。例如现有事务T1和T2，若T1与T2的并发执行结果与先T1后T2相同，或者与先T2后T1相同，那么这个调度就是正确的，否则就是错误的</p>
+<h3 id="6、冲突可串行化调度"><a href="#6、冲突可串行化调度" class="headerlink" title="6、冲突可串行化调度"></a>6、冲突可串行化调度</h3><p>冲突操作：指不同的事务对用一个数据的读写操作（读和写）和写写操作（写和写）</p>
+<p>不同事务的冲突操作和同一事物的两个操作是不能交换的，如果发生交换，自然会发生错误。基于此，如果调度能保证冲突操作的次序不变，就称为冲突可串行化的调度。冲突可串行化调度一定是可串行化调度。（但是注意，可串行化调度也有可能不满足冲突可串行化）</p>
+<h3 id="7、两段锁协议（2PL）：所有事务必须分两个阶段对数据项加锁和解锁"><a href="#7、两段锁协议（2PL）：所有事务必须分两个阶段对数据项加锁和解锁" class="headerlink" title="7、两段锁协议（2PL）：所有事务必须分两个阶段对数据项加锁和解锁"></a><font color='red'>7、两段锁协议（2PL）：所有事务必须分两个阶段对数据项加锁和解锁</font></h3><p>①获得封锁（扩展阶段）：在对任何数据进行读、写操作之前，事务首先要获得对该数据的封锁</p>
+<p>②释放封锁（收缩阶段）：在释放一个封锁之后，事务不再申请和获得任何其他封锁</p>
+<p>若并发执行的所有事务均遵守两段锁协议，则对这些事物的任何并发调度策略都是可串行化的</p>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/" class="category-chain-item">经验分享</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E9%9D%A2%E8%AF%95/">#面试</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>面试准备第三天-数据库复习2</div>
+      <div>http://findm.cf/2022/07/03/11面试准备第三天-数据库复习2/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>马钏烽</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年7月3日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/02/10%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%E7%AC%AC%E4%BA%8C%E5%A4%A9-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%8D%E4%B9%A01/" title="面试准备第二天-数据库复习1">
+                        <span class="hidden-mobile">面试准备第二天-数据库复习1</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
