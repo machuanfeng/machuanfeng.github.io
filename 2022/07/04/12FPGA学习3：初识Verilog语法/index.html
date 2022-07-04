@@ -1,0 +1,845 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="马钏烽">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="学习Verilog的基础语法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FPGA学习3：初识Verilog语法">
+<meta property="og:url" content="http://findm.cf/2022/07/04/12FPGA%E5%AD%A6%E4%B9%A03%EF%BC%9A%E5%88%9D%E8%AF%86Verilog%E8%AF%AD%E6%B3%95/index.html">
+<meta property="og:site_name" content="小马和小秦的博客">
+<meta property="og:description" content="学习Verilog的基础语法">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656899401789-6e978b98-a038-45fb-8119-394b99cbea73.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=12&id=ufd61ee01&margin=%5Bobject%20Object%5D&name=image.png&originHeight=16&originWidth=353&originalType=binary&ratio=1&rotation=0&showTitle=false&size=10116&status=done&style=none&taskId=ued05168e-7e1c-495a-bcdf-a8d82a43b49&title=&width=268.95238095238096">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656899412529-52002758-f9e3-4be9-ab6b-0c55d845a84b.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=12&id=u4a30140d&margin=%5Bobject%20Object%5D&name=image.png&originHeight=16&originWidth=98&originalType=binary&ratio=1&rotation=0&showTitle=false&size=2441&status=done&style=none&taskId=u754731fb-9f1a-40a3-b11d-081c809b582&title=&width=74.66666666666667">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656899488111-944dfeec-e457-4de6-a8da-743c1b041f24.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=69&id=u488dee3d&margin=%5Bobject%20Object%5D&name=image.png&originHeight=91&originWidth=528&originalType=binary&ratio=1&rotation=0&showTitle=false&size=34576&status=done&style=none&taskId=u6002af11-f1e4-4d4a-a487-2234f36fdf3&title=&width=402.2857142857143">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656899521244-0feb2cdd-a7eb-4724-b1e9-b3208b49a9a6.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=68&id=uacd1fd13&margin=%5Bobject%20Object%5D&name=image.png&originHeight=96&originWidth=256&originalType=binary&ratio=1&rotation=0&showTitle=false&size=17420&status=done&style=none&taskId=ua711e73e-4cfc-42af-8bfe-f0b51c5d836&title=&width=181.04762268066406">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656899576451-4f00073c-afcc-4613-ae27-2733729d0a1d.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=46&id=ue5693a04&margin=%5Bobject%20Object%5D&name=image.png&originHeight=61&originWidth=250&originalType=binary&ratio=1&rotation=0&showTitle=false&size=13590&status=done&style=none&taskId=u5ff89d25-7fa9-4797-92cf-503329c8158&title=&width=190.47619047619048">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656899665926-713687cb-089e-4dbb-bdee-4b9806bb52cd.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=0.9907&crop=1&from=paste&height=16&id=uc60067c5&margin=%5Bobject%20Object%5D&name=image.png&originHeight=21&originWidth=709&originalType=binary&ratio=1&rotation=0&showTitle=false&size=25039&status=done&style=none&taskId=ucffa71a6-2f51-40d6-b49a-5a044c85273&title=&width=535">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656899739616-715e656b-12b0-420d-95c1-f7778f460411.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=38&id=u47133525&margin=%5Bobject%20Object%5D&name=image.png&originHeight=50&originWidth=538&originalType=binary&ratio=1&rotation=0&showTitle=false&size=32271&status=done&style=none&taskId=u88502ba5-5643-4e45-86d7-9532fd3b92b&title=&width=409.9047619047619">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656899875579-1f429f03-2bbe-4604-a662-28a33f736c23.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=66&id=u7eaea8c7&margin=%5Bobject%20Object%5D&name=image.png&originHeight=87&originWidth=772&originalType=binary&ratio=1&rotation=0&showTitle=false&size=103152&status=done&style=none&taskId=uce4002b4-41d4-4228-9d0f-93cb5dd4b3c&title=&width=588.1904761904761">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656900003668-de9b2d22-b10e-4feb-af77-c82efb8afbda.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=143&id=uc2597d20&margin=%5Bobject%20Object%5D&name=image.png&originHeight=188&originWidth=150&originalType=binary&ratio=1&rotation=0&showTitle=false&size=17968&status=done&style=none&taskId=u0895a8f8-02f0-41fa-bc1b-bb35303016b&title=&width=114.28571428571429">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656900066575-1448cb43-4c7f-4647-8b5b-1c0e6554df34.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=144&id=u40428626&margin=%5Bobject%20Object%5D&name=image.png&originHeight=189&originWidth=184&originalType=binary&ratio=1&rotation=0&showTitle=false&size=19613&status=done&style=none&taskId=uae1045e2-80dd-432b-86f0-f59de0bb810&title=&width=140.1904761904762">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656900176178-bcc4514d-cc8e-4088-835d-22091d57935d.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=104&id=u14443f1f&margin=%5Bobject%20Object%5D&name=image.png&originHeight=137&originWidth=406&originalType=binary&ratio=1&rotation=0&showTitle=false&size=36287&status=done&style=none&taskId=u3400e95a-5ad7-4494-bdaf-e1cbea6891d&title=&width=309.3333333333333">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656900232767-ac838b71-ac50-4e64-9bbb-e4a50e7d7068.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=33&id=u4d94ea35&margin=%5Bobject%20Object%5D&name=image.png&originHeight=43&originWidth=445&originalType=binary&ratio=1&rotation=0&showTitle=false&size=13235&status=done&style=none&taskId=u81c9bcec-3630-45c9-a69d-85f1b93bba8&title=&width=339.04761904761904">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656902444944-ee4367e3-82a6-4250-bb5b-05043ad6d992.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=238&id=uac9fe979&margin=%5Bobject%20Object%5D&name=image.png&originHeight=313&originWidth=320&originalType=binary&ratio=1&rotation=0&showTitle=false&size=52481&status=done&style=none&taskId=uccb90862-3345-46f4-926d-d795682aeba&title=&width=243.8095238095238">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656903331436-912eaa21-f409-40a2-81de-980a9aab8dba.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=169&id=u156951df&margin=%5Bobject%20Object%5D&name=image.png&originHeight=222&originWidth=454&originalType=binary&ratio=1&rotation=0&showTitle=false&size=43639&status=done&style=none&taskId=ue80e9a50-056b-4e66-9abb-6a5a4f03ac5&title=&width=345.9047619047619">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656903343174-a93ded6c-a0df-4f7b-b23a-963b41e8742e.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=115&id=ufe573d16&margin=%5Bobject%20Object%5D&name=image.png&originHeight=151&originWidth=446&originalType=binary&ratio=1&rotation=0&showTitle=false&size=39337&status=done&style=none&taskId=u78cc79e5-6290-4740-b574-b98d051df36&title=&width=339.8095238095238">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656903347947-e369935f-adf5-472a-a07e-7ec1f4d12664.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=146&id=u7d9d9dc9&margin=%5Bobject%20Object%5D&name=image.png&originHeight=191&originWidth=450&originalType=binary&ratio=1&rotation=0&showTitle=false&size=45044&status=done&style=none&taskId=ud9c5c552-7f96-47bc-9e8f-af2e3b820d1&title=&width=342.85714285714283">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656903064684-5cf8dbe9-236b-4f32-8cf9-f6ce5abd924c.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=121&id=u6818a385&margin=%5Bobject%20Object%5D&name=image.png&originHeight=159&originWidth=372&originalType=binary&ratio=1&rotation=0&showTitle=false&size=23798&status=done&style=none&taskId=ud96ffe22-d38a-431f-bdd8-de9090335e9&title=&width=283.42857142857144">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656903056130-50ed0a2c-743e-4109-9fa1-538c418abdc5.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=147&id=u6d8c88d0&margin=%5Bobject%20Object%5D&name=image.png&originHeight=248&originWidth=486&originalType=binary&ratio=1&rotation=0&showTitle=false&size=48017&status=done&style=none&taskId=uf2346dc0-4b9a-4413-947a-ea082f47968&title=&width=288.28570556640625">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656902993652-b1b2e169-9fda-4f72-b6e2-e38a57fdbc1a.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=211&id=ua8040f35&margin=%5Bobject%20Object%5D&name=image.png&originHeight=277&originWidth=385&originalType=binary&ratio=1&rotation=0&showTitle=false&size=69178&status=done&style=none&taskId=u197b7300-bc15-491b-bba5-0f14073935d&title=&width=293.3333333333333">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656903168154-3d98624d-2c90-4546-8ed7-ddffa4f0a4c0.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=204&id=ub93055cf&margin=%5Bobject%20Object%5D&name=image.png&originHeight=268&originWidth=460&originalType=binary&ratio=1&rotation=0&showTitle=false&size=84133&status=done&style=none&taskId=uc57be408-0903-4744-ba82-4e7b23e96db&title=&width=350.4761904761905">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656903141222-52606dc4-3687-48cf-a608-821a58a590a4.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=123&id=uf7d80974&margin=%5Bobject%20Object%5D&name=image.png&originHeight=161&originWidth=407&originalType=binary&ratio=1&rotation=0&showTitle=false&size=30175&status=done&style=none&taskId=ud713c80b-ee8e-431d-bf6e-d8292616dee&title=&width=310.0952380952381">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656903158607-6d76f4f1-d51d-4cd2-a3f2-b3565085af54.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=226&id=uf885032a&margin=%5Bobject%20Object%5D&name=image.png&originHeight=296&originWidth=449&originalType=binary&ratio=1&rotation=0&showTitle=false&size=61585&status=done&style=none&taskId=ua4a3eafc-c0db-4946-b292-c35f77dffc0&title=&width=342.0952380952381">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656903458563-7a985253-3eaf-48f1-883a-423047a2828d.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=211&id=u150c2480&margin=%5Bobject%20Object%5D&name=image.png&originHeight=277&originWidth=325&originalType=binary&ratio=1&rotation=0&showTitle=false&size=47907&status=done&style=none&taskId=u0a92128a-3b7f-4754-9873-b256b19e661&title=&width=247.61904761904762">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656903553160-672f5033-9636-4e87-a1df-ff3346264dfd.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=165&id=u17346dcf&margin=%5Bobject%20Object%5D&name=image.png&originHeight=217&originWidth=451&originalType=binary&ratio=1&rotation=0&showTitle=false&size=46511&status=done&style=none&taskId=u0a140422-34ce-4a89-ab66-43cf9479dd5&title=&width=343.6190476190476">
+<meta property="article:published_time" content="2022-07-04T03:04:51.000Z">
+<meta property="article:modified_time" content="2022-07-04T03:15:28.313Z">
+<meta property="article:author" content="马钏烽">
+<meta property="article:tag" content="Verilog">
+<meta property="article:tag" content="语法">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1656899401789-6e978b98-a038-45fb-8119-394b99cbea73.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=12&id=ufd61ee01&margin=%5Bobject%20Object%5D&name=image.png&originHeight=16&originWidth=353&originalType=binary&ratio=1&rotation=0&showTitle=false&size=10116&status=done&style=none&taskId=ued05168e-7e1c-495a-bcdf-a8d82a43b49&title=&width=268.95238095238096">
+  
+  
+  
+  <title>FPGA学习3：初识Verilog语法 - 小马和小秦的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"findm.cf","root":"/","version":"1.9.1","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>记录美好生活</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="FPGA学习3：初识Verilog语法"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-07-04 11:04" pubdate>
+          2022年7月4日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          40 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">FPGA学习3：初识Verilog语法</h1>
+            
+            <div class="markdown-body">
+              
+              <h2 id="一、Verilog-HDL简介"><a href="#一、Verilog-HDL简介" class="headerlink" title="一、Verilog HDL简介"></a>一、Verilog HDL简介</h2><ol>
+<li>Verilog HDL是一种硬件描述语言，以文本的形式描述硬件结构和行为。可以表示逻辑电路图、逻辑表达式。</li>
+<li>Verilog HDL语言与VHDL相比，代码简介、易学易用，发展较快。</li>
+<li>由C语言发展而来，有一定相似性，但编程思想不同。</li>
+</ol>
+<h2 id="二、基础语法"><a href="#二、基础语法" class="headerlink" title="二、基础语法"></a>二、基础语法</h2><h3 id="1-逻辑值"><a href="#1-逻辑值" class="headerlink" title="1.逻辑值"></a>1.逻辑值</h3><p>0：逻辑低电平，条件为假<br>1：逻辑高电平，条件为真<br>Z：高阻态，无驱动<br>X：未知逻辑电平</p>
+<h3 id="2-关键字"><a href="#2-关键字" class="headerlink" title="2.关键字"></a>2.关键字</h3><h4 id="1-模块的开始与结束"><a href="#1-模块的开始与结束" class="headerlink" title="1.模块的开始与结束"></a>1.模块的开始与结束</h4><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656899401789-6e978b98-a038-45fb-8119-394b99cbea73.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=12&id=ufd61ee01&margin=%5Bobject%20Object%5D&name=image.png&originHeight=16&originWidth=353&originalType=binary&ratio=1&rotation=0&showTitle=false&size=10116&status=done&style=none&taskId=ued05168e-7e1c-495a-bcdf-a8d82a43b49&title=&width=268.95238095238096" srcset="/img/loading.gif" lazyload alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656899412529-52002758-f9e3-4be9-ab6b-0c55d845a84b.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=12&id=u4a30140d&margin=%5Bobject%20Object%5D&name=image.png&originHeight=16&originWidth=98&originalType=binary&ratio=1&rotation=0&showTitle=false&size=2441&status=done&style=none&taskId=u754731fb-9f1a-40a3-b11d-081c809b582&title=&width=74.66666666666667" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>模块名与.v文件的文件名应该保持一致</p>
+<h4 id="2-输入输出信号"><a href="#2-输入输出信号" class="headerlink" title="2.输入输出信号"></a>2.输入输出信号</h4><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656899488111-944dfeec-e457-4de6-a8da-743c1b041f24.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=69&id=u488dee3d&margin=%5Bobject%20Object%5D&name=image.png&originHeight=91&originWidth=528&originalType=binary&ratio=1&rotation=0&showTitle=false&size=34576&status=done&style=none&taskId=u6002af11-f1e4-4d4a-a487-2234f36fdf3&title=&width=402.2857142857143" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h4 id="3-变量"><a href="#3-变量" class="headerlink" title="3.变量"></a>3.变量</h4><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656899521244-0feb2cdd-a7eb-4724-b1e9-b3208b49a9a6.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=68&id=uacd1fd13&margin=%5Bobject%20Object%5D&name=image.png&originHeight=96&originWidth=256&originalType=binary&ratio=1&rotation=0&showTitle=false&size=17420&status=done&style=none&taskId=ua711e73e-4cfc-42af-8bfe-f0b51c5d836&title=&width=181.04762268066406" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>wire映射为一跳物理练习<br>reg映射为一个物理寄存器</p>
+<h4 id="4-参数"><a href="#4-参数" class="headerlink" title="4.参数"></a>4.参数</h4><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656899576451-4f00073c-afcc-4613-ae27-2733729d0a1d.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=46&id=ue5693a04&margin=%5Bobject%20Object%5D&name=image.png&originHeight=61&originWidth=250&originalType=binary&ratio=1&rotation=0&showTitle=false&size=13590&status=done&style=none&taskId=u5ff89d25-7fa9-4797-92cf-503329c8158&title=&width=190.47619047619048" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>localparam只能在模块内部使用，不用用于实例化</p>
+<h4 id="5-常量"><a href="#5-常量" class="headerlink" title="5.常量"></a>5.常量</h4><p><strong>使用的是基数表示法</strong><br><strong>格式：</strong><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656899665926-713687cb-089e-4dbb-bdee-4b9806bb52cd.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=0.9907&crop=1&from=paste&height=16&id=uc60067c5&margin=%5Bobject%20Object%5D&name=image.png&originHeight=21&originWidth=709&originalType=binary&ratio=1&rotation=0&showTitle=false&size=25039&status=done&style=none&taskId=ucffa71a6-2f51-40d6-b49a-5a044c85273&title=&width=535" srcset="/img/loading.gif" lazyload alt="image.png"><br><strong>举例：</strong><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656899739616-715e656b-12b0-420d-95c1-f7778f460411.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=38&id=u47133525&margin=%5Bobject%20Object%5D&name=image.png&originHeight=50&originWidth=538&originalType=binary&ratio=1&rotation=0&showTitle=false&size=32271&status=done&style=none&taskId=u88502ba5-5643-4e45-86d7-9532fd3b92b&title=&width=409.9047619047619" srcset="/img/loading.gif" lazyload alt="image.png"><br><strong>注意：</strong> 二进制比较特殊<img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656899875579-1f429f03-2bbe-4604-a662-28a33f736c23.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=66&id=u7eaea8c7&margin=%5Bobject%20Object%5D&name=image.png&originHeight=87&originWidth=772&originalType=binary&ratio=1&rotation=0&showTitle=false&size=103152&status=done&style=none&taskId=uce4002b4-41d4-4228-9d0f-93cb5dd4b3c&title=&width=588.1904761904761" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h4 id="6-赋值方式"><a href="#6-赋值方式" class="headerlink" title="6.赋值方式"></a>6.赋值方式</h4><p>阻塞赋值顺序执行</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656900003668-de9b2d22-b10e-4feb-af77-c82efb8afbda.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=143&id=uc2597d20&margin=%5Bobject%20Object%5D&name=image.png&originHeight=188&originWidth=150&originalType=binary&ratio=1&rotation=0&showTitle=false&size=17968&status=done&style=none&taskId=u0895a8f8-02f0-41fa-bc1b-bb35303016b&title=&width=114.28571428571429" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>非阻塞赋值语句并行执行</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656900066575-1448cb43-4c7f-4647-8b5b-1c0e6554df34.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=144&id=u40428626&margin=%5Bobject%20Object%5D&name=image.png&originHeight=189&originWidth=184&originalType=binary&ratio=1&rotation=0&showTitle=false&size=19613&status=done&style=none&taskId=uae1045e2-80dd-432b-86f0-f59de0bb810&title=&width=140.1904761904762" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h4 id="7-always语句"><a href="#7-always语句" class="headerlink" title="7.always语句"></a>7.always语句</h4><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656900176178-bcc4514d-cc8e-4088-835d-22091d57935d.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=104&id=u14443f1f&margin=%5Bobject%20Object%5D&name=image.png&originHeight=137&originWidth=406&originalType=binary&ratio=1&rotation=0&showTitle=false&size=36287&status=done&style=none&taskId=u3400e95a-5ad7-4494-bdaf-e1cbea6891d&title=&width=309.3333333333333" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h4 id="8-assign语句"><a href="#8-assign语句" class="headerlink" title="8.assign语句"></a>8.assign语句</h4><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656900232767-ac838b71-ac50-4e64-9bbb-e4a50e7d7068.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=33&id=u4d94ea35&margin=%5Bobject%20Object%5D&name=image.png&originHeight=43&originWidth=445&originalType=binary&ratio=1&rotation=0&showTitle=false&size=13235&status=done&style=none&taskId=u81c9bcec-3630-45c9-a69d-85f1b93bba8&title=&width=339.04761904761904" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="3-算数运算符"><a href="#3-算数运算符" class="headerlink" title="3.算数运算符"></a>3.算数运算符</h3><p>+（加法，如assignc＝a＋b；即把a与b的和赋值给c） </p>
+<p>-（减法，如assignc＝a-b；即把a减b的差赋值给c）</p>
+<p>*（乘法，如assignc＝a＊3；即让a和3相乘，结果赋值给c，但是一般不用乘号）</p>
+<p>&#x2F;（除法，如assignc＝a／2；即让a和2相除，结果赋值给c，一般也不用除号）</p>
+<p>%（求模，或称为求余，要求％两侧均为整型数据，5％3的值为2，用在测试文件）</p>
+<h3 id="3-规约运算符、按位运算符"><a href="#3-规约运算符、按位运算符" class="headerlink" title="3.规约运算符、按位运算符"></a>3.规约运算符、按位运算符</h3><p>以“＆”操作符为例，“＆”操作符有两种用途，既可以作为<strong>一元运算符</strong>（仅有一个参与运算的量），也可以作为<strong>二元运算符</strong>（有两个参与运算的量）。</p>
+<ul>
+<li>作为一维运算符</li>
+</ul>
+<p>当“＆”作为一元运算符时表示归约与，＆m是将m中所有比特相与，最后的结果为1bit。</p>
+<p>例如：<br>&amp;4’b1111&#x3D;1&amp;1&amp;1&amp;1&#x3D;1’b1<br>&amp;4’b1101&#x3D;1&amp;1&amp;0&amp;1&#x3D;1’b0</p>
+<ul>
+<li>作为二维运算符</li>
+</ul>
+<p>当“＆”作为二元运算符时表示按位与，m＆n是将m的每个比特与n的相应比特相与，在运算的时候要保证m和n的比特数相等，最后的结果和m（n）的比特数相同。</p>
+<p>例如：   4’b1010&amp;4’b0101&#x3D;4’b0000 4’b1101&amp;4’b1111&#x3D;4’b1101<br>“～＆”、“A”、“～A”、“｜”、“～｜”同理。</p>
+<h3 id="4-逻辑运算符"><a href="#4-逻辑运算符" class="headerlink" title="4.逻辑运算符"></a>4.逻辑运算符</h3><p>以“&amp;&amp;”操作符为例，“&amp;&amp;”表示逻辑与，运算规则：逻辑与运算符号两边只有真或者假，非零表示真，零表示假，逻辑运算符两边都不为零则结果为1，否则为0。</p>
+<p>例如： a＝4’ha，b＝4’d0，c＝a&amp;&amp;b，则c的值为0，<br>“||（逻辑或）”、“&#x3D;&#x3D;（逻辑相等）”、“!&#x3D;（逻辑不等）” 同理。</p>
+<h3 id="5-关系运算符"><a href="#5-关系运算符" class="headerlink" title="5.关系运算符"></a>5.关系运算符</h3><p>a&lt;b		a小于b </p>
+<p>a&gt;b		a大于b</p>
+<p>a&lt;&#x3D;b	a小于或等于b </p>
+<p>a&gt;&#x3D;b	a大于或等于b</p>
+<p>注：关系运算符一般在条件判断时用到，例如if的判断语句，如果 if后面接的判断语句为真，则返回1，否则返回0</p>
+<h3 id="6-移位运算符"><a href="#6-移位运算符" class="headerlink" title="6.移位运算符"></a>6.移位运算符</h3><p>移位运算符是二元运算符，左移符号为“&lt;&lt;”，右移符号为“&gt;&gt;”，将运算符左边的操作数左移或右移指定的位数，用0来补充空闲位。</p>
+<p>b &lt;&#x3D;a&lt;&lt;1；即让a的每一位都往左移动1位，结果赋值给b；   (&lt;&#x3D;这是赋值的符号)</p>
+<p>b &lt;&#x3D;a&gt;&gt;2；即让a的每一位都往右移动2位，结果赋值给b；<br>在应用移位运算符的时候一定要注意它的这个特性，那就是空闲位用0来填充，也就是说，一个二进制数不管原数值是多少，只要一直移位，最终全部会变为0。</p>
+<p>例如：4＇b1000&gt;&gt;3后的结果为4＇b0001，4＇b1000 &gt;&gt;4的结果为4＇b0000。</p>
+<p>移位运算符在使用时，可代替乘法和除法，左移一位可以看成是乘以2，右移一位可以看成是除以2，但要注意位宽的拓展。</p>
+<h3 id="7-位拼接运算符"><a href="#7-位拼接运算符" class="headerlink" title="7.位拼接运算符"></a>7.位拼接运算符</h3><p>位拼接运算符由一对花括号加逗号组成“｛ , }”，拼接的不同数据之问用“，”隔开。</p>
+<p>例如：<br>将8bit的a、3bit的b、5bit的按顺序拼接成一个16位的d，表示方法为：d＝｛a，b，c｝；</p>
+<h3 id="8-条件运算符"><a href="#8-条件运算符" class="headerlink" title="8.条件运算符"></a>8.条件运算符</h3><p>条件运算符，“？：”，是一个三元运算符，即有三个参与运算的量，条件表达式的一 般形式为：表达式1？表达式2：表达式3<br>执行过程是：当表达式1为真，则表达式2作为条件表达式的值，否则以表达式3作为条件表达式的值。</p>
+<p>例如：当a＝6，b＝7，c＝（a＞b）？a：b的结果为7。</p>
+<p><strong>注意：</strong> 使用条件表达式时“？”和“：”是一对，不可以只是用一个； </p>
+<h3 id="9-优先级"><a href="#9-优先级" class="headerlink" title="9.优先级"></a>9.优先级</h3><p>总的优先级关系为：归约运算符＞算数运算符＞移位运算符＞关系运算符＞“&#x3D;&#x3D;”和“！&#x3D;”＞按位运算符＞“＆＆”和“Il”＞条件运算符，总的来说是一元运算符＞一元运算符＞三元运算符。</p>
+<p>如果在编写代码的时候对这些关系容易混淆，最好的方式就是使用“（）”增加优先级。</p>
+<h3 id="10-if-else语句"><a href="#10-if-else语句" class="headerlink" title="10.if-else语句"></a>10.if-else语句</h3><p>if—else 条件分支语句的作用是根据指定的判断条件是否满足来确定下一步要执行的操作。它在使用时可以采用如下三种形式：</p>
+<h4 id="1"><a href="#1" class="headerlink" title="(1)"></a>(1)</h4><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">if</span>（＜条件表达式＞）<br>      语句或语句块;<br></code></pre></td></tr></table></figure>
+
+<p>在if—else 条件语句的这种使用形式中没有出现 else项，这种情况下条件分支语句的执行过程是：如果指定的＜条件表达式＞成立（也就是这个条件表达式的逻辑值为“1”），则执行条件分支语句内给出的“语句或语句块”，然后退出条件分支语句的执行；如果＜条件表达式＞不成立（也就是条件的表达式的逻辑值为“0”、“x”、“z”），则不执行条件分支语句内给出的“语句或语句块”，而是直接退出条件语句的执行。这种写法如果在always块中表达级合逻辑时会产生latch，所以不推荐这种写法。</p>
+<h4 id="2"><a href="#2" class="headerlink" title="(2)"></a>(2)</h4><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">if</span>（＜条件表达式<span class="hljs-number">1</span>＞）<br>    语句或语句块<span class="hljs-number">1</span>;<br><span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>（＜条件表达式<span class="hljs-number">2</span>＞） <br>    语句或语句块<span class="hljs-number">2</span>：<br>......<br><span class="hljs-keyword">else</span><br></code></pre></td></tr></table></figure>
+
+<p>在执行这种形式的 if—else条件分支语句时，将按照各分支项的排列顺序对各个条件表达式是否成立做出判断，当遇到某一项的条件表达式成立时，就执行这一项所指定的语句或语句块：如果所有的条件表达式都不成立，则执行最后的 else项。这种形式的 if—else 条件分支语句实现了一种多路分支选择控制。这种写法是我们在使用根据波形写代码的方法中最常用的一种写法。</p>
+<h4 id="3"><a href="#3" class="headerlink" title="(3)"></a>(3)</h4><p>（3）Verilog HDL 允许 if—else 条件分支语句的嵌套使用，但是不要嵌套太多层，也不推荐这<br>种嵌套的写法，因为嵌套会有优先级的问题，最后导致逻辑混乱，if和else的结合混乱，代码也不清晰，如果写代码时遇到这种情况往往是可以将其合并的，最终写成（2）的形式。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">if</span>（＜条件表达式<span class="hljs-number">1</span>＞）  <span class="hljs-comment">//外层1L语句 </span><br>  <span class="hljs-keyword">if</span>（＜条件表达式<span class="hljs-number">2</span>＞） <span class="hljs-comment">//内层if语句1 </span><br>    语句或语句块<span class="hljs-number">1</span>；<br><span class="hljs-keyword">else</span>        <span class="hljs-comment">//内层else语句2</span><br>     语句或语句块<span class="hljs-number">2</span>；<br><span class="hljs-keyword">else</span>        <span class="hljs-comment">//外层else语句1</span><br>     语句或语句块<span class="hljs-number">3</span>；<br></code></pre></td></tr></table></figure>
+
+<h3 id="11-case分支语句"><a href="#11-case分支语句" class="headerlink" title="11.case分支语句"></a>11.case分支语句</h3><p>case 分支语句是另一种用来实现多路分支控制的分支语句。与使用 if—else条件分支语句相比，采用case分支语句来实现多路控制将显得更为方便与直观。case 分支语句通常用于对微处理器指令译码功能的描述以及对<strong>有限状态机</strong>的描述。case 分支语句有“case”、“casez”、“casex”三种形式。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">case</span>（＜控制表达式＞）<br>    ＜分支语句<span class="hljs-number">1</span>＞:语句块<span class="hljs-number">1</span>;<br>    ＜分支语句<span class="hljs-number">2</span>＞:语句块<span class="hljs-number">2</span>;<br>    ＜分支语句<span class="hljs-number">3</span>＞:语句块<span class="hljs-number">3</span>;<br>    ＜分支语句n＞:语句块n;<br>    <span class="hljs-keyword">default</span>:语句块n+<span class="hljs-number">1</span>;<br><span class="hljs-keyword">endcase</span><br></code></pre></td></tr></table></figure>
+
+<p>＜控制表达式＞代表着对程序流向进行控制的控制信号：各个＜分支表达式＞则是控制表达式的某些具体状态取值，在实际使用中这些分支项表达式通常是一些常量表达式：各个“语句”则指定了在各个分支下所要执行的操作，它们也可以是由单条语句构成，处于最后的、以关键词 default 开头的那个分支项称为“default”分支项，它是可以缺省的。</p>
+<p>case 语句的执行过程：</p>
+<p>(1)当“控制表达式”的取值等于“分支项表达式1”时，执行第一个分支项所包含的语句块1；</p>
+<p>(2)当“控制表达式”的取值等于“分支项表达式2”时，执行第二个分支项所包含的语句块2;</p>
+<p>(3)当“控制表达式”的取值等于“分支项表达式n”时，执行第N个分支项所包含的语句块n；</p>
+<p>(4)在执行了某一分支项内的语句后，跳出 case 语句结构，终止 case 语句的执行。case 语句中各个“分支项表达式”的取值必须是互不相同的，否则就会出现矛盾现象。</p>
+<h3 id="12-系统函数"><a href="#12-系统函数" class="headerlink" title="12.系统函数"></a>12.系统函数</h3><p>Verilog 语言中预先定义了一些任务和函数，用于完成一些特殊的功能，它们被称为系统任务和系统函数，这些函数大多数都是只能在Testbench 仿真中使用的，使我们更方便的进行验证。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-meta">`<span class="hljs-keyword">timescale</span> 1ns/1ns </span><span class="hljs-comment">//时间尺度预编译指令 时间单位／时间精度</span><br></code></pre></td></tr></table></figure>
+
+<p>时间单位和时间精度由值1、10、和100以及单位s、ms、us、ns、ps和fs组成。</p>
+<p>时间单位：定义仿真过程所有与时间相关量的单位。</p>
+<p>仿真中使用“＃数字”表示延时相应时间单位的时间，例＃10表示延时10个单位的时间，即10ns。</p>
+<p>时间精度：决定时间相关量的精度及仿真显示的最小刻度。</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs verilog">`timescalo <span class="hljs-number">1</span>ns/<span class="hljs-number">10</span>ps 精度<span class="hljs-number">0</span><span class="hljs-variable">.01</span>，＃<span class="hljs-number">10</span><span class="hljs-variable">.11</span> 表示延时<span class="hljs-number">10110</span>ps 下面这种写法就是错误的，因为时间单位不能比时间精度小。<br><span class="hljs-meta">`<span class="hljs-keyword">timescale</span> 100ps/1ns</span><br></code></pre></td></tr></table></figure>
+
+<p>主要的函数有如下这些，在支持 Verilog 语法的编辑器中都会显示为高亮关键字</p>
+<table>
+<thead>
+<tr>
+<th>$display</th>
+<th>&#x2F;&#x2F;打印信息,自动换行</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$write</td>
+<td>&#x2F;&#x2F;打印信息</td>
+</tr>
+<tr>
+<td>$strobe</td>
+<td>&#x2F;&#x2F;打印信息,自动换行,最后执行</td>
+</tr>
+<tr>
+<td>$monitor</td>
+<td>&#x2F;&#x2F;监测变量</td>
+</tr>
+<tr>
+<td>$stop</td>
+<td>&#x2F;&#x2F;暂停仿真</td>
+</tr>
+<tr>
+<td>$finish</td>
+<td>&#x2F;&#x2F;结束仿真</td>
+</tr>
+<tr>
+<td>$time</td>
+<td>&#x2F;&#x2F;时间函数</td>
+</tr>
+<tr>
+<td>$random</td>
+<td>&#x2F;&#x2F;随机函数</td>
+</tr>
+<tr>
+<td>$readmemb</td>
+<td>&#x2F;&#x2F;读文件函数</td>
+</tr>
+</tbody></table>
+<h4 id="1-display用于输出、打印信息"><a href="#1-display用于输出、打印信息" class="headerlink" title="1.$display用于输出、打印信息"></a>1.$display用于输出、打印信息</h4><p>使用格式为：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-built_in">$display</span>(<span class="hljs-string">&quot;%b＋%b＝%d&quot;</span>,a,b,c); <span class="hljs-comment">//格式“％b＋％b＝％d”格式控制，未指定时默认十进制 </span><br>%h或%H		<span class="hljs-comment">//以十六进制的形式输出</span><br>%d或%D		<span class="hljs-comment">//以十进制的形式输出</span><br>%o或%O		<span class="hljs-comment">//以八进制的形式输出</span><br>%b或%B		<span class="hljs-comment">//以二进制的形式输出</span><br></code></pre></td></tr></table></figure>
+
+<p>实例展示：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656902444944-ee4367e3-82a6-4250-bb5b-05043ad6d992.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=238&id=uac9fe979&margin=%5Bobject%20Object%5D&name=image.png&originHeight=313&originWidth=320&originalType=binary&ratio=1&rotation=0&showTitle=false&size=52481&status=done&style=none&taskId=uccb90862-3345-46f4-926d-d795682aeba&title=&width=243.8095238095238" srcset="/img/loading.gif" lazyload alt="image.png"><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656903331436-912eaa21-f409-40a2-81de-980a9aab8dba.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=169&id=u156951df&margin=%5Bobject%20Object%5D&name=image.png&originHeight=222&originWidth=454&originalType=binary&ratio=1&rotation=0&showTitle=false&size=43639&status=done&style=none&taskId=ue80e9a50-056b-4e66-9abb-6a5a4f03ac5&title=&width=345.9047619047619" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h4 id="2-write-用于输出、打印信息（不会自动换行）"><a href="#2-write-用于输出、打印信息（不会自动换行）" class="headerlink" title="2.$write 用于输出、打印信息（不会自动换行）"></a>2.$write 用于输出、打印信息（不会自动换行）</h4><p>使用格式为：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-built_in">$write</span>(<span class="hljs-string">&quot;%b＋%b＝%d\n&quot;</span>,a, b,c);  <span class="hljs-comment">//“％b＋％b＝％d”格式控制，未指定时默认十进制 </span><br>\n   <span class="hljs-comment">//表示换行</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="3-strobe用于输出、打印信息"><a href="#3-strobe用于输出、打印信息" class="headerlink" title="3.$strobe用于输出、打印信息"></a>3.$strobe用于输出、打印信息</h4><p>与前面两个的区别是只在最后执行</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656903343174-a93ded6c-a0df-4f7b-b23a-963b41e8742e.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=115&id=ufe573d16&margin=%5Bobject%20Object%5D&name=image.png&originHeight=151&originWidth=446&originalType=binary&ratio=1&rotation=0&showTitle=false&size=39337&status=done&style=none&taskId=u78cc79e5-6290-4740-b574-b98d051df36&title=&width=339.8095238095238" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>输出结果：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656903347947-e369935f-adf5-472a-a07e-7ec1f4d12664.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=146&id=u7d9d9dc9&margin=%5Bobject%20Object%5D&name=image.png&originHeight=191&originWidth=450&originalType=binary&ratio=1&rotation=0&showTitle=false&size=45044&status=done&style=none&taskId=ud9c5c552-7f96-47bc-9e8f-af2e3b820d1&title=&width=342.85714285714283" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h4 id="4-monitor用于持续监测变量"><a href="#4-monitor用于持续监测变量" class="headerlink" title="4.$monitor用于持续监测变量"></a>4.$monitor用于持续监测变量</h4><p>变量每被赋值一次都进行一次打印<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656903064684-5cf8dbe9-236b-4f32-8cf9-f6ce5abd924c.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=121&id=u6818a385&margin=%5Bobject%20Object%5D&name=image.png&originHeight=159&originWidth=372&originalType=binary&ratio=1&rotation=0&showTitle=false&size=23798&status=done&style=none&taskId=ud96ffe22-d38a-431f-bdd8-de9090335e9&title=&width=283.42857142857144" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>输出结果：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656903056130-50ed0a2c-743e-4109-9fa1-538c418abdc5.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=147&id=u6d8c88d0&margin=%5Bobject%20Object%5D&name=image.png&originHeight=248&originWidth=486&originalType=binary&ratio=1&rotation=0&showTitle=false&size=48017&status=done&style=none&taskId=uf2346dc0-4b9a-4413-947a-ea082f47968&title=&width=288.28570556640625" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h4 id="5-stop用于暂停仿真，-finish用于结束仿真"><a href="#5-stop用于暂停仿真，-finish用于结束仿真" class="headerlink" title="5.$stop用于暂停仿真，$finish用于结束仿真"></a>5.$stop用于暂停仿真，$finish用于结束仿真</h4><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656902993652-b1b2e169-9fda-4f72-b6e2-e38a57fdbc1a.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=211&id=ua8040f35&margin=%5Bobject%20Object%5D&name=image.png&originHeight=277&originWidth=385&originalType=binary&ratio=1&rotation=0&showTitle=false&size=69178&status=done&style=none&taskId=u197b7300-bc15-491b-bba5-0f14073935d&title=&width=293.3333333333333" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>代码中的#100 是等待100个时间单位</p>
+<p>输出结果：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656903168154-3d98624d-2c90-4546-8ed7-ddffa4f0a4c0.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=204&id=ub93055cf&margin=%5Bobject%20Object%5D&name=image.png&originHeight=268&originWidth=460&originalType=binary&ratio=1&rotation=0&showTitle=false&size=84133&status=done&style=none&taskId=uc57be408-0903-4744-ba82-4e7b23e96db&title=&width=350.4761904761905" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h4 id="6-time为时间函数，返回64位当前仿真时间；-random用于产生随机函数，返回随机数"><a href="#6-time为时间函数，返回64位当前仿真时间；-random用于产生随机函数，返回随机数" class="headerlink" title="6. $time为时间函数，返回64位当前仿真时间；$random用于产生随机函数，返回随机数"></a>6. $time为时间函数，返回64位当前仿真时间；$random用于产生随机函数，返回随机数</h4><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656903141222-52606dc4-3687-48cf-a608-821a58a590a4.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=123&id=uf7d80974&margin=%5Bobject%20Object%5D&name=image.png&originHeight=161&originWidth=407&originalType=binary&ratio=1&rotation=0&showTitle=false&size=30175&status=done&style=none&taskId=ud713c80b-ee8e-431d-bf6e-d8292616dee&title=&width=310.0952380952381" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>输出结果：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656903158607-6d76f4f1-d51d-4cd2-a3f2-b3565085af54.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=226&id=uf885032a&margin=%5Bobject%20Object%5D&name=image.png&originHeight=296&originWidth=449&originalType=binary&ratio=1&rotation=0&showTitle=false&size=61585&status=done&style=none&taskId=ua4a3eafc-c0db-4946-b292-c35f77dffc0&title=&width=342.0952380952381" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h4 id="7-readmemb用于读二进制文件函数，-readmemh-用于读十六进制文件函数"><a href="#7-readmemb用于读二进制文件函数，-readmemh-用于读十六进制文件函数" class="headerlink" title="7.$readmemb用于读二进制文件函数，$readmemh 用于读十六进制文件函数"></a>7.$readmemb用于读二进制文件函数，$readmemh 用于读十六进制文件函数</h4><p>使用格式：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-built_in">$readmemb</span>（<span class="hljs-string">&quot;＜数据文件名＞&quot;</span>，＜存贮器名＞）;<br><span class="hljs-built_in">$readmemh</span>（<span class="hljs-string">&quot;＜数据文件名＞&quot;</span>，＜存贮器名＞）;<br></code></pre></td></tr></table></figure>
+
+<p>实例：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656903458563-7a985253-3eaf-48f1-883a-423047a2828d.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=211&id=u150c2480&margin=%5Bobject%20Object%5D&name=image.png&originHeight=277&originWidth=325&originalType=binary&ratio=1&rotation=0&showTitle=false&size=47907&status=done&style=none&taskId=u0a92128a-3b7f-4754-9873-b256b19e661&title=&width=247.61904761904762" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>输出结果：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1656903553160-672f5033-9636-4e87-a1df-ff3346264dfd.png#clientId=u93596d75-2520-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=165&id=u17346dcf&margin=%5Bobject%20Object%5D&name=image.png&originHeight=217&originWidth=451&originalType=binary&ratio=1&rotation=0&showTitle=false&size=46511&status=done&style=none&taskId=u0a140422-34ce-4a89-ab66-43cf9479dd5&title=&width=343.6190476190476" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/FPGA%E5%AD%A6%E4%B9%A0/" class="category-chain-item">FPGA学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Verilog/">#Verilog</a>
+      
+        <a href="/tags/%E8%AF%AD%E6%B3%95/">#语法</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>FPGA学习3：初识Verilog语法</div>
+      <div>http://findm.cf/2022/07/04/12FPGA学习3：初识Verilog语法/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>马钏烽</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年7月4日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/03/11%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87%E7%AC%AC%E4%B8%89%E5%A4%A9-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%8D%E4%B9%A02/" title="面试准备第三天-数据库复习2">
+                        <span class="hidden-mobile">面试准备第三天-数据库复习2</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
