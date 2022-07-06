@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>13脉冲神经网络的简单介绍</title>
+    <link href="/2022/07/06/13%E8%84%89%E5%86%B2%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/"/>
+    <url>/2022/07/06/13%E8%84%89%E5%86%B2%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E7%AE%80%E5%8D%95%E4%BB%8B%E7%BB%8D/</url>
+    
+    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer" /><blockquote><p>脉冲神经网络（SNN）归属于人工神经网络（ANN），被称作第三代神经网络，拥有更接近生物神经元的机制，也就是说它的工作方式更加类似人脑。</p></blockquote><h3 id="脉冲神经网络诞生的原因"><a href="#脉冲神经网络诞生的原因" class="headerlink" title="脉冲神经网络诞生的原因"></a>脉冲神经网络诞生的原因</h3><ol><li>人工神经网络需要更加高性能的计算平台</li><li>人工神经网络不能实现强人工智能，因为它的工作方式与生物大脑仍存在着巨大的差距，脉冲神经网络的出现就是弥合神经科学与机器学习之间的巨大差距。</li></ol><h3 id="脉冲神经网络传统神经网络的对比"><a href="#脉冲神经网络传统神经网络的对比" class="headerlink" title="脉冲神经网络传统神经网络的对比"></a>脉冲神经网络传统神经网络的对比</h3><p>第一代神经网络是只能输出0、1的二值感知机<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657093960799-9f3cb8f1-621d-4e66-b91f-b5bb144a572c.png#clientId=u2c6e05e1-6522-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=243&id=u97afd13c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=319&originWidth=464&originalType=binary&ratio=1&rotation=0&showTitle=false&size=39412&status=done&style=none&taskId=u7df0e7a9-6c38-4b0c-96eb-e33a0d6421d&title=&width=353.5238095238095" alt="image.png"></p><p>第二代神经网络就是现在流行的、利用非线性激活函数实现连续数只输出的加深的深度学习<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657093979593-98db6ce9-469d-48de-9187-7ba9798faa90.png#clientId=u2c6e05e1-6522-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=266&id=uac0f23be&margin=%5Bobject%20Object%5D&name=image.png&originHeight=349&originWidth=671&originalType=binary&ratio=1&rotation=0&showTitle=false&size=112913&status=done&style=none&taskId=uad30adc1-a156-46f7-832a-86e42177462&title=&width=511.23809523809524" alt="image.png"><br>第三代神经网络就是本文的脉冲神经网络，在脉冲神经网络中，都是<strong>0、1组成的脉冲序列</strong>的传输<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657094010750-c692e127-be26-480e-9f5b-ed5afc5c9c4f.png#clientId=u2c6e05e1-6522-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=266&id=u2288cb48&margin=%5Bobject%20Object%5D&name=image.png&originHeight=349&originWidth=636&originalType=binary&ratio=1&rotation=0&showTitle=false&size=259850&status=done&style=none&taskId=u720266e7-6476-412f-ab23-45e7143e695&title=&width=484.57142857142856" alt="image.png"></p><h3 id="脉冲神经网络工作的一般过程"><a href="#脉冲神经网络工作的一般过程" class="headerlink" title="脉冲神经网络工作的一般过程"></a>脉冲神经网络工作的一般过程</h3><ol><li>确定编码方式，将样本数据编码为脉冲序列</li><li>将脉冲序列输入脉冲神经网络得到输出脉冲序列</li><li>将期望脉冲序列和实际输出脉冲序列作对比得到误差，并根据误差调整相应的权值<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657093932639-0df14001-0aa5-4394-a7ef-d1962186018f.png#clientId=u2c6e05e1-6522-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=478&id=rL1kv&margin=%5Bobject%20Object%5D&name=image.png&originHeight=627&originWidth=668&originalType=binary&ratio=1&rotation=0&showTitle=false&size=263190&status=done&style=none&taskId=u440d5ea5-c916-4ffd-89d0-7d7be471618&title=&width=508.95238095238096" alt="image.png"></li></ol><p>这样看来，脉冲神经网络的工作思路与传统神经网络有很大的相似性，上面这个是一个简易的对比图，可以看出，SNN就是将输入输出、还有激活函数这些换为了脉冲。但在实现细节上具有很大不同。从这个过程来看，实现脉冲神经网络会有几个难点</p><h3 id="脉冲神经网络实现难点"><a href="#脉冲神经网络实现难点" class="headerlink" title="脉冲神经网络实现难点"></a>脉冲神经网络实现难点</h3><ol><li>如何确定编码的方式，即如何将样本信息合理地转换为脉冲序列进行训练</li><li>如何设计脉冲神经元的模型，如何模拟脉冲神经网络</li><li>如何度量实际输出脉冲序列和期望输出脉冲序列误差，即误差函数的合理定义</li></ol><h3 id="针对上述难点的解决方案"><a href="#针对上述难点的解决方案" class="headerlink" title="针对上述难点的解决方案"></a>针对上述难点的解决方案</h3><ol><li><p>对于编码方式，主要有两种：时间编码和速率编码</p><ol><li>速率编码理解：在运动细胞中，支配肌肉的力量完全取决于“脉冲发射率”，可以简单理解为脉冲发放的数量</li><li>时间编码理解：细胞时刻关注着外部的刺激，例如听觉系统。采用基于时间编码，可以更高效的信息进行表示，同时速度更快</li></ol><p> ​使用哪种编码是神经科学界争论的话题，甚至这些属于也没有明确的定义</p></li><li><p>神经元模型有LIF、IF、IM、HH等</p></li></ol><p>在我的理解中，神经元负责在一定情况下激活相关操作，就有些类似于传统意义上的激活函数，只不过神经元模型是通过硬件实现的激活。其中LIF神经元模型是最常用的，这里简单介绍一下。LIF的全程是leaky Integrat时e-And-Fire。leaky表示泄露，由于细胞膜是不断进行膜内外例子交换，所以当只有一次输入时，电压会自动发生泄露逐渐回落到静息状态，对于LIF模型一般是认为先下降低于Vrest,再上升到静息电位处。</p><ol start="3"><li>误差定义，根据任务进行合适定义</li></ol><h3 id="SNN的学习算法"><a href="#SNN的学习算法" class="headerlink" title="SNN的学习算法"></a>SNN的学习算法</h3><p>在了解了脉冲神经网络的结构之后，我还关注其如何进行学习。首先要了解，脉冲神经网络由于用到离散的脉冲信号，不能利用反向传播、梯度更新的方式进行网络训练。主要有三种学习的方式。</p><ol><li>利用一定方法，将现有的ANN模型映射到SNN中</li><li>对生物神经元模型进行处理，换成一个能够求导的模型，或者对传递的脉冲信息进行转换。</li><li>STDP算法<br>STDP的基本原理简单概括为：如果两个神经元发射脉冲的时间非常接近，那么这两个神经元的联系就越紧密，利用这一原理，就可以根据前后神经元的脉冲发放关系进行权重的调整。这里方法一般是无监督的。</li></ol><h3 id="SNN特点总结"><a href="#SNN特点总结" class="headerlink" title="SNN特点总结"></a>SNN特点总结</h3><ol><li>采用了生物神经元模型如LIF，比之前ANN的神经元更加接近生物。</li><li>信息的传递是基于脉冲进行的所以网络的输入要进行额外编码</li><li>SNN网络的能耗更低，每个神经元单独工作，部分神经元在没接收到输入时，将不会工作。</li><li>SNN是一个动态的系统，因此他在动态过程的表现出色，如语音与动态图片识别</li><li>SNN的训练比较困难，目前还有没专门为这项任务建立的学习算法。</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>脉冲神经网络</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>SNN</tag>
+      
+      <tag>脉冲神经网络</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>FPGA学习3：初识Verilog语法</title>
     <link href="/2022/07/04/12FPGA%E5%AD%A6%E4%B9%A03%EF%BC%9A%E5%88%9D%E8%AF%86Verilog%E8%AF%AD%E6%B3%95/"/>
     <url>/2022/07/04/12FPGA%E5%AD%A6%E4%B9%A03%EF%BC%9A%E5%88%9D%E8%AF%86Verilog%E8%AF%AD%E6%B3%95/</url>
