@@ -1,0 +1,760 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="马钏烽">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="为了更好的学习FPGA，本节学习FPGA相关的基础数字电路知识，分为上下两部分，本节位为第一部分，介绍数字电路的基础知识与组合逻辑电路。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FPGA学习5：数字电路基础知识（上）">
+<meta property="og:url" content="http://findm.cf/2022/07/15/16FPGA%E5%AD%A6%E4%B9%A05%EF%BC%9A%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%EF%BC%88%E4%B8%8A%EF%BC%89/index.html">
+<meta property="og:site_name" content="小马的个人博客">
+<meta property="og:description" content="为了更好的学习FPGA，本节学习FPGA相关的基础数字电路知识，分为上下两部分，本节位为第一部分，介绍数字电路的基础知识与组合逻辑电路。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657852874832-7efdfd73-0532-4745-8556-bceb6ace7a09.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=104&id=u2e1c2531&margin=%5Bobject%20Object%5D&name=image.png&originHeight=184&originWidth=359&originalType=binary&ratio=1&rotation=0&showTitle=false&size=7285&status=done&style=none&taskId=u263d846c-64f5-45cf-8e01-28820683ec9&title=&width=203.5238037109375">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657852979520-69868a25-4b8d-422c-97a0-a443fc64f9d1.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=117&id=u20b30f58&margin=%5Bobject%20Object%5D&name=image.png&originHeight=211&originWidth=369&originalType=binary&ratio=1&rotation=0&showTitle=false&size=16323&status=done&style=none&taskId=u461e523d-3af0-49d2-b021-234ffead369&title=&width=205.14285278320312">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657853150166-10827cc9-fe54-42d1-96ed-f5e3ad506c47.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=279&id=ub8ba0d0b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=366&originWidth=686&originalType=binary&ratio=1&rotation=0&showTitle=false&size=40531&status=done&style=none&taskId=u9c9b23b6-8aa0-4b87-bc0b-4b08dc1e5a2&title=&width=522.6666666666666">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657853310020-2fd04dac-101d-4933-bb41-fefb3f778e93.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=352&id=ub6afafed&margin=%5Bobject%20Object%5D&name=image.png&originHeight=462&originWidth=924&originalType=binary&ratio=1&rotation=0&showTitle=false&size=279827&status=done&style=none&taskId=ubc3746b7-6841-4c89-b8f1-2b51f8d3efc&title=&width=704">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657853393545-e507f403-346c-4f7c-b6fd-92bdc0d917a0.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=312&id=uefe6da5c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=409&originWidth=796&originalType=binary&ratio=1&rotation=0&showTitle=false&size=48940&status=done&style=none&taskId=ue9753015-388d-471b-8a4b-e727407cbe1&title=&width=606.4761904761905">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657853577907-6b9dac56-8f87-4879-99be-664f1799fd07.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=130&id=u6911a33c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=221&originWidth=585&originalType=binary&ratio=1&rotation=0&showTitle=false&size=35860&status=done&style=none&taskId=u5e769467-180c-4245-9268-ca7b0e0be8f&title=&width=343.71429443359375">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657853603754-000be081-635a-4823-be8d-3fa7d4451189.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=240&id=uca4d236e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=417&originWidth=510&originalType=binary&ratio=1&rotation=0&showTitle=false&size=55237&status=done&style=none&taskId=u4d1991ab-7d6a-4c2c-bd4b-07ef25a0a66&title=&width=293.5714416503906">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657853626157-94e85f9b-a96e-4671-a38e-d1cc0be4a418.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=254&id=u613271fc&margin=%5Bobject%20Object%5D&name=image.png&originHeight=443&originWidth=574&originalType=binary&ratio=1&rotation=0&showTitle=false&size=44353&status=done&style=none&taskId=u84c5236e-98b9-4944-a1c1-c36b5e473e2&title=&width=329.3333435058594">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657853661049-b7e7fc68-8057-4015-84eb-eec2ffc89686.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=285&id=u8dc1f3f6&margin=%5Bobject%20Object%5D&name=image.png&originHeight=501&originWidth=1033&originalType=binary&ratio=1&rotation=0&showTitle=false&size=220534&status=done&style=none&taskId=u3122d9a0-79d2-4f65-bed2-6df6ec0f569&title=&width=587.8095092773438">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657853757465-5a7a34d9-6a1e-4526-b6e1-086f82b65627.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=175&id=u0be5384b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=245&originWidth=680&originalType=binary&ratio=1&rotation=0&showTitle=false&size=43173&status=done&style=none&taskId=u118bd36a-7262-4ab9-bdfc-9a42ecb0820&title=&width=487.09527587890625">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657853921579-49967014-281f-407c-bf29-11ad584751ee.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=131&id=u08e63a55&margin=%5Bobject%20Object%5D&name=image.png&originHeight=172&originWidth=465&originalType=binary&ratio=1&rotation=0&showTitle=false&size=20894&status=done&style=none&taskId=uaf45eb43-03d8-4c50-804f-b399bb48ec0&title=&width=354.2857142857143">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657854038460-59bd59d6-2356-4930-b32a-e803ea73193d.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=42&id=ua8367f34&margin=%5Bobject%20Object%5D&name=image.png&originHeight=55&originWidth=696&originalType=binary&ratio=1&rotation=0&showTitle=false&size=27186&status=done&style=none&taskId=u569231f6-6883-4aee-b038-e3eabd987ce&title=&width=530.2857142857143">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657854209382-c267e488-c7b7-420d-a26f-61ca44400e59.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=223&id=u38119dd9&margin=%5Bobject%20Object%5D&name=image.png&originHeight=293&originWidth=932&originalType=binary&ratio=1&rotation=0&showTitle=false&size=45949&status=done&style=none&taskId=u6b83fa3a-0025-429c-9499-50a37ddb823&title=&width=710.0952380952381">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657854232637-aeea3f77-e66e-413d-ab1e-c34f19173086.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=171&id=u6dca42d9&margin=%5Bobject%20Object%5D&name=image.png&originHeight=225&originWidth=852&originalType=binary&ratio=1&rotation=0&showTitle=false&size=38123&status=done&style=none&taskId=ue3d8a650-047a-46db-89e0-852e32f7af8&title=&width=649.1428571428571">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657854475281-e4c94266-5ddb-4c96-ace6-e55efc546242.png#clientId=u089bf9a0-488d-4&crop=0.0475&crop=0&crop=1&crop=1&from=paste&height=64&id=u56f85758&margin=%5Bobject%20Object%5D&name=image.png&originHeight=89&originWidth=785&originalType=binary&ratio=1&rotation=0&showTitle=false&size=26800&status=done&style=none&taskId=u24a54af6-b372-43b7-b7b3-d0a7f294232&title=&width=561">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657854606625-7b03ebc2-b2b9-4a8e-94f9-8db5fcf3e615.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=132&id=u28d541a1&margin=%5Bobject%20Object%5D&name=image.png&originHeight=193&originWidth=612&originalType=binary&ratio=1&rotation=0&showTitle=false&size=26024&status=done&style=none&taskId=uc2a3fbc8-814a-49b4-9985-6a97bd75d8e&title=&width=418.2857360839844">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657854805954-c7232eb3-f499-4837-9169-20e75e4a4dbe.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=184&id=uc87ff3a5&margin=%5Bobject%20Object%5D&name=image.png&originHeight=241&originWidth=862&originalType=binary&ratio=1&rotation=0&showTitle=false&size=31194&status=done&style=none&taskId=u61a1096e-2426-4663-930a-a4bfb1ebbd4&title=&width=656.7619047619048">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657854904396-5a12ebff-690b-48a6-88d6-ad67c5455274.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=227&id=u88c36848&margin=%5Bobject%20Object%5D&name=image.png&originHeight=298&originWidth=455&originalType=binary&ratio=1&rotation=0&showTitle=false&size=42918&status=done&style=none&taskId=uc5a3111b-e68b-41ad-a741-e911c29aa8e&title=&width=346.6666666666667">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657854979574-80063573-2a66-486c-91c6-f88758813bfb.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=104&id=u498b9c9e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=136&originWidth=407&originalType=binary&ratio=1&rotation=0&showTitle=false&size=13184&status=done&style=none&taskId=u91321622-a722-4833-94a6-d5f177e88d5&title=&width=310.0952380952381">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657855099712-f73ebfbd-9253-4656-8489-1ef81ca8be6b.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=123&id=uee7f587d&margin=%5Bobject%20Object%5D&name=image.png&originHeight=193&originWidth=680&originalType=binary&ratio=1&rotation=0&showTitle=false&size=17232&status=done&style=none&taskId=u20b66976-c1d6-408e-8396-9c9528d1e0e&title=&width=435.0952453613281">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657855112251-76a0727e-7edf-44c0-beef-918afc63fe30.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=165&id=u8aeb04d5&margin=%5Bobject%20Object%5D&name=image.png&originHeight=276&originWidth=611&originalType=binary&ratio=1&rotation=0&showTitle=false&size=16633&status=done&style=none&taskId=uff4cc881-a1f3-4b95-9490-6dcdc87691b&title=&width=364.5238037109375">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657855122833-206b8a54-48eb-466d-bcf0-59610ee64a2a.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=162&id=u9b034788&margin=%5Bobject%20Object%5D&name=image.png&originHeight=280&originWidth=713&originalType=binary&ratio=1&rotation=0&showTitle=false&size=23256&status=done&style=none&taskId=ua4cbf245-12f7-4c17-8092-b46ff8a3a0b&title=&width=412.23809814453125">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657855208306-23eb728d-ff96-4e7f-b6e4-6c0d3e5dfcfc.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=232&id=u16954a19&margin=%5Bobject%20Object%5D&name=image.png&originHeight=337&originWidth=736&originalType=binary&ratio=1&rotation=0&showTitle=false&size=43789&status=done&style=none&taskId=u960fa1c9-fc73-4ef5-adbc-78cb90e3153&title=&width=506.76190185546875">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657855384224-bbf93767-e93d-4a0c-8c67-20a9616b201e.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=379&id=u070d0e1f&margin=%5Bobject%20Object%5D&name=image.png&originHeight=498&originWidth=527&originalType=binary&ratio=1&rotation=0&showTitle=false&size=51835&status=done&style=none&taskId=uffd3f64a-25b3-4af4-9028-061cd169466&title=&width=401.5238095238095">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657855569645-09e2962f-97d0-4e57-9b89-01bdec774525.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=143&id=uf4e98b22&margin=%5Bobject%20Object%5D&name=image.png&originHeight=188&originWidth=630&originalType=binary&ratio=1&rotation=0&showTitle=false&size=14116&status=done&style=none&taskId=u8ceb19be-d7c8-4d89-bf88-64cb3e1ef4f&title=&width=480">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657855597969-5b339ee6-20fe-4647-aa99-a21f3088a23c.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=50&id=ua97faab6&margin=%5Bobject%20Object%5D&name=image.png&originHeight=69&originWidth=296&originalType=binary&ratio=1&rotation=0&showTitle=false&size=5178&status=done&style=none&taskId=u02d329c8-bfdb-4e25-a6e0-a9d31603ed1&title=&width=212.52381896972656">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657855720189-7f067455-3987-4df1-a993-53759ac448d1.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=95&id=ub2791406&margin=%5Bobject%20Object%5D&name=image.png&originHeight=136&originWidth=320&originalType=binary&ratio=1&rotation=0&showTitle=false&size=9288&status=done&style=none&taskId=ub9709937-155f-455c-9b95-1a36be935ea&title=&width=223.8095245361328">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657855962272-870abccb-535c-4542-94dc-349e733220e4.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=183&id=u845a39a1&margin=%5Bobject%20Object%5D&name=image.png&originHeight=252&originWidth=438&originalType=binary&ratio=1&rotation=0&showTitle=false&size=28466&status=done&style=none&taskId=uca2c75ed-79db-465d-8ff1-ac6f162e52b&title=&width=318.71429443359375">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657855991459-b92a62fc-715f-48b3-8ab4-5707d16794b2.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=150&id=u3b2b1fbf&margin=%5Bobject%20Object%5D&name=image.png&originHeight=210&originWidth=760&originalType=binary&ratio=1&rotation=0&showTitle=false&size=24819&status=done&style=none&taskId=u99c4ad1d-15b0-4b1b-b44f-fafd33bc050&title=&width=543.047607421875">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657856010834-2e62eab1-4a55-461d-b202-7ca3f7dbc72b.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=234&id=uf8b93fbe&margin=%5Bobject%20Object%5D&name=image.png&originHeight=328&originWidth=692&originalType=binary&ratio=1&rotation=0&showTitle=false&size=34839&status=done&style=none&taskId=u7d8950ed-6f17-4b31-832f-8a4d0186e64&title=&width=493.23809814453125">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657856731143-6ebf8c16-9a04-45b0-8d43-e95d764a4319.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=261&id=uce5ae691&margin=%5Bobject%20Object%5D&name=image.png&originHeight=343&originWidth=996&originalType=binary&ratio=1&rotation=0&showTitle=false&size=119319&status=done&style=none&taskId=u47e0f2ca-4b29-46c4-b6b5-54df5708a28&title=&width=758.8571428571429">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657856772704-2fc54000-c5ea-4c60-8cdd-0f74d696d6aa.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=247&id=u65e6f1b9&margin=%5Bobject%20Object%5D&name=image.png&originHeight=324&originWidth=814&originalType=binary&ratio=1&rotation=0&showTitle=false&size=89426&status=done&style=none&taskId=ucca464da-30a7-42b0-8818-b6b37c92bed&title=&width=620.1904761904761">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657856847665-2496e0ed-94da-474d-a58d-f4eb0e7c00b8.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=207&id=ua684b89b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=272&originWidth=769&originalType=binary&ratio=1&rotation=0&showTitle=false&size=34542&status=done&style=none&taskId=ued09751a-aaf8-4de3-a228-24038ff8261&title=&width=585.9047619047619">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657857202061-9ebda970-900f-4c7f-97af-19d31b318846.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=389&id=u34ffc46c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=510&originWidth=1038&originalType=binary&ratio=1&rotation=0&showTitle=false&size=130436&status=done&style=none&taskId=u0f41939d-78bc-4eb4-91a8-324b83a9734&title=&width=790.8571428571429">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657857711265-d0dc21fb-7b21-4761-952f-09cb0c37a232.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=278&id=u3b4ec1c1&margin=%5Bobject%20Object%5D&name=image.png&originHeight=365&originWidth=1083&originalType=binary&ratio=1&rotation=0&showTitle=false&size=159276&status=done&style=none&taskId=ue0f01f78-4bae-450c-87e3-e36d61c5245&title=&width=825.1428571428571">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657857771934-e7f09caf-ed97-4c90-b8c9-fcbcdf85245c.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=374&id=ubc7de54c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=491&originWidth=938&originalType=binary&ratio=1&rotation=0&showTitle=false&size=239902&status=done&style=none&taskId=u7322f4d7-4c22-483b-9dca-547fa7855b4&title=&width=714.6666666666666">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657857922269-9f9687ab-b046-443a-a086-4f4f3d9f56a3.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=328&id=ufa88a0ad&margin=%5Bobject%20Object%5D&name=image.png&originHeight=431&originWidth=951&originalType=binary&ratio=1&rotation=0&showTitle=false&size=130904&status=done&style=none&taskId=uf698278f-20cc-46bd-b8a8-7adca3ff116&title=&width=724.5714285714286">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657857931720-1ceffe08-35ce-4ea8-bf31-0f61be98f5d8.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=318&id=ue29b557b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=418&originWidth=978&originalType=binary&ratio=1&rotation=0&showTitle=false&size=131288&status=done&style=none&taskId=uaf9001e7-5bc5-492f-af70-03a05ac3493&title=&width=745.1428571428571">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657858065917-45093abd-fe5f-4674-a226-23ba99fa3b0d.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=248&id=udfba90fb&margin=%5Bobject%20Object%5D&name=image.png&originHeight=325&originWidth=1027&originalType=binary&ratio=1&rotation=0&showTitle=false&size=51007&status=done&style=none&taskId=u5175237e-84e6-46ee-80f8-d219cfc2813&title=&width=782.4761904761905">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657858140890-295d29b7-29f8-4551-afcc-5c5374fcec3e.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=120&id=u76925868&margin=%5Bobject%20Object%5D&name=image.png&originHeight=158&originWidth=493&originalType=binary&ratio=1&rotation=0&showTitle=false&size=25042&status=done&style=none&taskId=ua1ab6f2e-6c4b-4d1f-be04-c9ec69d2265&title=&width=375.6190476190476">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657858184320-01b471d0-2759-4e85-a732-a8c107ff1f5d.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=254&id=ubdda5183&margin=%5Bobject%20Object%5D&name=image.png&originHeight=333&originWidth=1090&originalType=binary&ratio=1&rotation=0&showTitle=false&size=118955&status=done&style=none&taskId=uab14a3c9-092f-447e-9f3f-9fd9bf2fc01&title=&width=830.4761904761905">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657857982153-1ca1f368-bfd6-4f08-a362-d25b2acf0c21.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=259&id=atkXL&margin=%5Bobject%20Object%5D&name=image.png&originHeight=340&originWidth=1046&originalType=binary&ratio=1&rotation=0&showTitle=false&size=61273&status=done&style=none&taskId=u08905a8b-f059-48a9-b934-41218991c47&title=&width=796.952380952381">
+<meta property="article:published_time" content="2022-07-15T04:16:35.000Z">
+<meta property="article:modified_time" content="2022-07-15T05:00:38.819Z">
+<meta property="article:author" content="马钏烽">
+<meta property="article:tag" content="数字电路">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1657852874832-7efdfd73-0532-4745-8556-bceb6ace7a09.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=104&id=u2e1c2531&margin=%5Bobject%20Object%5D&name=image.png&originHeight=184&originWidth=359&originalType=binary&ratio=1&rotation=0&showTitle=false&size=7285&status=done&style=none&taskId=u263d846c-64f5-45cf-8e01-28820683ec9&title=&width=203.5238037109375">
+  
+  
+  
+  <title>FPGA学习5：数字电路基础知识（上） - 小马的个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"findm.cf","root":"/","version":"1.9.1","typing":{"enable":true,"typeSpeed":85,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客主页</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="FPGA学习5：数字电路基础知识（上）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-07-15 12:16" pubdate>
+          2022年7月15日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          10 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">FPGA学习5：数字电路基础知识（上）</h1>
+            
+            <div class="markdown-body">
+              
+              <meta name="referrer" content="no-referrer" />
+
+<h2 id="一、基础知识"><a href="#一、基础知识" class="headerlink" title="一、基础知识"></a>一、基础知识</h2><h3 id="1-数字信号与模拟信号"><a href="#1-数字信号与模拟信号" class="headerlink" title="1.数字信号与模拟信号"></a>1.数字信号与模拟信号</h3><p>数字量–&gt;数字信号：处理数字信号的电路叫做数字电路 （电压随时间不连续变化）</p>
+<p><strong>注重</strong>输入输出的逻辑关系</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657852874832-7efdfd73-0532-4745-8556-bceb6ace7a09.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=104&id=u2e1c2531&margin=%5Bobject%20Object%5D&name=image.png&originHeight=184&originWidth=359&originalType=binary&ratio=1&rotation=0&showTitle=false&size=7285&status=done&style=none&taskId=u263d846c-64f5-45cf-8e01-28820683ec9&title=&width=203.5238037109375" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>物理量–&gt;模拟信号：处理模拟信号的电路叫做模拟电路（电压随时间连续变化）</p>
+<p><strong>注重</strong>出入输出信号的大小关系和相位关系</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657852979520-69868a25-4b8d-422c-97a0-a443fc64f9d1.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=117&id=u20b30f58&margin=%5Bobject%20Object%5D&name=image.png&originHeight=211&originWidth=369&originalType=binary&ratio=1&rotation=0&showTitle=false&size=16323&status=done&style=none&taskId=u461e523d-3af0-49d2-b021-234ffead369&title=&width=205.14285278320312" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="2-数制与编码"><a href="#2-数制与编码" class="headerlink" title="2.数制与编码"></a>2.数制与编码</h3><h4 id="①数制"><a href="#①数制" class="headerlink" title="①数制"></a>①数制</h4><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657853150166-10827cc9-fe54-42d1-96ed-f5e3ad506c47.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=279&id=ub8ba0d0b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=366&originWidth=686&originalType=binary&ratio=1&rotation=0&showTitle=false&size=40531&status=done&style=none&taskId=u9c9b23b6-8aa0-4b87-bc0b-4b08dc1e5a2&title=&width=522.6666666666666" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h4 id="②编码：代码与信息之间的对应过程就是编码"><a href="#②编码：代码与信息之间的对应过程就是编码" class="headerlink" title="②编码：代码与信息之间的对应过程就是编码"></a>②编码：代码与信息之间的对应过程就是编码</h4><p>常用的是BCD码：用四位二进制来表示一位十进制数，BCD码又分为以下几种：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657853310020-2fd04dac-101d-4933-bb41-fefb3f778e93.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=352&id=ub6afafed&margin=%5Bobject%20Object%5D&name=image.png&originHeight=462&originWidth=924&originalType=binary&ratio=1&rotation=0&showTitle=false&size=279827&status=done&style=none&taskId=ubc3746b7-6841-4c89-b8f1-2b51f8d3efc&title=&width=704" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="3-逻辑代数"><a href="#3-逻辑代数" class="headerlink" title="3.逻辑代数"></a>3.逻辑代数</h3><h4 id="①运算"><a href="#①运算" class="headerlink" title="①运算"></a>①运算</h4><p>又叫作开关代数与布尔代数，根据一定的规律进行运算，只有0和1<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657853393545-e507f403-346c-4f7c-b6fd-92bdc0d917a0.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=312&id=uefe6da5c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=409&originWidth=796&originalType=binary&ratio=1&rotation=0&showTitle=false&size=48940&status=done&style=none&taskId=ue9753015-388d-471b-8a4b-e727407cbe1&title=&width=606.4761904761905" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h4 id="②逻辑代数的表示方法"><a href="#②逻辑代数的表示方法" class="headerlink" title="②逻辑代数的表示方法"></a>②逻辑代数的表示方法</h4><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657853577907-6b9dac56-8f87-4879-99be-664f1799fd07.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=130&id=u6911a33c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=221&originWidth=585&originalType=binary&ratio=1&rotation=0&showTitle=false&size=35860&status=done&style=none&taskId=u5e769467-180c-4245-9268-ca7b0e0be8f&title=&width=343.71429443359375" srcset="/img/loading.gif" lazyload alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657853603754-000be081-635a-4823-be8d-3fa7d4451189.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=240&id=uca4d236e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=417&originWidth=510&originalType=binary&ratio=1&rotation=0&showTitle=false&size=55237&status=done&style=none&taskId=u4d1991ab-7d6a-4c2c-bd4b-07ef25a0a66&title=&width=293.5714416503906" srcset="/img/loading.gif" lazyload alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657853626157-94e85f9b-a96e-4671-a38e-d1cc0be4a418.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=254&id=u613271fc&margin=%5Bobject%20Object%5D&name=image.png&originHeight=443&originWidth=574&originalType=binary&ratio=1&rotation=0&showTitle=false&size=44353&status=done&style=none&taskId=u84c5236e-98b9-4944-a1c1-c36b5e473e2&title=&width=329.3333435058594" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h4 id="③逻辑函数的化简，利用这些规律进行化简"><a href="#③逻辑函数的化简，利用这些规律进行化简" class="headerlink" title="③逻辑函数的化简，利用这些规律进行化简"></a>③逻辑函数的化简，利用这些规律进行化简</h4><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657853661049-b7e7fc68-8057-4015-84eb-eec2ffc89686.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=285&id=u8dc1f3f6&margin=%5Bobject%20Object%5D&name=image.png&originHeight=501&originWidth=1033&originalType=binary&ratio=1&rotation=0&showTitle=false&size=220534&status=done&style=none&taskId=u3122d9a0-79d2-4f65-bed2-6df6ec0f569&title=&width=587.8095092773438" srcset="/img/loading.gif" lazyload alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657853757465-5a7a34d9-6a1e-4526-b6e1-086f82b65627.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=175&id=u0be5384b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=245&originWidth=680&originalType=binary&ratio=1&rotation=0&showTitle=false&size=43173&status=done&style=none&taskId=u118bd36a-7262-4ab9-bdfc-9a42ecb0820&title=&width=487.09527587890625" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h2 id="二、组合逻辑电路"><a href="#二、组合逻辑电路" class="headerlink" title="二、组合逻辑电路"></a>二、组合逻辑电路</h2><h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h3><p>输出只与当时的输入有关，与之前有没有输入变量没有关系<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657853921579-49967014-281f-407c-bf29-11ad584751ee.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=131&id=u08e63a55&margin=%5Bobject%20Object%5D&name=image.png&originHeight=172&originWidth=465&originalType=binary&ratio=1&rotation=0&showTitle=false&size=20894&status=done&style=none&taskId=uaf45eb43-03d8-4c50-804f-b399bb48ec0&title=&width=354.2857142857143" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="2-分析与设计"><a href="#2-分析与设计" class="headerlink" title="2.分析与设计"></a>2.分析与设计</h3><h4 id="①分析"><a href="#①分析" class="headerlink" title="①分析"></a>①分析</h4><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657854038460-59bd59d6-2356-4930-b32a-e803ea73193d.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=42&id=ua8367f34&margin=%5Bobject%20Object%5D&name=image.png&originHeight=55&originWidth=696&originalType=binary&ratio=1&rotation=0&showTitle=false&size=27186&status=done&style=none&taskId=u569231f6-6883-4aee-b038-e3eabd987ce&title=&width=530.2857142857143" srcset="/img/loading.gif" lazyload alt="image.png"><br><strong><font color='red'>例子：</font></strong></p>
+<p><strong>第一步</strong>：从逻辑图到表达式<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657854209382-c267e488-c7b7-420d-a26f-61ca44400e59.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=223&id=u38119dd9&margin=%5Bobject%20Object%5D&name=image.png&originHeight=293&originWidth=932&originalType=binary&ratio=1&rotation=0&showTitle=false&size=45949&status=done&style=none&taskId=u6b83fa3a-0025-429c-9499-50a37ddb823&title=&width=710.0952380952381" srcset="/img/loading.gif" lazyload alt="image.png"><br><strong>第二步</strong>：画出真值表<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657854232637-aeea3f77-e66e-413d-ab1e-c34f19173086.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=171&id=u6dca42d9&margin=%5Bobject%20Object%5D&name=image.png&originHeight=225&originWidth=852&originalType=binary&ratio=1&rotation=0&showTitle=false&size=38123&status=done&style=none&taskId=ue3d8a650-047a-46db-89e0-852e32f7af8&title=&width=649.1428571428571" srcset="/img/loading.gif" lazyload alt="image.png"><br><strong>第三步</strong>：分析输入输出之间的逻辑关系<br>只有两个或者三个为1的时候结果才为1（少数服从多数）</p>
+<h4 id="②设计"><a href="#②设计" class="headerlink" title="②设计"></a>②设计</h4><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657854475281-e4c94266-5ddb-4c96-ace6-e55efc546242.png#clientId=u089bf9a0-488d-4&crop=0.0475&crop=0&crop=1&crop=1&from=paste&height=64&id=u56f85758&margin=%5Bobject%20Object%5D&name=image.png&originHeight=89&originWidth=785&originalType=binary&ratio=1&rotation=0&showTitle=false&size=26800&status=done&style=none&taskId=u24a54af6-b372-43b7-b7b3-d0a7f294232&title=&width=561" srcset="/img/loading.gif" lazyload alt="image.png"><br>分析和设计的步骤正好相反</p>
+<p><strong><font color='red'>例子：</font></strong></p>
+<p><strong>第一步</strong>：确定逻辑功能，要求改变任意一个开关的状态，都能实现电灯状态的改变<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657854606625-7b03ebc2-b2b9-4a8e-94f9-8db5fcf3e615.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=132&id=u28d541a1&margin=%5Bobject%20Object%5D&name=image.png&originHeight=193&originWidth=612&originalType=binary&ratio=1&rotation=0&showTitle=false&size=26024&status=done&style=none&taskId=uc2a3fbc8-814a-49b4-9985-6a97bd75d8e&title=&width=418.2857360839844" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p><strong>第二步</strong>：列出真值表，根据真值表写出表达式（奇数个开关，灯灭；偶数个开关，灯亮）<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657854805954-c7232eb3-f499-4837-9169-20e75e4a4dbe.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=184&id=uc87ff3a5&margin=%5Bobject%20Object%5D&name=image.png&originHeight=241&originWidth=862&originalType=binary&ratio=1&rotation=0&showTitle=false&size=31194&status=done&style=none&taskId=u61a1096e-2426-4663-930a-a4bfb1ebbd4&title=&width=656.7619047619048" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p><strong>第三步</strong>：根据表达式画出逻辑图<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657854904396-5a12ebff-690b-48a6-88d6-ad67c5455274.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=227&id=u88c36848&margin=%5Bobject%20Object%5D&name=image.png&originHeight=298&originWidth=455&originalType=binary&ratio=1&rotation=0&showTitle=false&size=42918&status=done&style=none&taskId=uc5a3111b-e68b-41ad-a741-e911c29aa8e&title=&width=346.6666666666667" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="3-竞争与冒险"><a href="#3-竞争与冒险" class="headerlink" title="3.竞争与冒险"></a>3.竞争与冒险</h3><h4 id="①竞争与冒险的简单介绍"><a href="#①竞争与冒险的简单介绍" class="headerlink" title="①竞争与冒险的简单介绍"></a>①竞争与冒险的简单介绍</h4><p><strong>产生原因</strong>：在理想的门电路之中是没有延迟时间的，而实际上是存在的<br><strong>竞争现象</strong>：A信号经过两个路径到达G2，到达的时间是不一样的。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657854979574-80063573-2a66-486c-91c6-f88758813bfb.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=104&id=u498b9c9e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=136&originWidth=407&originalType=binary&ratio=1&rotation=0&showTitle=false&size=13184&status=done&style=none&taskId=u91321622-a722-4833-94a6-d5f177e88d5&title=&width=310.0952380952381" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p><strong>冒险现象</strong>：在存在竞争的电路里面，输出有时候在短时间内不符合设计（冒险是错误的输出）</p>
+<p><strong>理想状态下的波形图：</strong><br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657855099712-f73ebfbd-9253-4656-8489-1ef81ca8be6b.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=123&id=uee7f587d&margin=%5Bobject%20Object%5D&name=image.png&originHeight=193&originWidth=680&originalType=binary&ratio=1&rotation=0&showTitle=false&size=17232&status=done&style=none&taskId=u20b66976-c1d6-408e-8396-9c9528d1e0e&title=&width=435.0952453613281" srcset="/img/loading.gif" lazyload alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657855112251-76a0727e-7edf-44c0-beef-918afc63fe30.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=165&id=u8aeb04d5&margin=%5Bobject%20Object%5D&name=image.png&originHeight=276&originWidth=611&originalType=binary&ratio=1&rotation=0&showTitle=false&size=16633&status=done&style=none&taskId=uff4cc881-a1f3-4b95-9490-6dcdc87691b&title=&width=364.5238037109375" srcset="/img/loading.gif" lazyload alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657855122833-206b8a54-48eb-466d-bcf0-59610ee64a2a.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=162&id=u9b034788&margin=%5Bobject%20Object%5D&name=image.png&originHeight=280&originWidth=713&originalType=binary&ratio=1&rotation=0&showTitle=false&size=23256&status=done&style=none&taskId=ua4cbf245-12f7-4c17-8092-b46ff8a3a0b&title=&width=412.23809814453125" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p><strong>实际波形图对比：</strong></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657855208306-23eb728d-ff96-4e7f-b6e4-6c0d3e5dfcfc.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=232&id=u16954a19&margin=%5Bobject%20Object%5D&name=image.png&originHeight=337&originWidth=736&originalType=binary&ratio=1&rotation=0&showTitle=false&size=43789&status=done&style=none&taskId=u960fa1c9-fc73-4ef5-adbc-78cb90e3153&title=&width=506.76190185546875" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p><strong>两种常见的冒险类型：1冒险和0冒险</strong></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657855384224-bbf93767-e93d-4a0c-8c67-20a9616b201e.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=379&id=u070d0e1f&margin=%5Bobject%20Object%5D&name=image.png&originHeight=498&originWidth=527&originalType=binary&ratio=1&rotation=0&showTitle=false&size=51835&status=done&style=none&taskId=uffd3f64a-25b3-4af4-9028-061cd169466&title=&width=401.5238095238095" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h4 id="②冒险的识别"><a href="#②冒险的识别" class="headerlink" title="②冒险的识别"></a>②冒险的识别</h4><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657855569645-09e2962f-97d0-4e57-9b89-01bdec774525.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=143&id=uf4e98b22&margin=%5Bobject%20Object%5D&name=image.png&originHeight=188&originWidth=630&originalType=binary&ratio=1&rotation=0&showTitle=false&size=14116&status=done&style=none&taskId=u8ceb19be-d7c8-4d89-bf88-64cb3e1ef4f&title=&width=480" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p><strong><font color='red'>例子：</font></strong></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657855597969-5b339ee6-20fe-4647-aa99-a21f3088a23c.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=50&id=ua97faab6&margin=%5Bobject%20Object%5D&name=image.png&originHeight=69&originWidth=296&originalType=binary&ratio=1&rotation=0&showTitle=false&size=5178&status=done&style=none&taskId=u02d329c8-bfdb-4e25-a6e0-a9d31603ed1&title=&width=212.52381896972656" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>A和B只出现过一次，且没有反变量，因此不存在冒险，而C和C非同时出现，因此C就具备竞争条件，可能产生冒险现象</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657855720189-7f067455-3987-4df1-a993-53759ac448d1.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=95&id=ub2791406&margin=%5Bobject%20Object%5D&name=image.png&originHeight=136&originWidth=320&originalType=binary&ratio=1&rotation=0&showTitle=false&size=9288&status=done&style=none&taskId=ub9709937-155f-455c-9b95-1a36be935ea&title=&width=223.8095245361328" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>因此存在0冒险（一般就是带入法判断，给A和B赋特殊的值）</p>
+<h4 id="③冒险的消除"><a href="#③冒险的消除" class="headerlink" title="③冒险的消除"></a>③冒险的消除</h4><p>修改逻辑设计：利用代数变化，在确保逻辑函数值（逻辑功能）不变的情况下对原逻辑式进行适当的修改</p>
+<p><strong><font color='red'>例子：</font></strong></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657855962272-870abccb-535c-4542-94dc-349e733220e4.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=183&id=u845a39a1&margin=%5Bobject%20Object%5D&name=image.png&originHeight=252&originWidth=438&originalType=binary&ratio=1&rotation=0&showTitle=false&size=28466&status=done&style=none&taskId=uca2c75ed-79db-465d-8ff1-ac6f162e52b&title=&width=318.71429443359375" srcset="/img/loading.gif" lazyload alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657855991459-b92a62fc-715f-48b3-8ab4-5707d16794b2.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=150&id=u3b2b1fbf&margin=%5Bobject%20Object%5D&name=image.png&originHeight=210&originWidth=760&originalType=binary&ratio=1&rotation=0&showTitle=false&size=24819&status=done&style=none&taskId=u99c4ad1d-15b0-4b1b-b44f-fafd33bc050&title=&width=543.047607421875" srcset="/img/loading.gif" lazyload alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657856010834-2e62eab1-4a55-461d-b202-7ca3f7dbc72b.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=234&id=uf8b93fbe&margin=%5Bobject%20Object%5D&name=image.png&originHeight=328&originWidth=692&originalType=binary&ratio=1&rotation=0&showTitle=false&size=34839&status=done&style=none&taskId=u7d8950ed-6f17-4b31-832f-8a4d0186e64&title=&width=493.23809814453125" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="4-常用的组合逻辑电路"><a href="#4-常用的组合逻辑电路" class="headerlink" title="4.常用的组合逻辑电路"></a>4.常用的组合逻辑电路</h3><p><strong>要有硬件思维</strong></p>
+<h4 id="①编码器"><a href="#①编码器" class="headerlink" title="①编码器"></a>①编码器</h4><p> 建立代码与信息对应关系的过程称为编码，完成编码的电路就叫做编码器<br>以二进制编码器为例：n位二进制代码对2的n次方个信号进行编码的电路</p>
+<p><strong><font color='blue'>8-3编码器（互斥版本）</font></strong></p>
+<p><strong>第一步</strong>：对信号进行定义，并画出真值表<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657856731143-6ebf8c16-9a04-45b0-8d43-e95d764a4319.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=261&id=uce5ae691&margin=%5Bobject%20Object%5D&name=image.png&originHeight=343&originWidth=996&originalType=binary&ratio=1&rotation=0&showTitle=false&size=119319&status=done&style=none&taskId=u47e0f2ca-4b29-46c4-b6b5-54df5708a28&title=&width=758.8571428571429" srcset="/img/loading.gif" lazyload alt="image.png"><br><strong>第二步</strong>：写出表达式<br>一个技巧是将输出为1锁对应的输入或起来<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657856772704-2fc54000-c5ea-4c60-8cdd-0f74d696d6aa.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=247&id=u65e6f1b9&margin=%5Bobject%20Object%5D&name=image.png&originHeight=324&originWidth=814&originalType=binary&ratio=1&rotation=0&showTitle=false&size=89426&status=done&style=none&taskId=ucca464da-30a7-42b0-8818-b6b37c92bed&title=&width=620.1904761904761" srcset="/img/loading.gif" lazyload alt="image.png"><br><strong>第三步</strong>：画出逻辑图<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657856847665-2496e0ed-94da-474d-a58d-f4eb0e7c00b8.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=207&id=ua684b89b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=272&originWidth=769&originalType=binary&ratio=1&rotation=0&showTitle=false&size=34542&status=done&style=none&taskId=ued09751a-aaf8-4de3-a228-24038ff8261&title=&width=585.9047619047619" srcset="/img/loading.gif" lazyload alt="image.png"><br><strong><font color='blue'>8-3优先编码器（非互斥版本）</font></strong></p>
+<p><strong>（允许在某一时刻多个输入端位有效电平，但只对优先级最高的输入信号进行编码）</strong></p>
+<p>这种设计比较复杂，一般的芯片会集成进去，比如下面的74LD148芯片。从示意图可以看出，优先级的实现是加入了EI使能输入端来实现的。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657857202061-9ebda970-900f-4c7f-97af-19d31b318846.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=389&id=u34ffc46c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=510&originWidth=1038&originalType=binary&ratio=1&rotation=0&showTitle=false&size=130436&status=done&style=none&taskId=u0f41939d-78bc-4eb4-91a8-324b83a9734&title=&width=790.8571428571429" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h4 id="②译码器"><a href="#②译码器" class="headerlink" title="②译码器"></a>②译码器</h4><p>常见的是3-8译码器，工作的过程与编码器正好相反<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657857711265-d0dc21fb-7b21-4761-952f-09cb0c37a232.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=278&id=u3b4ec1c1&margin=%5Bobject%20Object%5D&name=image.png&originHeight=365&originWidth=1083&originalType=binary&ratio=1&rotation=0&showTitle=false&size=159276&status=done&style=none&taskId=ue0f01f78-4bae-450c-87e3-e36d61c5245&title=&width=825.1428571428571" srcset="/img/loading.gif" lazyload alt="image.png"><br><strong><font color='blue'>显示译码器</font></strong><br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657857771934-e7f09caf-ed97-4c90-b8c9-fcbcdf85245c.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=374&id=ubc7de54c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=491&originWidth=938&originalType=binary&ratio=1&rotation=0&showTitle=false&size=239902&status=done&style=none&taskId=u7322f4d7-4c22-483b-9dca-547fa7855b4&title=&width=714.6666666666666" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h4 id="③数据选择器"><a href="#③数据选择器" class="headerlink" title="③数据选择器"></a>③数据选择器</h4><p><strong><font color='blue'>8选1数据选择器</font></strong><br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657857922269-9f9687ab-b046-443a-a086-4f4f3d9f56a3.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=328&id=ufa88a0ad&margin=%5Bobject%20Object%5D&name=image.png&originHeight=431&originWidth=951&originalType=binary&ratio=1&rotation=0&showTitle=false&size=130904&status=done&style=none&taskId=uf698278f-20cc-46bd-b8a8-7adca3ff116&title=&width=724.5714285714286" srcset="/img/loading.gif" lazyload alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657857931720-1ceffe08-35ce-4ea8-bf31-0f61be98f5d8.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=318&id=ue29b557b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=418&originWidth=978&originalType=binary&ratio=1&rotation=0&showTitle=false&size=131288&status=done&style=none&taskId=uaf9001e7-5bc5-492f-af70-03a05ac3493&title=&width=745.1428571428571" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h4 id="④加法器"><a href="#④加法器" class="headerlink" title="④加法器"></a>④加法器</h4><p><strong><font color='blue'>半加器（不考虑低位的进位）</font></strong><br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657858065917-45093abd-fe5f-4674-a226-23ba99fa3b0d.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=248&id=udfba90fb&margin=%5Bobject%20Object%5D&name=image.png&originHeight=325&originWidth=1027&originalType=binary&ratio=1&rotation=0&showTitle=false&size=51007&status=done&style=none&taskId=u5175237e-84e6-46ee-80f8-d219cfc2813&title=&width=782.4761904761905" srcset="/img/loading.gif" lazyload alt="image.png"><br><strong><font color='blue'>全加器（考虑低位的进位）</font></strong><br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657858140890-295d29b7-29f8-4551-afcc-5c5374fcec3e.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=120&id=u76925868&margin=%5Bobject%20Object%5D&name=image.png&originHeight=158&originWidth=493&originalType=binary&ratio=1&rotation=0&showTitle=false&size=25042&status=done&style=none&taskId=ua1ab6f2e-6c4b-4d1f-be04-c9ec69d2265&title=&width=375.6190476190476" srcset="/img/loading.gif" lazyload alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657858184320-01b471d0-2759-4e85-a732-a8c107ff1f5d.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=254&id=ubdda5183&margin=%5Bobject%20Object%5D&name=image.png&originHeight=333&originWidth=1090&originalType=binary&ratio=1&rotation=0&showTitle=false&size=118955&status=done&style=none&taskId=uab14a3c9-092f-447e-9f3f-9fd9bf2fc01&title=&width=830.4761904761905" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h4 id="⑤数值比较器"><a href="#⑤数值比较器" class="headerlink" title="⑤数值比较器"></a>⑤数值比较器</h4><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1657857982153-1ca1f368-bfd6-4f08-a362-d25b2acf0c21.png#clientId=u089bf9a0-488d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=259&id=atkXL&margin=%5Bobject%20Object%5D&name=image.png&originHeight=340&originWidth=1046&originalType=binary&ratio=1&rotation=0&showTitle=false&size=61273&status=done&style=none&taskId=u08905a8b-f059-48a9-b934-41218991c47&title=&width=796.952380952381" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/FPGA%E5%AD%A6%E4%B9%A0/" class="category-chain-item">FPGA学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF/">#数字电路</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>FPGA学习5：数字电路基础知识（上）</div>
+      <div>http://findm.cf/2022/07/15/16FPGA学习5：数字电路基础知识（上）/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>马钏烽</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年7月15日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/11/15FPGA%E5%AD%A6%E4%B9%A04%EF%BC%9A%E4%BB%A5%E7%82%B9%E4%BA%AELED%E7%81%AF%E4%B8%BA%E4%BE%8B%E8%AE%B2%E8%A7%A3FPGA%E5%AE%8C%E6%95%B4%E8%AE%BE%E8%AE%A1%E6%B5%81%E7%A8%8B/" title="FPGA学习4：FPGA完整设计流程">
+                        <span class="hidden-mobile">FPGA学习4：FPGA完整设计流程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
