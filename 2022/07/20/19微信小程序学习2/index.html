@@ -1,0 +1,726 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="马钏烽">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="一、小程序的宿主环境1.宿主环境改建宿主环境是程序运行所必须依赖的环境，Android 系统和 iOS 系统是两个不同的宿主环境。 手机微信是小程序的宿主环境，小程序借助宿主环境提供的能力，可以完成许多普通网页无法完成的功能 。 2.小程序宿主环境包含的内容 通信模型 运行机制 组件  API  （1）通信模型小程序通信的主体是渲染层和逻辑层，其中，WXML和WXSS工作在渲染层，JS脚本工作在逻">
+<meta property="og:type" content="article">
+<meta property="og:title" content="19微信小程序学习2">
+<meta property="og:url" content="http://findm.cf/2022/07/20/19%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A02/index.html">
+<meta property="og:site_name" content="小马的个人博客">
+<meta property="og:description" content="一、小程序的宿主环境1.宿主环境改建宿主环境是程序运行所必须依赖的环境，Android 系统和 iOS 系统是两个不同的宿主环境。 手机微信是小程序的宿主环境，小程序借助宿主环境提供的能力，可以完成许多普通网页无法完成的功能 。 2.小程序宿主环境包含的内容 通信模型 运行机制 组件  API  （1）通信模型小程序通信的主体是渲染层和逻辑层，其中，WXML和WXSS工作在渲染层，JS脚本工作在逻">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1658310304054-9e68856a-82f6-44ab-8af8-6995344c165b.png#clientId=uf4bee15e-deaf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=462&id=ueb81c6d3&margin=%5Bobject%20Object%5D&name=image.png&originHeight=606&originWidth=811&originalType=binary&ratio=1&rotation=0&showTitle=false&size=136363&status=done&style=none&taskId=u4c16ab9f-32b5-41f9-bf97-1bf3026d664&title=&width=617.9047619047619">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1658310842153-4588cfcb-c912-45bf-99ca-b178521c9837.png#clientId=uf4bee15e-deaf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=629&id=u169f25ef&margin=%5Bobject%20Object%5D&name=image.png&originHeight=825&originWidth=1496&originalType=binary&ratio=1&rotation=0&showTitle=false&size=126604&status=done&style=none&taskId=ue8c280ec-ce45-404c-8951-3b24ff31953&title=&width=1139.8095238095239">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1658310998407-5e1f3d2f-6b19-46e8-9d53-502e32bfd345.png#clientId=uf4bee15e-deaf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=686&id=u7fcf5849&margin=%5Bobject%20Object%5D&name=image.png&originHeight=900&originWidth=1795&originalType=binary&ratio=1&rotation=0&showTitle=false&size=162915&status=done&style=none&taskId=u45e17454-afea-4707-8718-e8a6234a6f9&title=&width=1367.6190476190477">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1658311136148-f468de60-0437-4b0e-8244-841ec15af46b.png#clientId=uf4bee15e-deaf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=481&id=u711361b9&margin=%5Bobject%20Object%5D&name=image.png&originHeight=631&originWidth=1458&originalType=binary&ratio=1&rotation=0&showTitle=false&size=173400&status=done&style=none&taskId=u16b7a56e-db0a-4967-9296-104c3c540b8&title=&width=1110.857142857143">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1658311187937-73706f6f-dea1-4867-b4ad-1961cde1edac.png#clientId=uf4bee15e-deaf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=243&id=ucadf57a3&margin=%5Bobject%20Object%5D&name=image.png&originHeight=319&originWidth=824&originalType=binary&ratio=1&rotation=0&showTitle=false&size=93826&status=done&style=none&taskId=uea443b7d-cd93-43c6-9acf-caa3a58f9c1&title=&width=627.8095238095239">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1658311261944-97667b0a-2f8c-441d-b58c-e184e44c67f2.png#clientId=uf4bee15e-deaf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=606&id=ud8a5fc6b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=795&originWidth=1232&originalType=binary&ratio=1&rotation=0&showTitle=false&size=48957&status=done&style=none&taskId=u6d650e26-807c-4b38-acd8-f8790cc68ea&title=&width=938.6666666666666">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1658311299487-d4e282fd-9bb5-46dd-ba81-d4ced46a0900.png#clientId=uf4bee15e-deaf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=606&id=u309eea53&margin=%5Bobject%20Object%5D&name=image.png&originHeight=795&originWidth=1392&originalType=binary&ratio=1&rotation=0&showTitle=false&size=41779&status=done&style=none&taskId=u519527f7-7bcc-40c4-90df-bbaff22fee4&title=&width=1060.5714285714287">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1658311320154-f4f361d1-45e4-4394-95f7-999029c2f371.png#clientId=uf4bee15e-deaf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=609&id=u09275082&margin=%5Bobject%20Object%5D&name=image.png&originHeight=799&originWidth=1486&originalType=binary&ratio=1&rotation=0&showTitle=false&size=189557&status=done&style=none&taskId=u48c0d15e-9a8d-4551-a114-a925a43f747&title=&width=1132.1904761904761">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1658311336778-cb6519a1-f892-488d-89f2-66216360b87a.png#clientId=uf4bee15e-deaf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=609&id=uc0cd53ae&margin=%5Bobject%20Object%5D&name=image.png&originHeight=799&originWidth=1621&originalType=binary&ratio=1&rotation=0&showTitle=false&size=145068&status=done&style=none&taskId=u93ab6b41-be77-4435-acdd-54ecfb9f32e&title=&width=1235.047619047619">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1658311355550-6ebf096d-2662-4883-9071-a30e438be1cd.png#clientId=uf4bee15e-deaf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=213&id=u57f091f9&margin=%5Bobject%20Object%5D&name=image.png&originHeight=279&originWidth=861&originalType=binary&ratio=1&rotation=0&showTitle=false&size=121080&status=done&style=none&taskId=u62bc7e53-8776-4340-b30c-8b04f8cc724&title=&width=656">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1658311640758-ad57ea67-ed7f-4c8a-9a36-9d3afdbcec26.png#clientId=uf4bee15e-deaf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=261&id=u081e2ea1&margin=%5Bobject%20Object%5D&name=image.png&originHeight=343&originWidth=1302&originalType=binary&ratio=1&rotation=0&showTitle=false&size=31684&status=done&style=none&taskId=ud61a2e4f-f7cb-45b3-ae15-aaa191a7c3b&title=&width=992">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1658311671877-50065291-b508-43ea-93fd-2bb669253c51.png#clientId=uf4bee15e-deaf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=374&id=uc05445d1&margin=%5Bobject%20Object%5D&name=image.png&originHeight=491&originWidth=584&originalType=binary&ratio=1&rotation=0&showTitle=false&size=35900&status=done&style=none&taskId=ua237c225-cb08-496c-ba49-37656955f9b&title=&width=444.95238095238096">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1658311820655-0a0ec955-c22f-4943-b2f8-bceba0a3c91b.png#clientId=uf4bee15e-deaf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=488&id=u7766a1e4&margin=%5Bobject%20Object%5D&name=image.png&originHeight=641&originWidth=1466&originalType=binary&ratio=1&rotation=0&showTitle=false&size=110012&status=done&style=none&taskId=udab5f336-9e36-46dc-8472-16cc60d5d19&title=&width=1116.952380952381">
+<meta property="article:published_time" content="2022-07-20T10:13:35.000Z">
+<meta property="article:modified_time" content="2022-07-20T10:16:02.781Z">
+<meta property="article:author" content="马钏烽">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2022/png/759833/1658310304054-9e68856a-82f6-44ab-8af8-6995344c165b.png#clientId=uf4bee15e-deaf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=462&id=ueb81c6d3&margin=%5Bobject%20Object%5D&name=image.png&originHeight=606&originWidth=811&originalType=binary&ratio=1&rotation=0&showTitle=false&size=136363&status=done&style=none&taskId=u4c16ab9f-32b5-41f9-bf97-1bf3026d664&title=&width=617.9047619047619">
+  
+  
+  
+  <title>19微信小程序学习2 - 小马的个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"findm.cf","root":"/","version":"1.9.1","typing":{"enable":true,"typeSpeed":85,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客主页</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="19微信小程序学习2"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-07-20 18:13" pubdate>
+          2022年7月20日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          11 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">19微信小程序学习2</h1>
+            
+            <div class="markdown-body">
+              
+              <h2 id="一、小程序的宿主环境"><a href="#一、小程序的宿主环境" class="headerlink" title="一、小程序的宿主环境"></a>一、小程序的宿主环境</h2><h3 id="1-宿主环境改建"><a href="#1-宿主环境改建" class="headerlink" title="1.宿主环境改建"></a>1.宿主环境改建</h3><p>宿主环境是程序运行所必须依赖的环境，Android 系统和 iOS 系统是两个不同的宿主环境。 手机微信是小程序的宿主环境，小程序借助宿主环境提供的能力，可以完成许多普通网页无法完成的功能 。</p>
+<h3 id="2-小程序宿主环境包含的内容"><a href="#2-小程序宿主环境包含的内容" class="headerlink" title="2.小程序宿主环境包含的内容"></a>2.小程序宿主环境包含的内容</h3><ul>
+<li>通信模型</li>
+<li>运行机制</li>
+<li>组件 </li>
+<li>API</li>
+</ul>
+<h4 id="（1）通信模型"><a href="#（1）通信模型" class="headerlink" title="（1）通信模型"></a>（1）通信模型</h4><p>小程序通信的主体是渲染层和逻辑层，其中，WXML和WXSS工作在渲染层，JS脚本工作在逻辑层。</p>
+<p>小程序中的通信模型分为两部分：① 渲染层和逻辑层之间的通信② 逻辑层和第三方服务器之间的通信。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658310304054-9e68856a-82f6-44ab-8af8-6995344c165b.png#clientId=uf4bee15e-deaf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=462&id=ueb81c6d3&margin=%5Bobject%20Object%5D&name=image.png&originHeight=606&originWidth=811&originalType=binary&ratio=1&rotation=0&showTitle=false&size=136363&status=done&style=none&taskId=u4c16ab9f-32b5-41f9-bf97-1bf3026d664&title=&width=617.9047619047619" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h4 id="（2）运行机制"><a href="#（2）运行机制" class="headerlink" title="（2）运行机制"></a>（2）运行机制</h4><p><strong>小程序启动过程：</strong></p>
+<p>① 把小程序的代码包下载到本地</p>
+<p>② 解析 app.json 全局配置文件</p>
+<p>③ 执行 app.js 小程序入口文件，调用 App() 创建小程序实例</p>
+<p>④ 渲染小程序首页</p>
+<p>⑤ 小程序启动完成 </p>
+<p><strong>页面渲染过程：</strong></p>
+<p>① 加载解析页面的 .json 配置文件</p>
+<p>② 加载页面的 .wxml 模板和 .wxss 样式</p>
+<p>③ 执行页面的 .js 文件，调用 Page() 创建页面实例</p>
+<p>④ 页面渲染完成 </p>
+<h4 id="（3）组件"><a href="#（3）组件" class="headerlink" title="（3）组件"></a>（3）组件</h4><p>下面部分涉及到代码，整体结构与前端代码类似，WXML类似于HTML，WXSS类似于CSS。</p>
+<p><strong>①view组件</strong></p>
+<p>view组件可以嵌套，是一块一块的区域<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658310842153-4588cfcb-c912-45bf-99ca-b178521c9837.png#clientId=uf4bee15e-deaf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=629&id=u169f25ef&margin=%5Bobject%20Object%5D&name=image.png&originHeight=825&originWidth=1496&originalType=binary&ratio=1&rotation=0&showTitle=false&size=126604&status=done&style=none&taskId=ue8c280ec-ce45-404c-8951-3b24ff31953&title=&width=1139.8095238095239" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p><strong>②scroll-view 组件</strong><br> 可以实现滚动效果<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658310998407-5e1f3d2f-6b19-46e8-9d53-502e32bfd345.png#clientId=uf4bee15e-deaf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=686&id=u7fcf5849&margin=%5Bobject%20Object%5D&name=image.png&originHeight=900&originWidth=1795&originalType=binary&ratio=1&rotation=0&showTitle=false&size=162915&status=done&style=none&taskId=u45e17454-afea-4707-8718-e8a6234a6f9&title=&width=1367.6190476190477" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p><strong>③swiper 和 swiper-item 组件</strong><br> 可以实现轮播图<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658311136148-f468de60-0437-4b0e-8244-841ec15af46b.png#clientId=uf4bee15e-deaf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=481&id=u711361b9&margin=%5Bobject%20Object%5D&name=image.png&originHeight=631&originWidth=1458&originalType=binary&ratio=1&rotation=0&showTitle=false&size=173400&status=done&style=none&taskId=u16b7a56e-db0a-4967-9296-104c3c540b8&title=&width=1110.857142857143" srcset="/img/loading.gif" lazyload alt="image.png"><br>swiper组件常用的属性<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658311187937-73706f6f-dea1-4867-b4ad-1961cde1edac.png#clientId=uf4bee15e-deaf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=243&id=ucadf57a3&margin=%5Bobject%20Object%5D&name=image.png&originHeight=319&originWidth=824&originalType=binary&ratio=1&rotation=0&showTitle=false&size=93826&status=done&style=none&taskId=uea443b7d-cd93-43c6-9acf-caa3a58f9c1&title=&width=627.8095238095239" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p><strong>④text和rich-text内容组件</strong></p>
+<p>text ：文本组件，类似于 HTML 中的 span 标签，是一个行内元素</p>
+<p> 通过 text 组件的 selectable 属性，实现长按选中文本内容的效果<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658311261944-97667b0a-2f8c-441d-b58c-e184e44c67f2.png#clientId=uf4bee15e-deaf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=606&id=ud8a5fc6b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=795&originWidth=1232&originalType=binary&ratio=1&rotation=0&showTitle=false&size=48957&status=done&style=none&taskId=u6d650e26-807c-4b38-acd8-f8790cc68ea&title=&width=938.6666666666666" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p> rich-text：富文本组件，支持把 HTML 字符串渲染为 WXML 结构<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658311299487-d4e282fd-9bb5-46dd-ba81-d4ced46a0900.png#clientId=uf4bee15e-deaf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=606&id=u309eea53&margin=%5Bobject%20Object%5D&name=image.png&originHeight=795&originWidth=1392&originalType=binary&ratio=1&rotation=0&showTitle=false&size=41779&status=done&style=none&taskId=u519527f7-7bcc-40c4-90df-bbaff22fee4&title=&width=1060.5714285714287" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p><strong>⑤button 按钮</strong><br> <img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658311320154-f4f361d1-45e4-4394-95f7-999029c2f371.png#clientId=uf4bee15e-deaf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=609&id=u09275082&margin=%5Bobject%20Object%5D&name=image.png&originHeight=799&originWidth=1486&originalType=binary&ratio=1&rotation=0&showTitle=false&size=189557&status=done&style=none&taskId=u48c0d15e-9a8d-4551-a114-a925a43f747&title=&width=1132.1904761904761" srcset="/img/loading.gif" lazyload alt="image.png"><br><strong>⑥image 组件</strong><br> <img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658311336778-cb6519a1-f892-488d-89f2-66216360b87a.png#clientId=uf4bee15e-deaf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=609&id=uc0cd53ae&margin=%5Bobject%20Object%5D&name=image.png&originHeight=799&originWidth=1621&originalType=binary&ratio=1&rotation=0&showTitle=false&size=145068&status=done&style=none&taskId=u93ab6b41-be77-4435-acdd-54ecfb9f32e&title=&width=1235.047619047619" srcset="/img/loading.gif" lazyload alt="image.png"><br>image组件的mode属性（mode 属性用来指定图片的裁剪和缩放模式）<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658311355550-6ebf096d-2662-4883-9071-a30e438be1cd.png#clientId=uf4bee15e-deaf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=213&id=u57f091f9&margin=%5Bobject%20Object%5D&name=image.png&originHeight=279&originWidth=861&originalType=binary&ratio=1&rotation=0&showTitle=false&size=121080&status=done&style=none&taskId=u62bc7e53-8776-4340-b30c-8b04f8cc724&title=&width=656" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h4 id="（3）API"><a href="#（3）API" class="headerlink" title="（3）API"></a>（3）API</h4><p>小程序中的 API 是由宿主环境提供的，通过这些丰富的小程序 API，开发者可以方便的调用微信提供的能力，例如：获取用户信息、本地存储、支付功能等。<br> API的分类如下：<br>① 事件监听 API</p>
+<ul>
+<li>特点：以 on 开头，用来监听某些事件的触发</li>
+<li>举例：wx.onWindowResize(function callback) 监听窗口尺寸变化的事件</li>
+</ul>
+<p>② 同步 API</p>
+<ul>
+<li>特点1：以 Sync 结尾的 API 都是同步 API</li>
+<li>特点2：同步 API 的执行结果，可以通过函数返回值直接获取，如果执行出错会抛出异常</li>
+<li>举例：wx.setStorageSync(‘key’, ‘value’) 向本地存储中写入内容</li>
+</ul>
+<p>③ 异步 API</p>
+<ul>
+<li>特点：类似于 jQuery 中的 $.ajax(options) 函数，需要通过 success、fail、complete 接收调用的结果</li>
+<li>举例：wx.request() 发起网络数据请求，通过 success 回调函数接收数据</li>
+</ul>
+<h2 id="二、协同工作与发布（待补充）"><a href="#二、协同工作与发布（待补充）" class="headerlink" title="二、协同工作与发布（待补充）"></a>二、协同工作与发布（待补充）</h2><h3 id="1-协同工作"><a href="#1-协同工作" class="headerlink" title="1.协同工作"></a>1.协同工作</h3><p>①小程序开发流程：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658311640758-ad57ea67-ed7f-4c8a-9a36-9d3afdbcec26.png#clientId=uf4bee15e-deaf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=261&id=u081e2ea1&margin=%5Bobject%20Object%5D&name=image.png&originHeight=343&originWidth=1302&originalType=binary&ratio=1&rotation=0&showTitle=false&size=31684&status=done&style=none&taskId=ud61a2e4f-f7cb-45b3-ae15-aaa191a7c3b&title=&width=992" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>②成员管理：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658311671877-50065291-b508-43ea-93fd-2bb669253c51.png#clientId=uf4bee15e-deaf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=374&id=uc05445d1&margin=%5Bobject%20Object%5D&name=image.png&originHeight=491&originWidth=584&originalType=binary&ratio=1&rotation=0&showTitle=false&size=35900&status=done&style=none&taskId=ua237c225-cb08-496c-ba49-37656955f9b&title=&width=444.95238095238096" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>③权限说明</p>
+<ul>
+<li>开发者权限：可使用小程序开发者工具及对小程序的功能进行代码开发</li>
+<li>体验者权限：可使用体验版小程序</li>
+<li>登录权限：可登录小程序管理后台，无需管理员确认</li>
+<li>开发设置：设置小程序服务器域名、消息推送及扫描普通链接二维码打开小程序</li>
+<li>腾讯云管理：云开发相关设置</li>
+</ul>
+<h3 id="2-小程序发布"><a href="#2-小程序发布" class="headerlink" title="2.小程序发布"></a>2.小程序发布</h3><p>一个小程序的发布上线，一般要经过上传代码 -&gt; 提交审核 -&gt; 发布这三个步骤。<br> <img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658311820655-0a0ec955-c22f-4943-b2f8-bceba0a3c91b.png#clientId=uf4bee15e-deaf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=488&id=u7766a1e4&margin=%5Bobject%20Object%5D&name=image.png&originHeight=641&originWidth=1466&originalType=binary&ratio=1&rotation=0&showTitle=false&size=110012&status=done&style=none&taskId=udab5f336-9e36-46dc-8472-16cc60d5d19&title=&width=1116.952380952381" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>19微信小程序学习2</div>
+      <div>http://findm.cf/2022/07/20/19微信小程序学习2/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>马钏烽</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年7月20日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/18/18FPGA%E5%AD%A6%E4%B9%A06%EF%BC%9A%E6%95%B0%E5%AD%97%E7%94%B5%E8%B7%AF%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%EF%BC%88%E4%B8%8B%EF%BC%89/" title="18FPGA学习6：数字电路基础知识（下）">
+                        <span class="hidden-mobile">18FPGA学习6：数字电路基础知识（下）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
