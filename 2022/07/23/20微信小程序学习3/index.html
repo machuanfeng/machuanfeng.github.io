@@ -1,0 +1,715 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#64b5f6">
+  <meta name="author" content="马钏烽">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本篇文章主要介绍了WXML的模板语法以及WXSS的模板样式。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信小程序学习3">
+<meta property="og:url" content="http://findm.cf/2022/07/23/20%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A03/index.html">
+<meta property="og:site_name" content="小马的个人博客">
+<meta property="og:description" content="本篇文章主要介绍了WXML的模板语法以及WXSS的模板样式。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://findm.cf/img/%E6%96%87%E7%AB%A0%E5%B0%81%E9%9D%A2/20.png">
+<meta property="article:published_time" content="2022-07-23T04:02:36.000Z">
+<meta property="article:modified_time" content="2022-07-23T04:05:11.567Z">
+<meta property="article:author" content="马钏烽">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://findm.cf/img/%E6%96%87%E7%AB%A0%E5%B0%81%E9%9D%A2/20.png">
+  
+  
+  
+  <title>微信小程序学习3 - 小马的个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"findm.cf","root":"/","version":"1.9.1","typing":{"enable":true,"typeSpeed":92,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客主页</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E6%96%87%E7%AB%A0%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="微信小程序学习3"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-07-23 12:02" pubdate>
+          2022年7月23日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          676 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          6 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">微信小程序学习3</h1>
+            
+            <div class="markdown-body">
+              
+              <meta name="referrer" content="no-referrer" />
+
+<h1 id="一、-WXML模板语法"><a href="#一、-WXML模板语法" class="headerlink" title="一、 WXML模板语法"></a>一、 WXML模板语法</h1><h2 id="1-数据绑定"><a href="#1-数据绑定" class="headerlink" title="(1)数据绑定"></a>(1)数据绑定</h2><h3 id="1-在data中定义数据"><a href="#1-在data中定义数据" class="headerlink" title="1.在data中定义数据"></a>1.在data中定义数据</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658534609801-47d874be-4491-4aa5-a709-540aa83c7162.png#clientId=u7881301d-5e58-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=517&id=u74375d76&margin=%5Bobject%20Object%5D&name=image.png&originHeight=543&originWidth=1037&originalType=binary&ratio=1&rotation=0&showTitle=false&size=131597&status=done&style=none&taskId=ub7966e04-5de9-4717-9603-a1e810e11a4&title=&width=987.6190924698553" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="2-在WXML中使用数据"><a href="#2-在WXML中使用数据" class="headerlink" title="2.在WXML中使用数据"></a>2.在WXML中使用数据</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658534631769-e12e4e63-8935-4da1-9c8b-9e016e07e06b.png#clientId=u7881301d-5e58-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=224&id=u8322d4b7&margin=%5Bobject%20Object%5D&name=image.png&originHeight=235&originWidth=1340&originalType=binary&ratio=1&rotation=0&showTitle=false&size=100803&status=done&style=none&taskId=u7b8b0961-2937-4da4-aaae-e32bfff8b01&title=&width=1276.190534146197" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="3-动态绑定属性"><a href="#3-动态绑定属性" class="headerlink" title="3.动态绑定属性"></a>3.动态绑定属性</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658534867835-491b50b6-9da0-4ed1-93ff-6366109d3e10.png#clientId=u7881301d-5e58-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=572&id=ubd2e5e0c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=601&originWidth=962&originalType=binary&ratio=1&rotation=0&showTitle=false&size=99915&status=done&style=none&taskId=ue4aea418-f808-4ef1-ae97-8fd6dca2119&title=&width=916.1905177974936" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="4-三元运算"><a href="#4-三元运算" class="headerlink" title="4.三元运算"></a>4.三元运算</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658534964613-4fd614ad-5093-4bf0-93d7-8f5345de3e65.png#clientId=u7881301d-5e58-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=565&id=u92259d91&margin=%5Bobject%20Object%5D&name=image.png&originHeight=593&originWidth=944&originalType=binary&ratio=1&rotation=0&showTitle=false&size=120604&status=done&style=none&taskId=u2dc82307-f916-4634-9d84-c4e08cd8ced&title=&width=899.0476598761268" srcset="/img/loading.gif" lazyload alt="image.png"><br>在这个地方可以看到定义的数据：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658535060763-d1d4b249-3e4f-4867-9944-225d6e259a7a.png#clientId=u7881301d-5e58-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=850&id=u4a248879&margin=%5Bobject%20Object%5D&name=image.png&originHeight=892&originWidth=1327&originalType=binary&ratio=1&rotation=0&showTitle=false&size=282378&status=done&style=none&taskId=ub218b574-67ff-48bd-a1ae-b9d15efbf34&title=&width=1263.8095812029876" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="5-算术运算"><a href="#5-算术运算" class="headerlink" title="5.算术运算"></a>5.算术运算</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658535117655-fbec9d23-2a4a-427c-8d9c-d6b803684a6e.png#clientId=u7881301d-5e58-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=564&id=ua86d7a0e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=592&originWidth=963&originalType=binary&ratio=1&rotation=0&showTitle=false&size=122468&status=done&style=none&taskId=u92c53ccf-bd3a-4b9a-85c6-22adfde50a0&title=&width=917.1428987931251" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h2 id="2-事件绑定"><a href="#2-事件绑定" class="headerlink" title="(2)事件绑定"></a>(2)事件绑定</h2><blockquote>
+<p><strong>时间是渲染层到逻辑层的通信方式。通过事件可以将用户在渲染层产生的行为反馈到逻辑层进行业务处理。</strong></p>
+</blockquote>
+<h3 id="1-常用的事件"><a href="#1-常用的事件" class="headerlink" title="1.常用的事件"></a>1.常用的事件</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658535444775-fe856dcb-dfa1-4bc4-a409-99bdfcac315b.png#clientId=u7881301d-5e58-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=258&id=u24b57537&margin=%5Bobject%20Object%5D&name=image.png&originHeight=271&originWidth=1256&originalType=binary&ratio=1&rotation=0&showTitle=false&size=116572&status=done&style=none&taskId=uc348cc14-a6a2-4465-b63f-9fc060ef4d0&title=&width=1196.1905305131518" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="2-事件对象的属性列表"><a href="#2-事件对象的属性列表" class="headerlink" title="2.事件对象的属性列表"></a>2.事件对象的属性列表</h3><p>当事件回调触发的时候，会收到一个事件对象的event，它的详细属性如下：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658535673869-01b04aad-bdba-4997-9542-aa09a949547c.png#clientId=u7881301d-5e58-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=432&id=u63ede408&margin=%5Bobject%20Object%5D&name=image.png&originHeight=454&originWidth=1265&originalType=binary&ratio=1&rotation=0&showTitle=false&size=204030&status=done&style=none&taskId=uc23ec5e2-c2c2-45ab-a749-b908e6c0ce3&title=&width=1204.761959473835" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="3-targrt和currenttarget的区别"><a href="#3-targrt和currenttarget的区别" class="headerlink" title="3.targrt和currenttarget的区别"></a>3.targrt和currenttarget的区别</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658535809119-16e6688e-709e-4d0c-b3cc-97f04b84512e.png#clientId=u7881301d-5e58-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=556&id=u61bd9e5c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=584&originWidth=1229&originalType=binary&ratio=1&rotation=0&showTitle=false&size=308668&status=done&style=none&taskId=u3d2796f7-5a21-4079-a8cb-1a365808603&title=&width=1170.4762436311014" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="4-bindtap的语法格式"><a href="#4-bindtap的语法格式" class="headerlink" title="4.bindtap的语法格式"></a>4.bindtap的语法格式</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658535896086-f3058b6a-61a9-47cd-9390-d19379d313a5.png#clientId=u7881301d-5e58-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=574&id=u1eda1887&margin=%5Bobject%20Object%5D&name=image.png&originHeight=603&originWidth=1202&originalType=binary&ratio=1&rotation=0&showTitle=false&size=223707&status=done&style=none&taskId=u6c05868e-609f-4ba7-91df-dcda3d4e197&title=&width=1144.7619567490513" srcset="/img/loading.gif" lazyload alt="image.png"><br>在这个地方可以看见输出的事件参数对象属性<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658536020000-7f420b7d-7daa-4cbc-8750-2d4f2a8c59f1.png#clientId=u7881301d-5e58-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=249&id=u9f97a59c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=261&originWidth=828&originalType=binary&ratio=1&rotation=0&showTitle=false&size=115721&status=done&style=none&taskId=u68aff03a-a446-4a7e-ba34-814ec2b5afd&title=&width=788.571464382874" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="5-在事件处理函数中为data中的数据赋值"><a href="#5-在事件处理函数中为data中的数据赋值" class="headerlink" title="5.在事件处理函数中为data中的数据赋值"></a>5.在事件处理函数中为data中的数据赋值</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658536450529-8ccd4f39-5587-4c53-9711-c10af3948ca6.png#clientId=u7881301d-5e58-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=48&id=ubdef270c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=50&originWidth=601&originalType=binary&ratio=1&rotation=0&showTitle=false&size=29813&status=done&style=none&taskId=ud5ccc653-00a3-495b-b3a3-ffaae4486b3&title=&width=572.3809783745256" srcset="/img/loading.gif" lazyload alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658536290374-2e7a4fc7-8e8a-4bc7-ae80-c4a799a9a288.png#clientId=u7881301d-5e58-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=580&id=ud76cc89f&margin=%5Bobject%20Object%5D&name=image.png&originHeight=609&originWidth=1040&originalType=binary&ratio=1&rotation=0&showTitle=false&size=133329&status=done&style=none&taskId=uc7712342-e905-4b35-afd4-38d4ddd2972&title=&width=990.4762354567498" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h2 id="3-事件传参与数据同步"><a href="#3-事件传参与数据同步" class="headerlink" title="(3)事件传参与数据同步"></a>(3)事件传参与数据同步</h2><h3 id="1-事件传参"><a href="#1-事件传参" class="headerlink" title="1.事件传参"></a>1.事件传参</h3><p> <img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658537071191-a52d3ab9-2d4c-4ac0-8cc8-5be1b98c0b04.png#clientId=u7881301d-5e58-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=370&id=u73d3bfba&margin=%5Bobject%20Object%5D&name=image.png&originHeight=388&originWidth=1361&originalType=binary&ratio=1&rotation=0&showTitle=false&size=189945&status=done&style=none&taskId=uf84945a6-64d9-4bd9-949d-1209eb5ea0c&title=&width=1296.1905350544582" srcset="/img/loading.gif" lazyload alt="image.png"><br>不能一边绑定一遍传参，下面是正确的传参方式：2是数字2，如果直接写成2的话默认为是字符串<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658537107782-3d6ad5a9-310a-4ee7-a623-e478a48d9749.png#clientId=u7881301d-5e58-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=409&id=u62024894&margin=%5Bobject%20Object%5D&name=image.png&originHeight=429&originWidth=1024&originalType=binary&ratio=1&rotation=0&showTitle=false&size=149218&status=done&style=none&taskId=u682a60a8-8f67-4648-beeb-9635f75d5ad&title=&width=975.238139526646" srcset="/img/loading.gif" lazyload alt="image.png"><br>取得参数值：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658537139221-f8cca5ed-5d9c-4f73-9fb7-a522b2e01578.png#clientId=u7881301d-5e58-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=434&id=u01a4ae4f&margin=%5Bobject%20Object%5D&name=image.png&originHeight=456&originWidth=1167&originalType=binary&ratio=1&rotation=0&showTitle=false&size=178982&status=done&style=none&taskId=u396b919f-5298-414b-8d41-d14d76a465b&title=&width=1111.428621901949" srcset="/img/loading.gif" lazyload alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658539084203-0521127c-f403-40df-9418-6063b704c1da.png#clientId=u7881301d-5e58-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=185&id=u784ad275&margin=%5Bobject%20Object%5D&name=image.png&originHeight=194&originWidth=563&originalType=binary&ratio=1&rotation=0&showTitle=false&size=41137&status=done&style=none&taskId=u74f9cdce-6a9d-4030-97b5-b510d586f87&title=&width=536.190500540529" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="2-bindinput语法格式"><a href="#2-bindinput语法格式" class="headerlink" title="2.bindinput语法格式"></a>2.bindinput语法格式</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658539210544-c140dbb0-2e61-4f87-96b1-347710d14b14.png#clientId=u7881301d-5e58-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=516&id=u4c5db74a&margin=%5Bobject%20Object%5D&name=image.png&originHeight=542&originWidth=936&originalType=binary&ratio=1&rotation=0&showTitle=false&size=142341&status=done&style=none&taskId=u09c83dc0-ef86-44f8-aefb-96cf4397f24&title=&width=891.4286119110749" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="3-文本框和data之间的数据同步"><a href="#3-文本框和data之间的数据同步" class="headerlink" title="3.文本框和data之间的数据同步"></a>3.文本框和data之间的数据同步</h3><p>实现步骤：</p>
+<ul>
+<li>定义数据</li>
+<li>渲染结构</li>
+<li>美化样式</li>
+<li>绑定input的事件处理函数</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658539331542-6b9fc23b-5c38-4971-a693-9725ea19386e.png#clientId=u7881301d-5e58-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=356&id=u6f63da3a&margin=%5Bobject%20Object%5D&name=image.png&originHeight=374&originWidth=954&originalType=binary&ratio=1&rotation=0&showTitle=false&size=41218&status=done&style=none&taskId=uc7c0eeb7-fbf1-4545-a2bf-1a1881c3343&title=&width=908.5714698324417" srcset="/img/loading.gif" lazyload alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658539351307-a945fc57-de55-46b5-8151-4deb0ecbbcc6.png#clientId=u7881301d-5e58-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=247&id=ua649e9fd&margin=%5Bobject%20Object%5D&name=image.png&originHeight=259&originWidth=979&originalType=binary&ratio=1&rotation=0&showTitle=false&size=49081&status=done&style=none&taskId=u29979f92-de59-4358-9d7e-dbf9af59192&title=&width=932.3809947232289" srcset="/img/loading.gif" lazyload alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658539378918-0576a2f9-1955-4f0c-a14e-495a223f0942.png#clientId=u7881301d-5e58-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=399&id=u6442f205&margin=%5Bobject%20Object%5D&name=image.png&originHeight=419&originWidth=947&originalType=binary&ratio=1&rotation=0&showTitle=false&size=67795&status=done&style=none&taskId=u192e7c6f-b7f2-4e6b-8435-2f27f9c75f2&title=&width=901.9048028630212" srcset="/img/loading.gif" lazyload alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658539391524-28637866-8650-4890-b3dd-c76c6b341efa.png#clientId=u7881301d-5e58-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=433&id=ufe24bb53&margin=%5Bobject%20Object%5D&name=image.png&originHeight=455&originWidth=943&originalType=binary&ratio=1&rotation=0&showTitle=false&size=97586&status=done&style=none&taskId=u7a339122-8562-4837-8c20-a864f3815b7&title=&width=898.0952788804952" srcset="/img/loading.gif" lazyload alt="image.png"><br>这儿发现写完后会报错：inputhandler没有绑定，重新编译一下就会好。以后遇到报错也是同样，先重新编译试试。</p>
+<h2 id="4-条件渲染"><a href="#4-条件渲染" class="headerlink" title="(4)条件渲染"></a>(4)条件渲染</h2><h3 id="1-wx-if"><a href="#1-wx-if" class="headerlink" title="1.wx:if"></a>1.wx:if</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658540872055-7b50427d-b0db-4340-aef2-8ba19de7e8c4.png#clientId=u7881301d-5e58-4&crop=0&crop=0.14&crop=1&crop=1&from=paste&height=637&id=u6df9e14f&margin=%5Bobject%20Object%5D&name=image.png&originHeight=669&originWidth=984&originalType=binary&ratio=1&rotation=0&showTitle=false&size=179595&status=done&style=none&taskId=u3bb7288e-0a25-4a60-ba33-16e8b30d6a9&title=&width=937" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="2-结合使用wx-if"><a href="#2-结合使用wx-if" class="headerlink" title="2.结合使用wx:if"></a>2.结合<block>使用wx:if</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658541111749-5e940536-0885-49c3-8656-7ca8b0a074c5.png#clientId=u7881301d-5e58-4&crop=0&crop=0.1382&crop=1&crop=1&from=paste&height=538&id=u02fdb944&margin=%5Bobject%20Object%5D&name=image.png&originHeight=565&originWidth=1266&originalType=binary&ratio=1&rotation=0&showTitle=false&size=216809&status=done&style=none&taskId=u7934a9a1-11cc-4b0c-bd8b-47b9d172aa0&title=&width=1206" srcset="/img/loading.gif" lazyload alt="image.png"><br>block不会被渲染为任何组件，只是起到一个包裹的作用</p>
+<h3 id="3-hidden"><a href="#3-hidden" class="headerlink" title="3.hidden"></a>3.hidden</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658541301281-7505b8ca-596e-464a-9152-96662f93aca4.png#clientId=u7881301d-5e58-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=270&id=u77f822b3&margin=%5Bobject%20Object%5D&name=image.png&originHeight=284&originWidth=949&originalType=binary&ratio=1&rotation=0&showTitle=false&size=93615&status=done&style=none&taskId=ud0db8b5e-369a-4891-bfa9-1da4f04f71e&title=&width=903.8095648542842" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="4-wx-if与hidden对比"><a href="#4-wx-if与hidden对比" class="headerlink" title="4.wx:if与hidden对比"></a>4.wx:if与hidden对比</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658541612962-b60568da-3394-4fa8-9b14-e7cc5176551f.png#clientId=u7881301d-5e58-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=333&id=u11319d23&margin=%5Bobject%20Object%5D&name=image.png&originHeight=350&originWidth=1041&originalType=binary&ratio=1&rotation=0&showTitle=false&size=169805&status=done&style=none&taskId=u77182769-f787-452d-8a4b-67982bac53a&title=&width=991.4286164523813" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h2 id="5-列表渲染"><a href="#5-列表渲染" class="headerlink" title="(5)列表渲染"></a>(5)列表渲染</h2><h3 id="1-wx-for"><a href="#1-wx-for" class="headerlink" title="1.wx:for"></a>1.wx:for</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658541897596-044a53f0-587b-44c8-b845-b3369dbb0f0e.png#clientId=u7881301d-5e58-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=54&id=u1b7e6f5a&margin=%5Bobject%20Object%5D&name=image.png&originHeight=57&originWidth=331&originalType=binary&ratio=1&rotation=0&showTitle=false&size=14200&status=done&style=none&taskId=u55e6192a-dba3-4b64-9608-f43944fc5a0&title=&width=315.23810955402325" srcset="/img/loading.gif" lazyload alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658541875733-ff297957-4e36-45da-b2a6-1cc685db3d98.png#clientId=u7881301d-5e58-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=364&id=ufe4822f9&margin=%5Bobject%20Object%5D&name=image.png&originHeight=382&originWidth=970&originalType=binary&ratio=1&rotation=0&showTitle=false&size=134659&status=done&style=none&taskId=u82a9a213-8940-46a9-9a2b-0cad286dd26&title=&width=923.8095657625455" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="2-手动指定索引和当前项的变量名"><a href="#2-手动指定索引和当前项的变量名" class="headerlink" title="2.手动指定索引和当前项的变量名"></a>2.手动指定索引和当前项的变量名</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658542072548-c0767c13-000a-4d48-99e2-237beacb9fb0.png#clientId=u7881301d-5e58-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=405&id=u64ce7dbb&margin=%5Bobject%20Object%5D&name=image.png&originHeight=425&originWidth=963&originalType=binary&ratio=1&rotation=0&showTitle=false&size=157676&status=done&style=none&taskId=u266545a3-0bfa-49da-a871-01b409f9a52&title=&width=917.1428987931251" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="3-wx-key的使用"><a href="#3-wx-key的使用" class="headerlink" title="3.wx:key的使用"></a>3.wx:key的使用</h3><p>相当于指定一个索引<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658542328711-60fce6da-ba01-4ed8-b591-bca2291e4bbc.png#clientId=u7881301d-5e58-4&crop=0&crop=0.1252&crop=1&crop=1&from=paste&height=670&id=uc5e38e51&margin=%5Bobject%20Object%5D&name=image.png&originHeight=703&originWidth=1263&originalType=binary&ratio=1&rotation=0&showTitle=false&size=193580&status=done&style=none&taskId=ua20556ae-90c3-47b8-bbeb-d10898341ca&title=&width=1203" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h1 id="二、WXSS模板样式"><a href="#二、WXSS模板样式" class="headerlink" title="二、WXSS模板样式"></a>二、WXSS模板样式</h1><h2 id="1-WXSS与CSS的关系"><a href="#1-WXSS与CSS的关系" class="headerlink" title="(1)WXSS与CSS的关系"></a>(1)WXSS与CSS的关系</h2><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658542542278-9ab8d72c-d283-40d2-a60b-63770d523577.png#clientId=u7881301d-5e58-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=529&id=ub97b4630&margin=%5Bobject%20Object%5D&name=image.png&originHeight=555&originWidth=1170&originalType=binary&ratio=1&rotation=0&showTitle=false&size=158474&status=done&style=none&taskId=u4a1825f9-699d-4136-8a79-3bf6af2666d&title=&width=1114.2857648888437" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h2 id="2-rpx尺寸单位"><a href="#2-rpx尺寸单位" class="headerlink" title="(2)rpx尺寸单位"></a>(2)rpx尺寸单位</h2><h3 id="1-实现原理"><a href="#1-实现原理" class="headerlink" title="1.实现原理"></a>1.实现原理</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658545225752-6606fe7f-7fdf-41bc-af58-c3fe6cc50ebe.png#clientId=ue3559d09-21db-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=336&id=uf01c93a9&margin=%5Bobject%20Object%5D&name=image.png&originHeight=353&originWidth=1312&originalType=binary&ratio=1&rotation=0&showTitle=false&size=205968&status=done&style=none&taskId=uf012ea31-9af4-4776-b8d0-5b960c5806a&title=&width=1249.5238662685151" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="2-rpx与px之间的单位换算"><a href="#2-rpx与px之间的单位换算" class="headerlink" title="2.rpx与px之间的单位换算"></a>2.rpx与px之间的单位换算</h3><h2 id="3-样式导入"><a href="#3-样式导入" class="headerlink" title=" (3)样式导入"></a><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658545318094-d5aaacb8-d4a4-489e-bbab-55ffc6fd7a1c.png#clientId=ue3559d09-21db-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=418&id=uafe9092f&margin=%5Bobject%20Object%5D&name=image.png&originHeight=439&originWidth=1056&originalType=binary&ratio=1&rotation=0&showTitle=false&size=195755&status=done&style=none&taskId=u4a5711f2-8154-4183-b2b2-d5df69335e5&title=&width=1005.7143313868537" srcset="/img/loading.gif" lazyload alt="image.png"> (3)样式导入</h2><h2 id="inport语法格式"><a href="#inport语法格式" class="headerlink" title="@inport语法格式"></a>@inport语法格式</h2><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658545578548-f031a5f9-895d-4e5c-8c43-cee5d6a64290.png#clientId=ue3559d09-21db-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=507&id=ufe5e7e96&margin=%5Bobject%20Object%5D&name=image.png&originHeight=532&originWidth=993&originalType=binary&ratio=1&rotation=0&showTitle=false&size=94146&status=done&style=none&taskId=u6b1caea4-d72a-43ab-bf6a-17620ad138e&title=&width=945.7143286620698" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h2 id="4-全局样式和局部样式"><a href="#4-全局样式和局部样式" class="headerlink" title="(4)全局样式和局部样式"></a>(4)全局样式和局部样式</h2><h3 id="1-全局样式"><a href="#1-全局样式" class="headerlink" title="1.全局样式"></a>1.全局样式</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658545764345-b51e8065-40ba-43aa-ba9c-107dee6a9316.png#clientId=ue3559d09-21db-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=48&id=u99623eed&margin=%5Bobject%20Object%5D&name=image.png&originHeight=50&originWidth=698&originalType=binary&ratio=1&rotation=0&showTitle=false&size=31389&status=done&style=none&taskId=u3ae428d7-99b8-4cdc-8432-7f997d58707&title=&width=664.7619349507802" srcset="/img/loading.gif" lazyload alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658545826701-ee95d6b9-f525-4b6e-81cb-a64d938160f4.png#clientId=ue3559d09-21db-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=634&id=u9c36f700&margin=%5Bobject%20Object%5D&name=image.png&originHeight=666&originWidth=803&originalType=binary&ratio=1&rotation=0&showTitle=false&size=199884&status=done&style=none&taskId=u6fa668cb-e3b7-4ffb-b56a-84290d97216&title=&width=764.7619394920866" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="2-局部样式"><a href="#2-局部样式" class="headerlink" title="2.局部样式"></a>2.局部样式</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658545894105-b0666067-de8c-4745-a913-f2b16ae3e758.png#clientId=ue3559d09-21db-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=534&id=u48843eb7&margin=%5Bobject%20Object%5D&name=image.png&originHeight=561&originWidth=947&originalType=binary&ratio=1&rotation=0&showTitle=false&size=123761&status=done&style=none&taskId=u0ebec29b-fad8-48b2-8ca2-106a52d065a&title=&width=901.9048028630212" srcset="/img/loading.gif" lazyload alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658545922495-b7a92f8e-32d4-407a-b214-36cfa244bbbf.png#clientId=ue3559d09-21db-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=177&id=ufcf31b5d&margin=%5Bobject%20Object%5D&name=image.png&originHeight=186&originWidth=888&originalType=binary&ratio=1&rotation=0&showTitle=false&size=86767&status=done&style=none&taskId=u12b9cfe4-c8ee-4e6a-add5-66f04f343a3&title=&width=845.7143241207633" srcset="/img/loading.gif" lazyload alt="image.png"> </p>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A0/" class="category-chain-item">微信小程序学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>微信小程序学习3</div>
+      <div>http://findm.cf/2022/07/23/20微信小程序学习3/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>马钏烽</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年7月23日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/20/19%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A02/" title="微信小程序学习2">
+                        <span class="hidden-mobile">微信小程序学习2</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>欢迎</span></a> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>访问</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
