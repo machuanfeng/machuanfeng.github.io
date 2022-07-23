@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://findm.cf/img/%E6%96%87%E7%AB%A0%E5%B0%81%E9%9D%A2/8.png">
 <meta property="article:published_time" content="2022-06-30T13:59:53.000Z">
-<meta property="article:modified_time" content="2022-07-22T02:20:26.005Z">
+<meta property="article:modified_time" content="2022-07-23T14:37:41.478Z">
 <meta property="article:author" content="马钏烽">
 <meta property="article:tag" content="FPGA">
 <meta name="twitter:card" content="summary_large_image">
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.8k 字
+          3.5k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          24 分钟
+          30 分钟
         
       </span>
     
@@ -326,6 +326,18 @@
 </li>
 </ol>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>磨刀不误砍柴工，学习FPGA之前，把这些必要的软件设置舒服是很重要的。之前在上学时也安装下载过许多的软件，这几个是遇到过流程最麻烦的，可能也是不熟悉的原因，花了几天时间，还是挺有成就感的，终于可以开始正式的学习了。</p>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p>最近在进行实践时发现一个闪退问题：在quartus跳转到modelsim之后，会出现一个弹框，提醒code：7，然后10秒钟后自动关闭modelsim。</p>
+<p>在查找资料后发现，是因为电脑用户名是中文所致，找到一个好的解决方法是建立用户名的一个连接，参考文章<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38232598/article/details/102836028">https://blog.csdn.net/qq_38232598&#x2F;article&#x2F;details&#x2F;102836028</a>，方法如下。（此方法在我自己使用时没有问题，但是网上有人存在系统错误的情况，因此存在一定的风险，酌情使用）</p>
+<p>假如你的中文用户名是小明，为用户目录建立软链接，软连接名称为应为xiaoming，方法如下：</p>
+<p>第一步：建立链接</p>
+<p>1）用管理员进入cmd格式下</p>
+<p>2）进入C:\Users 下，cd C:\Users  </p>
+<p>3）mklink &#x2F;D xiaoming 小明  （需要管理员的方式打开cmd）</p>
+<p>第二步：修改注册表</p>
+<p>1）命令框中输入 regedit进图注册表编辑器</p>
+<p>2）打开注册表编辑器 分别进入如下两个目录</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs verilog">计算机\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList\<br><br>计算机\HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\ProfileList\<br></code></pre></td></tr></table></figure>
+<p>这两个目录下一定有用户目录，比如C:\Users\小明，把目录修改为用户目录软连接名C:\Users\xiaoming</p>
 
               
             </div>
