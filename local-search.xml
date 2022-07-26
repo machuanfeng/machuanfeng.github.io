@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>23FPGA学习8-Testbench编写</title>
+    <link href="/2022/07/26/23FPGA%E5%AD%A6%E4%B9%A08-Testbench%E7%BC%96%E5%86%99/"/>
+    <url>/2022/07/26/23FPGA%E5%AD%A6%E4%B9%A08-Testbench%E7%BC%96%E5%86%99/</url>
+    
+    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer" /><h2 id="一、Testbench"><a href="#一、Testbench" class="headerlink" title="一、Testbench"></a>一、Testbench</h2><h3 id="1-Testbench概念"><a href="#1-Testbench概念" class="headerlink" title="1.Testbench概念"></a>1.Testbench概念</h3><p>简单的说，TestBench就是一种验证手段，从软件层面对设计的硬件电路进行仿真。具体来讲，一般是在你的仿真文件里，产生激励信号，作用于被仿真的设计文件，产生相应的输出，然后根据输出信号检验设计的电路是否存在问题或者存在哪些问题。Verilog的仿真文件应包括：模块声明、信号声明、顶层设计实例化、提供激励</p><h3 id="2-Testbench主要代码结构"><a href="#2-Testbench主要代码结构" class="headerlink" title="2.Testbench主要代码结构"></a>2.Testbench主要代码结构</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658803812675-4796517b-20ba-4f6a-8404-9e5abdd4fb98.png#clientId=ucdba1b4b-ff5d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=353&id=u9813ca9a&margin=%5Bobject%20Object%5D&name=image.png&originHeight=463&originWidth=318&originalType=binary&ratio=1&rotation=0&showTitle=false&size=14510&status=done&style=none&taskId=uf1686ae3-53b5-4677-adfe-e9159a0cf92&title=&width=242.28571428571428" alt="image.png"></p><p>以上一篇文章中的testbench为例：</p><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1658805267081-d7bad2fe-8ca9-4995-a016-8d07a20a828c.png#clientId=u2189c860-df63-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=513&id=u81f186e2&margin=%5Bobject%20Object%5D&name=image.png&originHeight=673&originWidth=970&originalType=binary&ratio=1&rotation=0&showTitle=false&size=177265&status=done&style=none&taskId=u1ef771a0-927b-4e08-9ed5-28fc509b89f&title=&width=739.047619047619" alt="image.png"></p><p>从这里也解开了一个误解，之前以为Testbench中还要把.v文件中的逻辑实现一遍（比如按下什么按键的时候灯亮）。但其实不用，testbench里面不需要实现逻辑，主要完成的是时钟激励的产生与两个文件变量的关联映射。</p><h2 id="二、复位"><a href="#二、复位" class="headerlink" title="二、复位"></a>二、复位</h2><p>数字电路中寄存器和 RAM 在上电之后默认的状态和数据是不确定的，如果有复位，我们可以把寄存器 复位到初始状态 0，RAM 的数据可以通过复位来触发 RAM 初始化到全 0。那可能很多人会问为什么是全 0呢？其实一般逻辑起始都是从 0 开始变化的，这个是根据设计的需要设定的一个值，如果设计需要寄存器 上电复位为 1，也是可以的。还有一种情况是逻辑进入了错误的状态，通过复位可以把所有的逻辑状态恢复 到初始值，如果没有复位，那么逻辑可能永远运行在错误的状态。<br>数字电路的复位通常可分为：<strong>同步复位与异步复位。</strong></p><h3 id="1-同步复位"><a href="#1-同步复位" class="headerlink" title="1.同步复位"></a>1.同步复位</h3><p>同步复位指的是当时钟上升沿检测（有效沿）到复位信号，执行复位操作，有效的时钟沿是前提。</p><h3 id="2-异步复位"><a href="#2-异步复位" class="headerlink" title="2.异步复位"></a>2.异步复位</h3><p>异步复位：异步复位指的是无论时钟沿是否到来，只要复位信号有效，就对系统进行复位。当时钟上升沿检测到复位信号，执行复位操作。<br>（这部分内容还没有用到，等之后再继续补充）</p><h2 id="三、阻塞与非阻塞赋值"><a href="#三、阻塞与非阻塞赋值" class="headerlink" title="三、阻塞与非阻塞赋值"></a>三、阻塞与非阻塞赋值</h2><p>阻塞赋值的操作用等号（&#x3D;）表示。“阻塞”是指在进程语句中，只有当前语句执行完，之后的语句才可以执行。阻塞赋值可以看做是一步完成的，即：计算等号右边的值并同时赋给左边变量。</p><p>非阻塞赋值用（&lt;&#x3D;）表示。非阻塞是指在进程语句中，当前赋值语句不会阻断其后的语句。非阻塞赋值可以认为是由两个步骤完成的：①计算等号右边表达式的值；②在本条赋值语句结束时，将等号右边的值赋给左边的变量。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>FPGA学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>TestBench</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>微信小程序学习4</title>
     <link href="/2022/07/24/22%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A04/"/>
     <url>/2022/07/24/22%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A04/</url>
