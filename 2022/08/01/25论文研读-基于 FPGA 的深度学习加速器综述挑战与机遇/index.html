@@ -1,0 +1,785 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#64b5f6">
+  <meta name="author" content="马钏烽">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本篇论文系统地研究了基于 FPGA 的神经网络加速器。首先分别回顾了针对特定问题、特定算法、算法共同特征和通用模板设计的加速器；之后比较了不同设备和网络模型下基于FPGA的加速器的设计和实现。最后，讨论了 FPGA 平台上加速器的优缺点，并进一步探索未来研究的方向。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="论文研读-基于 FPGA 的深度学习加速器综述:挑战与机遇">
+<meta property="og:url" content="http://findm.cf/2022/08/01/25%E8%AE%BA%E6%96%87%E7%A0%94%E8%AF%BB-%E5%9F%BA%E4%BA%8E%20FPGA%20%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%8A%A0%E9%80%9F%E5%99%A8%E7%BB%BC%E8%BF%B0%E6%8C%91%E6%88%98%E4%B8%8E%E6%9C%BA%E9%81%87/index.html">
+<meta property="og:site_name" content="小马的个人博客">
+<meta property="og:description" content="本篇论文系统地研究了基于 FPGA 的神经网络加速器。首先分别回顾了针对特定问题、特定算法、算法共同特征和通用模板设计的加速器；之后比较了不同设备和网络模型下基于FPGA的加速器的设计和实现。最后，讨论了 FPGA 平台上加速器的优缺点，并进一步探索未来研究的方向。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://findm.cf/img/%E6%96%87%E7%AB%A0%E5%B0%81%E9%9D%A2/25.png">
+<meta property="article:published_time" content="2022-08-01T14:06:05.000Z">
+<meta property="article:modified_time" content="2022-08-01T14:25:40.409Z">
+<meta property="article:author" content="马钏烽">
+<meta property="article:tag" content="FPGA加速器">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://findm.cf/img/%E6%96%87%E7%AB%A0%E5%B0%81%E9%9D%A2/25.png">
+  
+  
+  
+  <title>论文研读-基于 FPGA 的深度学习加速器综述:挑战与机遇 - 小马的个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"findm.cf","root":"/","version":"1.9.1","typing":{"enable":true,"typeSpeed":92,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客主页</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E6%96%87%E7%AB%A0%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="论文研读-基于 FPGA 的深度学习加速器综述:挑战与机遇"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-08-01 22:06" pubdate>
+          2022年8月1日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          42 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">论文研读-基于 FPGA 的深度学习加速器综述:挑战与机遇</h1>
+            
+            <div class="markdown-body">
+              
+              <meta name="referrer" content="no-referrer" />
+
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1659319441387-1df4ccee-80ab-4b05-bbc4-87b2df1d1cd9.png#clientId=u12b4f262-8f11-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=338&id=ua465507a&margin=%5Bobject%20Object%5D&name=image.png&originHeight=443&originWidth=1317&originalType=binary&ratio=1&rotation=0&showTitle=false&size=109723&status=done&style=none&taskId=ua7defe57-708f-4cec-b15b-196c1f655a3&title=&width=1003.4285714285714" srcset="/img/loading.gif" lazyload alt="image.png"><br>论文链接：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1901.04988">https://arxiv.org/abs/1901.04988</a></p>
+<h3 id="论文导读"><a href="#论文导读" class="headerlink" title="论文导读"></a>论文导读</h3><blockquote>
+<p>本篇论文系统地研究了基于 FPGA 的神经网络加速器。具体来说，首先介绍了深度学习加速器的研究背景与FPGA的发展历史；然后分别回顾了针对特定问题、特定算法、算法共同特征和通用模板设计的加速器；之后比较了不同设备和网络模型下基于FPGA的加速器的设计和实现。最后，讨论了 FPGA 平台上加速器的优缺点，并进一步探索未来研究的方向。</p>
+</blockquote>
+<h3 id="1-深度学习加速器研究背景"><a href="#1-深度学习加速器研究背景" class="headerlink" title="1.深度学习加速器研究背景"></a>1.深度学习加速器研究背景</h3><p>近年来，神经网络（NN）的研究与各个领域的传统算法相比有了显着的提高。已经为图像、视频和语音处理研究领域提出了各种网络模型，例如卷积神经网络 (CNN)、循环神经网络 (RNN)。训练有素的 CNN 模型将 ImageNet 数据集上前 5 位图像的分类准确率从 73.8% 提高到 84.7%，并以其出色的特征提取能力进一步提高了对象检测。 RNN 实现了语音识别中最新的单词错误率。总的来说，由于神经网络对广泛的模式识别问题具有很高的拟合能力，这使得神经网络成为许多人工智能应用的有希望的候选者。<br>然而，神经网络模型仍然存在计算和存储复杂度高的问题。与此同时，目前对神经网络的研究仍集中在提升神经网络模型规模上。例如用于 224x224 图像分类的最大 CNN 模型需要多达 390 亿次浮点运算 (FLOP) 和超过 500 MB 的模型参数。由于计算复杂度与输入图像的大小成正比，因此处理更高分辨率的图像可能需要超过 1000 亿次操作。<br>因此，为神经网络应用选择适度的计算平台尤为重要。一般来说，CPU 每秒可以执行 10-100 GFLOP次运算，但功率效率通常低于 1 GOP&#x2F;J。因此，很难实现云应用程序的高性能要求和移动应用程序的低功耗要求。相比之下，GPU 提供高达 10 TOP&#x2F;s 的峰值性能，因此它是高性能神经网络应用程序的绝佳选择。此外，Caffe、Tensorflow等编程框架也在GPU平台上提供了易用的接口，使GPU成为神经网络加速的首选。<br>除了 CPU 和 GPU，FPGA 正逐渐成为高能效神经网络处理的候选平台。 FPGA可以根据神经网络的计算过程，配合特定模型的硬件设计，实现高并行度和简化逻辑。一些研究表明，神经网络模型可以在不影响模型准确性的情况下以硬件友好的方式进行简化。因此，FPGA 可以实现比 CPU 和 GPU 更高的能效。</p>
+<h3 id="2-基于FPGA的神经网络加速器发展历程"><a href="#2-基于FPGA的神经网络加速器发展历程" class="headerlink" title="2.基于FPGA的神经网络加速器发展历程"></a>2.基于FPGA的神经网络加速器发展历程</h3><p> FPGA 诞生的 1990 年代，FPGA 最初并不是为神经网络而开发的，而是为电子硬件原型的快速发展而开发的。自神经网络诞生以来，人们一直在探索其改进和应用，但一直未能确定其发展方向。虽然在 1994 年 D.S. Reay 首次使用 FPGA 实现了神经网络加速器，但由于神经网络本身的发展，课程一直没有受到重视。直到 ILSVRC 2012 AlexNet 的诞生，明确了神经网络的发展方向，研究界正朝着更深入、更复杂的网络研究方向迈进。紧随其后的是VGGNet、GoogleNet、ResNet等模型的产生，完全标志着复杂神经网络的发展趋势。那时，研究人员开始注意到基于 FPGA 的神经网络加速器，如下图所示。直到2019年，在 IEEE eXplore 上发表的基于 FPGA 的神经网络加速器的数量已经达到 69 个，并且还在不断上升。足以说明该方向的研究趋势。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1659150449001-3ea54551-02f3-41ef-8c83-3afc497336cb.png#clientId=uf73b0ba1-28cd-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=552&id=u9280e61b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=725&originWidth=1526&originalType=binary&ratio=1&rotation=0&showTitle=false&size=134680&status=done&style=none&taskId=u5037deac-2515-4dbe-9b27-870ad2634ac&title=&width=1162.6666666666667" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="3-Roof-line-分析模型"><a href="#3-Roof-line-分析模型" class="headerlink" title="3.Roof-line 分析模型"></a>3.Roof-line 分析模型</h3><p>Roof-line模型用于描述在计算平台的算力和带宽的限制下，程序所能达到的理论性能上界。对于评估神经网络模型在FPGA上的实际运行情况非常重要。要了解Roof-line模型就必须从计算平台和程序两方面入手。<br><strong>计算平台的指标：</strong></p>
+<ul>
+<li>算力π：每秒所完成的浮点运算次数，单位为FLOP&#x2F;s或GFLOP&#x2F;s</li>
+<li>带宽β：每秒所完成的内存读取量，单位为Byte&#x2F;s或GByte&#x2F;s</li>
+<li>计算强度上限Imax：，是算力与带宽两个指标的比值，即每字节读取所完成的浮点运算量，单位为FLOP&#x2F;Byte</li>
+</ul>
+<p><strong>程序的指标：</strong></p>
+<ul>
+<li>计算量：指的是输入单个样本，模型进行一次完整的前向传播所发生的浮点运算个数，也即模型的时间复杂度。</li>
+<li>访存量：指的是输入单个样本，模型完成一次前向传播过程中所发生的内存交换总量，也即模型的空间复杂度。</li>
+<li>模型的计算强度 I ：由计算量除以访存量就可以得到模型的计算强度，它表示此模型在计算过程中，每Byte内存交换到底用于进行多少次浮点运算。</li>
+<li>模型的理论性能 P ：我们最关心的指标，即模型在计算平台上所能达到的每秒浮点运算次数。</li>
+</ul>
+<p>有了这些概念，就可以绘制Roof-line模型的示意图，横坐标为计算强度I，纵坐标为理论性能P。算力决定“屋顶”的高度（绿色线段）；带宽决定“房檐”的斜率（红色线段）。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1659340757487-c32095ab-ea47-47a1-8e56-43b1e7135b16.png#clientId=ud9491eda-4fde-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=435&id=u11776cdb&margin=%5Bobject%20Object%5D&name=image.png&originHeight=571&originWidth=841&originalType=binary&ratio=1&rotation=0&showTitle=false&size=157894&status=done&style=none&taskId=u0f38a37a-a0f7-4945-9c79-ecfcd077835&title=&width=640.7619047619048" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>由图就可以看出，为了提高FPGA加速器的效率，就需要使模型的计算强度I向计算强度上限Imax不断逼近，从而使模型的理论性能更加接近于计算平台的“算力π”。对于之前的研究，主要从两个方面来实现计算强度的提高，以达到优化神经网络加速器的目的。</p>
+<p>（1）算法的共同特点：对于很多神经网络算法来说，算法的不同部分在执行过程中对整个算法执行时间的影响是不同的。尽管如此，对于任何神经网络算法来说，都有很多共同的特征，可以针对这些特征设计更通用的加速器。每种神经网络算法的共同特点是矩阵运算、非线性激活函数和巨大的内部参数。</p>
+<table>
+<thead>
+<tr>
+<th><strong>共同特征</strong></th>
+<th><strong>优化方法</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>矩阵运算</td>
+<td>im2col方法、基于Winograd的方法、循环展开、矩阵稀疏分析</td>
+</tr>
+<tr>
+<td>非线性激活函数</td>
+<td>这方面的研究较少。唯一的方向是非线性激活函数的线性拟合，但效果并不理想</td>
+</tr>
+<tr>
+<td>巨大的内部单数</td>
+<td>减小权重矩阵的内部参数，即存储大小，从而降低对硬件平台的带宽需求</td>
+</tr>
+</tbody></table>
+<p>（2）并行神经网络算法：计算并行化是神经网络算法最常用的加速方法。使用任务级并行、数据级并行、硬件级并行是加速器优化的主要并行处理。本质上，并行神经网络算法的本质是将算法核心的计算并行化，以达到更好的加速效果。</p>
+<table>
+<thead>
+<tr>
+<th><strong>并行层次</strong></th>
+<th><strong>优化方法</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>任务级并行</td>
+<td>暂无方法</td>
+</tr>
+<tr>
+<td>数据级并行</td>
+<td>使用双缓冲机制</td>
+</tr>
+<tr>
+<td>硬件级并行</td>
+<td>重新配置计算单元、使用流水线技术</td>
+</tr>
+</tbody></table>
+<h3 id="3-基于FPGA的深度学习加速器设计"><a href="#3-基于FPGA的深度学习加速器设计" class="headerlink" title="3.基于FPGA的深度学习加速器设计"></a>3.基于FPGA的深度学习加速器设计</h3><h4 id="3-1三种设计思路"><a href="#3-1三种设计思路" class="headerlink" title="3.1三种设计思路"></a>3.1三种设计思路</h4><p><strong>（1）为特定应用设计加速器</strong><br>为实现高效的语音识别引擎（ESE），论文 [13] (ESE:Efﬁcient Speech Recognition Engine with Sparse LSTM on FPGA)中使用 FPGA 设计了专用的加速设备来实现 LSTM 算法。长短时记忆神经网络（LSTM）在语音识别中有着广泛的应用。为了加快预测并节省能源，他们使用了负载平衡传感剪枝方法，该方法将 LSTM 模型大小压缩了 20 倍（10 倍形式的剪枝，2 倍的形式量化），而预测精度的损失可以忽略不计。</p>
+<p><strong>（2）为特定算法设计加速器</strong><br>将FPGA设计加速器用于特定的神经网络模型算法是目前加速器方向的热门研究课题。主要原因是当针对特定神经网络算法设计的加速器应用于特定问题时，通常只需要配置特定参数或进行一些小改动就可以很好地适应这个问题。</p>
+<table>
+<thead>
+<tr>
+<th>卷积神经网络</th>
+<th>论文[2](Optimizing fpga-based accelerator design for deep convolutional neural networks.)采用双缓冲机制优化卷积神经网络内存访问，实验的最终结果是硬件的峰值性能在 100 MHz 工作频率下达到了 61.62 GFLOPS。论文的双缓冲机制和独特的计算单元可用于其他算法，进一步实现神经网络通用加速器的愿景。</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>循环神经网络</td>
+<td>在论文 [15] (FPGA-based accelerator for long short-term memory recurrent neural networks)中，作者提出了一种基于 FPGA 的 LSTMRN 加速器，可优化计算性能和通信要求。加速器的峰值性能最终达到了 7.26 GFLOP&#x2F;S。提出直接保存LSTM隐藏层的状态参数，省去了每次都需要重新加载参数，降低对硬件的带宽要求。</td>
+</tr>
+</tbody></table>
+<p><strong>（3）根据共同特征设计加速器</strong><br>前面两个设计加速器的目的是专用的，但是在设计加速器的过程中有一些实践可以移植到其他算法的加速器设计中。这样针对算法的特征设计的加速器就可以得到更好的实现。目前，根据已知的论文，其处理加速器设计的一般方法是计算优化和内存访问优化。 </p>
+<ul>
+<li>计算优化：大部分深度学习算法在学习或推理过程中都涉及到大量的大规模矩阵运算。这些矩阵运算一般需要大量的计算资源，所以它们往往是算法的核心。因此，加速所涉及的矩阵运算可以有效提高算法的整体性能。</li>
+<li>内存访问优化：在内存带宽的限制下，具有更高Roof-line的设计变量不一定能获得更高的性能。论文 [6](Calculation Optimization for Convolutional Neural Networks and FPGA-based Accelerator Design Using the Parameters Sparsity)就进行了优化，以通过有效的数据多路复用来减少流量。</li>
+</ul>
+<h4 id="3-2使用硬件模板设计通用加速器框架"><a href="#3-2使用硬件模板设计通用加速器框架" class="headerlink" title="3.2使用硬件模板设计通用加速器框架"></a>3.2使用硬件模板设计通用加速器框架</h4><p>论文[16](FP-DNN: An Automated Framework for Mapping Deep Neural Networks onto FPGAs with RTL-HLS Hybrid Templates)提出了端到端框架FP-DNN（Field Programmable DNN），它使用TensorFlow描述的DNN作为输入，并在FPGA板上使用RTL-HLS混合模板自动生成硬件实现。 FP-DNN 使用高性能计算引擎和精心设计的通信优化策略对 DNN 进行建模。</p>
+<h4 id="3-3当前加速器性能综合比较"><a href="#3-3当前加速器性能综合比较" class="headerlink" title="3.3当前加速器性能综合比较"></a>3.3当前加速器性能综合比较</h4><p>通过下面的表格，可以观察到当前主流的基于FPGA的神经网络加速器在不同网络模型、不同硬件类型和不同外部参数下的性能和功耗。首先，根据所使用的网络模型类型，文章将其分为三类：VGG、LSTM和Res-Net。此外，给出了所用模型参数的精度。同时，该表还列出了本文中的平台、硬件类型和相关参数。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1659348625908-4d4fd91b-2e05-45bb-894d-840c5d33e083.png#clientId=ud9491eda-4fde-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=618&id=uc06f6ead&margin=%5Bobject%20Object%5D&name=image.png&originHeight=811&originWidth=723&originalType=binary&ratio=1&rotation=0&showTitle=false&size=227771&status=done&style=none&taskId=u5e2fc43c-ac9d-4a07-b930-bc2f62d9613&title=&width=550.8571428571429" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>可以看出，在保持相同计算结果的同时，FPGA平台的16位定点计算性能基本是CPU平台的2X-3X左右，计算资源利用率也接近20倍。但与GPU平台相比，FPGA计算性能并没有明显超越，但功耗显著降低。还可以看出，与直接设计FPGA加速器相比，使用FP-DNN在相同条件下对最终性能和功耗的表现还不够理想。</p>
+<h3 id="4-机遇与挑战"><a href="#4-机遇与挑战" class="headerlink" title="4.机遇与挑战"></a>4.机遇与挑战</h3><h4 id="4-1基于FPGA神经网络加速器的优势与劣势"><a href="#4-1基于FPGA神经网络加速器的优势与劣势" class="headerlink" title="4.1基于FPGA神经网络加速器的优势与劣势"></a>4.1基于FPGA神经网络加速器的优势与劣势</h4><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1659350332282-b6cbc0da-819e-422f-ad87-fe47bffc48ce.png#clientId=ud9491eda-4fde-4&crop=0&crop=0&crop=1&crop=1&from=ui&id=u665dcd00&margin=%5Bobject%20Object%5D&name=%E5%9F%BA%E4%BA%8EFPGA%E7%9A%84%E5%8A%A0%E9%80%9F%E5%99%A8.png&originHeight=838&originWidth=1862&originalType=binary&ratio=1&rotation=0&showTitle=false&size=235543&status=done&style=none&taskId=u609dd605-6457-45ab-a932-57b5eb48021&title=" srcset="/img/loading.gif" lazyload alt="基于FPGA的加速器.png"></p>
+<h4 id="4-2未来的研究方向"><a href="#4-2未来的研究方向" class="headerlink" title="4.2未来的研究方向"></a>4.2未来的研究方向</h4><ol>
+<li>其余计算过程中的优化。目前主流研究放在矩阵运算的循环部分，激活函数的计算只有少数人参与。</li>
+<li>访问优化。需要进一步研究数据访问的其他优化方法。</li>
+<li>数据优化。使用较低位的数据自然可以提高平台的性能，但大多数都使权重和神经元具有相同的位宽，但是与非线性映射的差异位宽在图 2 中也可以得到改善。所以应该有一个更好的平衡状态有待探索。</li>
+<li>频率优化。目前所研究的大部分FPGA平台的工作频率为100∼300MHz，但FPGA平台的理论频率更多。主要原因是受限于片上SRAM和DSP之间的路由。如果有办法解决或避免它，则需要进一步研究。 </li>
+<li>FPGA的集成。根据论文[37](A Framework for Accelerationof CNN Training on Deeply-Pipelined FPGA Clusters with Work and Weight Load Balancing)的表现，如果调度和分配问题能够得到很好的处理，多FPGA集群可以取得更好的效果。而且目前对这个方向的研究不多。所以这个方向值得进一步探索。</li>
+<li>自动配置。解决FPGA平台编程复杂的问题，如果有更人性化的自动部署框架，类似于NVIDIA的CUDA（Compute Unified Device Architecture），会让应用范围更广。</li>
+</ol>
+<h3 id="5-论文总结"><a href="#5-论文总结" class="headerlink" title="5.论文总结"></a>5.论文总结</h3><p>加速深度学习算法是近年来备受关注的一项研究。目前的主流平台是GPU集群。 FPGA&#x2F;ASIC虽然也有这么好的加速能力，但由于编程复杂等问题，只在研究领域普及。这篇论文按照从定制到通用的顺序研究了基于FPGA的加速器的设计和实现，比较了不同设计的性能和功耗，并总结了该领域进一步研究的一些方向。由于 FPGA 的高性能特性，未来神经网络加速器的研究会非常有前途。</p>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%BA%E6%96%87%E7%A0%94%E8%AF%BB/" class="category-chain-item">论文研读</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/FPGA%E5%8A%A0%E9%80%9F%E5%99%A8/">#FPGA加速器</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>论文研读-基于 FPGA 的深度学习加速器综述:挑战与机遇</div>
+      <div>http://findm.cf/2022/08/01/25论文研读-基于 FPGA 的深度学习加速器综述挑战与机遇/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>马钏烽</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年8月1日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/29/24%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A05/" title="微信小程序学习5">
+                        <span class="hidden-mobile">微信小程序学习5</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>欢迎</span></a> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>访问</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
