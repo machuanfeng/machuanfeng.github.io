@@ -1,0 +1,714 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#ededed">
+  <meta name="author" content="马钏烽">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本篇文章主要介绍了微信小程序的生命周期函数和WXS脚本，并通过一个案例将这些知识点进行应用，对相关代码进行了详细的解释。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信小程序学习6">
+<meta property="og:url" content="http://findm.cf/2022/08/10/26%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A06/index.html">
+<meta property="og:site_name" content="小马的个人博客">
+<meta property="og:description" content="本篇文章主要介绍了微信小程序的生命周期函数和WXS脚本，并通过一个案例将这些知识点进行应用，对相关代码进行了详细的解释。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://findm.cf/img/%E6%96%87%E7%AB%A0%E5%B0%81%E9%9D%A2/26.png">
+<meta property="article:published_time" content="2022-08-10T09:30:50.000Z">
+<meta property="article:modified_time" content="2022-08-10T09:37:02.388Z">
+<meta property="article:author" content="马钏烽">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://findm.cf/img/%E6%96%87%E7%AB%A0%E5%B0%81%E9%9D%A2/26.png">
+  
+  
+  
+  <title>微信小程序学习6 - 小马的个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"findm.cf","root":"/","version":"1.9.1","typing":{"enable":true,"typeSpeed":92,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客主页</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E6%96%87%E7%AB%A0%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="微信小程序学习6"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-08-10 17:30" pubdate>
+          2022年8月10日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          858 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          8 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">微信小程序学习6</h1>
+            
+            <div class="markdown-body">
+              
+              <meta name="referrer" content="no-referrer" />
+
+
+<h1 id="一、生命周期"><a href="#一、生命周期" class="headerlink" title="一、生命周期"></a>一、生命周期</h1><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1659579425427-b651bfab-64ff-4c22-b37a-82fa378783b5.png#clientId=u575f05f3-c96f-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=107&id=u2f9a44c4&margin=%5Bobject%20Object%5D&name=image.png&originHeight=141&originWidth=430&originalType=binary&ratio=1&rotation=0&showTitle=false&size=54558&status=done&style=none&taskId=u8f154958-e555-4139-b077-7f83cd08303&title=&width=327.6190476190476" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h2 id="1-生命周期的分类"><a href="#1-生命周期的分类" class="headerlink" title="(1)生命周期的分类"></a>(1)生命周期的分类</h2><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1659579481675-cc78ff89-f9bc-44ae-ba58-2cbf02dce216.png#clientId=u575f05f3-c96f-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=374&id=ud282cea9&margin=%5Bobject%20Object%5D&name=image.png&originHeight=491&originWidth=1090&originalType=binary&ratio=1&rotation=0&showTitle=false&size=161675&status=done&style=none&taskId=uc6174a9f-7198-4188-90b2-cd6058b7b2a&title=&width=830.4761904761905" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h2 id="2-生命周期函数"><a href="#2-生命周期函数" class="headerlink" title="(2)生命周期函数"></a>(2)生命周期函数</h2><p>生命周期函数：是由小程序框架提供的内置函数，会伴随着生命周期，自动按次序执行<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1659579600669-2ae12922-621b-4af3-aebd-8ba3e028ab8b.png#clientId=u575f05f3-c96f-4&crop=0&crop=0&crop=1&crop=0.7271&from=paste&height=77&id=u7b7fea07&margin=%5Bobject%20Object%5D&name=image.png&originHeight=101&originWidth=846&originalType=binary&ratio=1&rotation=0&showTitle=false&size=48212&status=done&style=none&taskId=u51c9f22f-5d4a-425d-b57b-5e858367cb1&title=&width=645" srcset="/img/loading.gif" lazyload alt="image.png"><br>生命周期强调的是时间段，生命周期函数强调的是时间点</p>
+<h3 id="1-生命周期函数的分类"><a href="#1-生命周期函数的分类" class="headerlink" title="1.生命周期函数的分类"></a>1.生命周期函数的分类</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1659579722668-4c03d2a4-266f-4266-bb07-be7450c021ad.png#clientId=u575f05f3-c96f-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=137&id=uc0dbbf60&margin=%5Bobject%20Object%5D&name=image.png&originHeight=180&originWidth=608&originalType=binary&ratio=1&rotation=0&showTitle=false&size=68024&status=done&style=none&taskId=u983a3b43-d481-41c5-bf52-124726b1b5b&title=&width=463.23809523809524" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="2-应用的生命周期函数"><a href="#2-应用的生命周期函数" class="headerlink" title="2.应用的生命周期函数"></a>2.应用的生命周期函数</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1659579785957-aa19e5a9-3882-4796-a064-3188c022258b.png#clientId=u575f05f3-c96f-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=272&id=u0d57d46f&margin=%5Bobject%20Object%5D&name=image.png&originHeight=357&originWidth=625&originalType=binary&ratio=1&rotation=0&showTitle=false&size=99017&status=done&style=none&taskId=uc8f06a8a-790a-4343-9d18-ea25e299927&title=&width=476.1904761904762" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<ul>
+<li>前台：当手机正在处于小程序页面时，小程序就是在前台</li>
+<li>后台：当回到手机home页面时，小程序就是在后台</li>
+</ul>
+<h3 id="3-小程序的页面周期函数"><a href="#3-小程序的页面周期函数" class="headerlink" title="3.小程序的页面周期函数"></a>3.小程序的页面周期函数</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1659580460082-c674be1e-3e03-419d-a530-3732f16a421e.png#clientId=u575f05f3-c96f-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=245&id=uf1fa44e7&margin=%5Bobject%20Object%5D&name=image.png&originHeight=321&originWidth=640&originalType=binary&ratio=1&rotation=0&showTitle=false&size=110516&status=done&style=none&taskId=u89de3d46-5e44-40d1-b7d8-12c6f0d42cc&title=&width=487.6190476190476" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h1 id="二、WXS脚本"><a href="#二、WXS脚本" class="headerlink" title="二、WXS脚本"></a>二、WXS脚本</h1><p>WXS是小程序独有的一种脚本语言，结合WXML，可以构建出页面的结构</p>
+<h2 id="1-WXS的应用场景"><a href="#1-WXS的应用场景" class="headerlink" title="(1)WXS的应用场景"></a>(1)WXS的应用场景</h2><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1659580789374-fb93aba4-a9e2-4c2f-a3a9-fef7a9711bc5.png#clientId=u575f05f3-c96f-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=55&id=uf74c6375&margin=%5Bobject%20Object%5D&name=image.png&originHeight=72&originWidth=850&originalType=binary&ratio=1&rotation=0&showTitle=false&size=44900&status=done&style=none&taskId=u59ca9da9-12cf-461b-bd53-179de855239&title=&width=647.6190476190476" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h2 id="2-WXS和JavaScript的关系"><a href="#2-WXS和JavaScript的关系" class="headerlink" title="(2)WXS和JavaScript的关系"></a>(2)WXS和JavaScript的关系</h2><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1659580924204-90205633-93e5-4655-bfc9-17db11dd5725.png#clientId=u575f05f3-c96f-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=296&id=ucd42573b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=389&originWidth=723&originalType=binary&ratio=1&rotation=0&showTitle=false&size=160518&status=done&style=none&taskId=u07939376-7ab7-45de-b11d-b97ccb53104&title=&width=550.8571428571429" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h2 id="3-WXS的基本用法"><a href="#3-WXS的基本用法" class="headerlink" title="(3)WXS的基本用法"></a>(3)WXS的基本用法</h2><h3 id="1-内嵌的wxs脚本"><a href="#1-内嵌的wxs脚本" class="headerlink" title="1.内嵌的wxs脚本"></a>1.内嵌的wxs脚本</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1659581040535-a2cf78ee-3615-4413-8305-372e80a6204f.png#clientId=u575f05f3-c96f-4&crop=0&crop=0&crop=1&crop=0.3367&from=paste&height=300&id=uc9236e76&margin=%5Bobject%20Object%5D&name=image.png&originHeight=394&originWidth=855&originalType=binary&ratio=1&rotation=0&showTitle=false&size=121564&status=done&style=none&taskId=ue9c51f24-62d0-411d-9b16-4460291da95&title=&width=651" srcset="/img/loading.gif" lazyload alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1659581995373-93bf5cef-3353-4a1d-9467-5ae9ca4e2c38.png#clientId=u575f05f3-c96f-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=254&id=u0b4e1f07&margin=%5Bobject%20Object%5D&name=image.png&originHeight=333&originWidth=498&originalType=binary&ratio=1&rotation=0&showTitle=false&size=28265&status=done&style=none&taskId=u5815ee68-c824-4731-9180-3ac293c8328&title=&width=379.42857142857144" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="2-外联的wxs脚本"><a href="#2-外联的wxs脚本" class="headerlink" title="2.外联的wxs脚本"></a>2.外联的wxs脚本</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1659582244793-5760916d-2098-4658-9d00-8f4ae34637c8.png#clientId=u575f05f3-c96f-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=286&id=u06fdaf87&margin=%5Bobject%20Object%5D&name=image.png&originHeight=375&originWidth=846&originalType=binary&ratio=1&rotation=0&showTitle=false&size=76866&status=done&style=none&taskId=ud5b8961a-e221-4605-8e07-55f2184eb20&title=&width=644.5714285714286" srcset="/img/loading.gif" lazyload alt="image.png"><br>使用方法：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1659582282731-655dcebe-2654-4463-8534-3d8b1adb1f52.png#clientId=u575f05f3-c96f-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=281&id=ufb1e2282&margin=%5Bobject%20Object%5D&name=image.png&originHeight=369&originWidth=725&originalType=binary&ratio=1&rotation=0&showTitle=false&size=104497&status=done&style=none&taskId=u82af042e-4b63-41d1-a1fc-f15b894631c&title=&width=552.3809523809524" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h2 id="4-WXS的四个特点"><a href="#4-WXS的四个特点" class="headerlink" title="(4)WXS的四个特点"></a>(4)WXS的四个特点</h2><h3 id="1-与JavaScript不同"><a href="#1-与JavaScript不同" class="headerlink" title="1.与JavaScript不同"></a>1.与JavaScript不同</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1659582880253-398c0313-6916-4924-b7a6-78c3e4ba57a9.png#clientId=u575f05f3-c96f-4&crop=0&crop=0.3517&crop=1&crop=0.8515&from=paste&height=128&id=u584cb43b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=168&originWidth=868&originalType=binary&ratio=1&rotation=0&showTitle=false&size=47400&status=done&style=none&taskId=u6f4a8e41-1e00-4626-b457-d7052116d20&title=&width=661" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="2-不能作为组件的事件回调"><a href="#2-不能作为组件的事件回调" class="headerlink" title="2.不能作为组件的事件回调"></a>2.不能作为组件的事件回调</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1659582892334-652ffecf-3a68-400d-b052-deb5f4aeb28f.png#clientId=u575f05f3-c96f-4&crop=0&crop=0.2096&crop=1&crop=0.9656&from=paste&height=291&id=u47c39848&margin=%5Bobject%20Object%5D&name=image.png&originHeight=382&originWidth=736&originalType=binary&ratio=1&rotation=0&showTitle=false&size=96123&status=done&style=none&taskId=uc25524b2-d82f-49c4-93ef-06e31498b14&title=&width=561" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="3-隔离性"><a href="#3-隔离性" class="headerlink" title="3.隔离性"></a>3.隔离性</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1659582894811-88bb889d-3096-4dc7-9f6f-2e220af93364.png#clientId=u575f05f3-c96f-4&crop=0&crop=0.3387&crop=1&crop=0.9294&from=paste&height=142&id=u1b74ef9a&margin=%5Bobject%20Object%5D&name=image.png&originHeight=186&originWidth=690&originalType=binary&ratio=1&rotation=0&showTitle=false&size=48311&status=done&style=none&taskId=u11c612ba-f2c2-4e20-93a6-a9388758621&title=&width=526" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="4-性能好"><a href="#4-性能好" class="headerlink" title="4.性能好"></a>4.性能好</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1659582898847-81e5eb52-906b-4437-9be5-db736fddb084.png#clientId=u575f05f3-c96f-4&crop=0&crop=0.424&crop=1&crop=0.8587&from=paste&height=120&id=udcb43931&margin=%5Bobject%20Object%5D&name=image.png&originHeight=158&originWidth=574&originalType=binary&ratio=1&rotation=0&showTitle=false&size=39635&status=done&style=none&taskId=ufe44288a-350f-47ae-bf28-fccc141c5f6&title=&width=437" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h1 id="三、案例"><a href="#三、案例" class="headerlink" title="三、案例"></a>三、案例</h1><h3 id="1-演示页面效果及主要功能"><a href="#1-演示页面效果及主要功能" class="headerlink" title="1.演示页面效果及主要功能"></a>1.演示页面效果及主要功能</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1659583012961-89537af0-d967-4acb-a35d-cf62a83e2f5f.png#clientId=u575f05f3-c96f-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=312&id=u8a97ac03&margin=%5Bobject%20Object%5D&name=image.png&originHeight=410&originWidth=521&originalType=binary&ratio=1&rotation=0&showTitle=false&size=142117&status=done&style=none&taskId=u4812ffd5-f965-40f9-afa4-67e08d715c1&title=&width=396.95238095238096" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="2-列表页面的API接口"><a href="#2-列表页面的API接口" class="headerlink" title="2.列表页面的API接口"></a>2.列表页面的API接口</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1660092442240-9fc00a9d-db52-4099-b964-bec3f8c570e0.png#clientId=u1a61a923-08ae-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=255&id=uc511ec68&margin=%5Bobject%20Object%5D&name=image.png&originHeight=335&originWidth=539&originalType=binary&ratio=1&rotation=0&showTitle=false&size=82582&status=done&style=none&taskId=ub95babf7-7bc8-44dc-8c53-880d2b1b324&title=&width=410.6666666666667" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="3-判断是否还有下一页数据"><a href="#3-判断是否还有下一页数据" class="headerlink" title="3.判断是否还有下一页数据"></a>3.判断是否还有下一页数据</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1660097245184-2da80d47-4a4a-45cb-833b-1e860b21cae8.png#clientId=u1a61a923-08ae-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=159&id=ub03b1b75&margin=%5Bobject%20Object%5D&name=image.png&originHeight=209&originWidth=792&originalType=binary&ratio=1&rotation=0&showTitle=false&size=66615&status=done&style=none&taskId=u745bcc54-7fe6-4b8d-8959-0e6466b2297&title=&width=603.4285714285714" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="代码详解"><a href="#代码详解" class="headerlink" title="代码详解"></a>代码详解</h3><h4 id="①在app-json中添加shoplist，自动生成shoplist相关文件"><a href="#①在app-json中添加shoplist，自动生成shoplist相关文件" class="headerlink" title="①在app.json中添加shoplist，自动生成shoplist相关文件"></a>①在app.json中添加shoplist，自动生成shoplist相关文件</h4><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1660101755788-8d0a1e1a-1360-4946-b36d-edca820df2a9.png#clientId=u1a61a923-08ae-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=217&id=u883294be&margin=%5Bobject%20Object%5D&name=image.png&originHeight=285&originWidth=542&originalType=binary&ratio=1&rotation=0&showTitle=false&size=17914&status=done&style=none&taskId=u90c10a4a-d328-4efa-8d76-53b581b268a&title=&width=412.95238095238096" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h4 id="②编辑JS文件，定义数据与相关操作"><a href="#②编辑JS文件，定义数据与相关操作" class="headerlink" title="②编辑JS文件，定义数据与相关操作"></a>②编辑JS文件，定义数据与相关操作</h4><p><strong>data区域</strong><br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1660101993485-8d2187e3-1ffb-4426-8ffe-d702e6d8a5e6.png#clientId=u1a61a923-08ae-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=318&id=uaf2d67c3&margin=%5Bobject%20Object%5D&name=image.png&originHeight=418&originWidth=545&originalType=binary&ratio=1&rotation=0&showTitle=false&size=52481&status=done&style=none&taskId=ua2966906-60d8-4fb7-ad58-e9373b34081&title=&width=415.23809523809524" srcset="/img/loading.gif" lazyload alt="image.png"><br><strong>getshopList函数</strong><br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1660102533460-bdd2e959-bb3c-4b87-b7c0-19a5c81614ba.png#clientId=u1a61a923-08ae-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=747&id=u810afd6b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=981&originWidth=533&originalType=binary&ratio=1&rotation=0&showTitle=false&size=154474&status=done&style=none&taskId=u5a29c791-b980-44e5-a20d-e6929a32054&title=&width=406.0952380952381" srcset="/img/loading.gif" lazyload alt="image.png"><br><strong>生命周期函数</strong><br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1660122375433-9748b797-4436-4bd7-8b40-4f36bbb4b026.png#clientId=u09532f48-a7bf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=581&id=u4e9b7b28&margin=%5Bobject%20Object%5D&name=image.png&originHeight=763&originWidth=654&originalType=binary&ratio=1&rotation=0&showTitle=false&size=100876&status=done&style=none&taskId=u0b030519-fb64-4574-adc4-3e634819e01&title=&width=498.2857142857143" srcset="/img/loading.gif" lazyload alt="image.png"><br><strong>下拉刷新和上拉触底的操作</strong><br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1660122626867-ff31d7d1-2bd6-4b96-b5c6-1fabe9675f56.png#clientId=u09532f48-a7bf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=748&id=ubc10d7e4&margin=%5Bobject%20Object%5D&name=image.png&originHeight=982&originWidth=506&originalType=binary&ratio=1&rotation=0&showTitle=false&size=85905&status=done&style=none&taskId=u36b1fee4-2bac-4ff2-89d6-529c47fe314&title=&width=385.5238095238095" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h4 id="③编写wsml文件，绘制页面"><a href="#③编写wsml文件，绘制页面" class="headerlink" title="③编写wsml文件，绘制页面"></a>③编写wsml文件，绘制页面</h4><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1660122848469-e97fc190-6951-4202-86fd-04bc02f43d65.png#clientId=u09532f48-a7bf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=448&id=u88d6d8db&margin=%5Bobject%20Object%5D&name=image.png&originHeight=631&originWidth=726&originalType=binary&ratio=1&rotation=0&showTitle=false&size=153395&status=done&style=none&taskId=u68829779-c69a-4d1f-b296-0a290746dae&title=&width=515.1428833007812" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h4 id="④编写WXSS样式表，美化页面"><a href="#④编写WXSS样式表，美化页面" class="headerlink" title="④编写WXSS样式表，美化页面"></a>④编写WXSS样式表，美化页面</h4><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1660123073219-52a23017-a2f9-4e34-8f91-18dd42504526.png#clientId=u09532f48-a7bf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=633&id=uc2c7eeec&margin=%5Bobject%20Object%5D&name=image.png&originHeight=831&originWidth=515&originalType=binary&ratio=1&rotation=0&showTitle=false&size=63351&status=done&style=none&taskId=u1f9ac6fd-06a5-4ee3-b215-38980971885&title=&width=392.3809523809524" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h4 id="⑤在WXS文件中定义处理的模块函数"><a href="#⑤在WXS文件中定义处理的模块函数" class="headerlink" title="⑤在WXS文件中定义处理的模块函数"></a>⑤在WXS文件中定义处理的模块函数</h4><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1660123194816-c5f9bf09-9b0e-4ffa-bbcc-daf4effb214d.png#clientId=u09532f48-a7bf-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=349&id=u794a8421&margin=%5Bobject%20Object%5D&name=image.png&originHeight=458&originWidth=502&originalType=binary&ratio=1&rotation=0&showTitle=false&size=48879&status=done&style=none&taskId=ub0ce89d8-b7c6-469f-8950-b72d5a0a12c&title=&width=382.4761904761905" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h1 id="四、知识补充"><a href="#四、知识补充" class="headerlink" title="四、知识补充"></a>四、知识补充</h1><h3 id="1-模板字符串"><a href="#1-模板字符串" class="headerlink" title="1.模板字符串"></a>1.模板字符串</h3><p>模板字符串用&#96;&#96;连接，与一般字符串相比较没有差别，但是便于字符串的连接使用。同时模板字符串中的注入可以进行函数的调用，数组的选取之类的操作，但是普通字符串不具备。<br>传统字符串</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> s1 = <span class="hljs-string">&quot;hello world&quot;</span>;<br><span class="hljs-keyword">var</span> content = s1+<span class="hljs-string">&quot;,i am coming&quot;</span>;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(content); <span class="hljs-comment">// hello world,i am coming</span><br></code></pre></td></tr></table></figure>
+
+<p>模板字符串</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> s1 = <span class="hljs-string">&quot;hello world&quot;</span>;<br><span class="hljs-keyword">var</span> content =<span class="hljs-string">`<span class="hljs-subst">$&#123;s1&#125;</span>,i am coming`</span>;   <span class="hljs-comment">//主语这种格式</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(content); <span class="hljs-comment">// hello world,i am coming</span><br></code></pre></td></tr></table></figure>
+
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A0/" class="category-chain-item">微信小程序学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>微信小程序学习6</div>
+      <div>http://findm.cf/2022/08/10/26微信小程序学习6/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>马钏烽</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年8月10日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/08/01/25%E8%AE%BA%E6%96%87%E7%A0%94%E8%AF%BB-%E5%9F%BA%E4%BA%8E%20FPGA%20%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%8A%A0%E9%80%9F%E5%99%A8%E7%BB%BC%E8%BF%B0%E6%8C%91%E6%88%98%E4%B8%8E%E6%9C%BA%E9%81%87/" title="论文研读-基于 FPGA 的深度学习加速器综述:挑战与机遇">
+                        <span class="hidden-mobile">论文研读-基于 FPGA 的深度学习加速器综述:挑战与机遇</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>欢迎</span></a> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>访问</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
