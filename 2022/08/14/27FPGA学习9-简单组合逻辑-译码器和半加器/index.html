@@ -1,0 +1,717 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#3498db">
+  <meta name="author" content="马钏烽">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本篇文章主要介绍了译码器和半加器的工作原理，并编写Verilog语言进行实现与波形仿真。最后补充了Verilog语言时间精度与时间单位、Verilog系统函数的知识。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FPGA学习9-简单组合逻辑--译码器和半加器">
+<meta property="og:url" content="http://findm.cf/2022/08/14/27FPGA%E5%AD%A6%E4%B9%A09-%E7%AE%80%E5%8D%95%E7%BB%84%E5%90%88%E9%80%BB%E8%BE%91-%E8%AF%91%E7%A0%81%E5%99%A8%E5%92%8C%E5%8D%8A%E5%8A%A0%E5%99%A8/index.html">
+<meta property="og:site_name" content="小马的个人博客">
+<meta property="og:description" content="本篇文章主要介绍了译码器和半加器的工作原理，并编写Verilog语言进行实现与波形仿真。最后补充了Verilog语言时间精度与时间单位、Verilog系统函数的知识。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://findm.cf/img/%E6%96%87%E7%AB%A0%E5%B0%81%E9%9D%A2/27.png">
+<meta property="article:published_time" content="2022-08-14T03:10:40.000Z">
+<meta property="article:modified_time" content="2022-08-14T03:16:14.206Z">
+<meta property="article:author" content="马钏烽">
+<meta property="article:tag" content="半加器">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://findm.cf/img/%E6%96%87%E7%AB%A0%E5%B0%81%E9%9D%A2/27.png">
+  
+  
+  
+  <title>FPGA学习9-简单组合逻辑--译码器和半加器 - 小马的个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"findm.cf","root":"/","version":"1.9.1","typing":{"enable":true,"typeSpeed":92,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客主页</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E6%96%87%E7%AB%A0%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="FPGA学习9-简单组合逻辑--译码器和半加器"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-08-14 11:10" pubdate>
+          2022年8月14日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          29 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">FPGA学习9-简单组合逻辑--译码器和半加器</h1>
+            
+            <div class="markdown-body">
+              
+              <meta name="referrer" content="no-referrer" />
+
+<h1 id="一、译码器"><a href="#一、译码器" class="headerlink" title="一、译码器"></a>一、译码器</h1><h2 id="1-译码器介绍"><a href="#1-译码器介绍" class="headerlink" title="1.译码器介绍"></a>1.译码器介绍</h2><p>译码是编码的逆过程，在编码时，每一种二进制代码，都赋予了特定的含义，即都表示了一个确定的信号或者对象。把代码状态的特定含义翻译出来的过程叫做译码，实现译码操作的电路称为译码器。或者说，译码器是可以将输入二进制代码的状态翻译成输出信号，以表示其原来含义的电路。<br>译码器（decoder)是一类多输入多输出组合逻辑电路器件，其可以分为：变量译码（例如3-8译码器）和显示译码两类（led灯驱动）。</p>
+<h2 id="2-实战演练"><a href="#2-实战演练" class="headerlink" title="2.实战演练"></a>2.实战演练</h2><h3 id="①工程文件的编写"><a href="#①工程文件的编写" class="headerlink" title="①工程文件的编写"></a>①工程文件的编写</h3><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">module</span> decoder<br>  (<br>    <span class="hljs-keyword">input</span> <span class="hljs-keyword">wire</span>  in_1,<br>    <span class="hljs-keyword">input</span> <span class="hljs-keyword">wire</span>  in_2,<br>    <span class="hljs-keyword">input</span> <span class="hljs-keyword">wire</span>  in_3,<br>    <br>    <span class="hljs-keyword">output</span> <span class="hljs-keyword">reg</span>  [<span class="hljs-number">7</span>:<span class="hljs-number">0</span>] out<br>    <br>  );<br>  <span class="hljs-comment">//第一种实现方式</span><br>  <span class="hljs-comment">/*always@(*)</span><br><span class="hljs-comment">  if(&#123;in_1,in_2,in_3&#125;==3&#x27;b000)</span><br><span class="hljs-comment">  out = 8&#x27;b0000_0001;</span><br><span class="hljs-comment">  else if(&#123;in_1,in_2,in_3&#125;==3&#x27;b001)</span><br><span class="hljs-comment">  out = 8&#x27;b0000_0010;</span><br><span class="hljs-comment">  else if(&#123;in_1,in_2,in_3&#125;==3&#x27;b010)</span><br><span class="hljs-comment">  out = 8&#x27;b0000_0100;</span><br><span class="hljs-comment">  else if(&#123;in_1,in_2,in_3&#125;==3&#x27;b011)</span><br><span class="hljs-comment">  out = 8&#x27;b0000_1000;</span><br><span class="hljs-comment">  else if(&#123;in_1,in_2,in_3&#125;==3&#x27;b100)</span><br><span class="hljs-comment">  out = 8&#x27;b0001_0000;</span><br><span class="hljs-comment">  else if(&#123;in_1,in_2,in_3&#125;==3&#x27;b101)</span><br><span class="hljs-comment">  out = 8&#x27;b0010_0000;        </span><br><span class="hljs-comment">  else if(&#123;in_1,in_2,in_3&#125;==3&#x27;b110)</span><br><span class="hljs-comment">  out = 8&#x27;b0100_0000;</span><br><span class="hljs-comment">  else if(&#123;in_1,in_2,in_3&#125;==3&#x27;b111)</span><br><span class="hljs-comment">  out = 8&#x27;b1000_0000;        </span><br><span class="hljs-comment">  else </span><br><span class="hljs-comment">  out = 8&#x27;b0000_0001;*/</span><br>  <span class="hljs-comment">//第二种实现方式</span><br>  <span class="hljs-keyword">always</span>@(*)<br>    <span class="hljs-keyword">case</span>(&#123;in_1,in_2,in_3&#125;)<br>      <span class="hljs-number">3&#x27;b000</span>:out= <span class="hljs-number">8&#x27;b0000_0001</span>;<br>      <span class="hljs-number">3&#x27;b001</span>:out= <span class="hljs-number">8&#x27;b0000_0010</span>;<br>      <span class="hljs-number">3&#x27;b010</span>:out= <span class="hljs-number">8&#x27;b0000_0100</span>;<br>      <span class="hljs-number">3&#x27;b011</span>:out= <span class="hljs-number">8&#x27;b0000_1000</span>;<br>      <span class="hljs-number">3&#x27;b100</span>:out= <span class="hljs-number">8&#x27;b0001_0000</span>;<br>      <span class="hljs-number">3&#x27;b101</span>:out= <span class="hljs-number">8&#x27;b0010_0000</span>;<br>      <span class="hljs-number">3&#x27;b110</span>:out= <span class="hljs-number">8&#x27;b0100_0000</span>;<br>      <span class="hljs-number">3&#x27;b111</span>:out= <span class="hljs-number">8&#x27;b1000_0000</span>;<br>      <span class="hljs-keyword">default</span>:out= <span class="hljs-number">8&#x27;b0000_0001</span>;<br>    <span class="hljs-keyword">endcase</span><br><span class="hljs-keyword">endmodule</span>`<br></code></pre></td></tr></table></figure>
+
+<p>由上面的代码可以看出，译码器的实现主要有两种方式，一种是运用if-else选择结构，另一个是利用case选择分支，二者实现的原理相同，但是对应的硬件电路是不一样的。从这个位置可以看到Verilog代码转换为的电路文件。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1660441322980-ece7425b-1ffb-4c82-bb9e-cef9d58b605c.png#clientId=u6d01fc2a-2d6d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=204&id=u1c1063a9&margin=%5Bobject%20Object%5D&name=image.png&originHeight=268&originWidth=353&originalType=binary&ratio=1&rotation=0&showTitle=false&size=15821&status=done&style=none&taskId=ud55f02bb-9146-482c-a973-b594209bf4b&title=&width=268.95238095238096" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>if-else对应的电路：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1660441455349-22a37181-6c20-49e9-b621-26ace78620e8.png#clientId=u6d01fc2a-2d6d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=466&id=u8d84f8f5&margin=%5Bobject%20Object%5D&name=image.png&originHeight=611&originWidth=970&originalType=binary&ratio=1&rotation=0&showTitle=false&size=61852&status=done&style=none&taskId=u8422dc5a-582e-439b-b7ab-3d01bc53682&title=&width=739.047619047619" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>case对应的电路（改电路就是3-8译码器）<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1660441471849-b74f2594-ebbf-4bfb-b55c-8cf43f99b0b2.png#clientId=u6d01fc2a-2d6d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=160&id=uc84f31b0&margin=%5Bobject%20Object%5D&name=image.png&originHeight=210&originWidth=446&originalType=binary&ratio=1&rotation=0&showTitle=false&size=13293&status=done&style=none&taskId=ue3162fe4-c407-4cbd-b8a6-3428f842b35&title=&width=339.8095238095238" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="②仿真文件的编写"><a href="#②仿真文件的编写" class="headerlink" title="②仿真文件的编写"></a>②仿真文件的编写</h3><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-meta">`<span class="hljs-keyword">timescale</span> 1ns/1ns</span><br><br><br><span class="hljs-keyword">module</span> tb_decoder();<br><span class="hljs-keyword">reg</span> in_1;<br><span class="hljs-keyword">reg</span> in_2;<br><span class="hljs-keyword">reg</span> in_3;<br><span class="hljs-keyword">wire</span>    [<span class="hljs-number">7</span>:<span class="hljs-number">0</span>]   out;<br>  <br><span class="hljs-comment">//给定初始值、生成随机值</span><br><span class="hljs-keyword">initial</span> <br>    <span class="hljs-keyword">begin</span><br>        in_1&lt;=<span class="hljs-number">1&#x27;b0</span>;<br>        in_2&lt;=<span class="hljs-number">1&#x27;b0</span>;<br>        in_3&lt;=<span class="hljs-number">1&#x27;b0</span>;<br>    <span class="hljs-keyword">end</span><br> <span class="hljs-keyword">always</span> #<span class="hljs-number">10</span> in_1&lt;=&#123;<span class="hljs-built_in">$random</span>&#125;%<span class="hljs-number">2</span>;<br> <span class="hljs-keyword">always</span> #<span class="hljs-number">10</span> in_2&lt;=&#123;<span class="hljs-built_in">$random</span>&#125;%<span class="hljs-number">2</span>;<br> <span class="hljs-keyword">always</span> #<span class="hljs-number">10</span> in_3&lt;=&#123;<span class="hljs-built_in">$random</span>&#125;%<span class="hljs-number">2</span>;<br> <br> <span class="hljs-comment">//设置时间格式和监视器</span><br> <span class="hljs-keyword">initial</span> <br>    <span class="hljs-keyword">begin</span><br>        <span class="hljs-built_in">$timeformat</span>(-<span class="hljs-number">9</span>,<span class="hljs-number">0</span>,<span class="hljs-string">&quot;ns&quot;</span>,<span class="hljs-number">6</span>);  <br>        <span class="hljs-built_in">$monitor</span>(<span class="hljs-string">&quot;@time %t:in_1=%b,in_2=%b,in_3=%b,out=%b&quot;</span>,<span class="hljs-built_in">$time</span>,in_1,in_2,in_3,out);<br>    <span class="hljs-keyword">end</span><br> <br> <span class="hljs-comment">//建立对应关系</span><br> decoder decoder_inst<br>(<br>   <span class="hljs-variable">.in_1</span>(in_1),<br>   <span class="hljs-variable">.in_2</span>(in_2),<br>   <span class="hljs-variable">.in_3</span>(in_3),<br>   <span class="hljs-variable">.out</span>(out)<br>);<br><br><span class="hljs-keyword">endmodule</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1660441755153-8d21f0fd-5eb7-445d-8f8b-c36d60257eba.png#clientId=u6d01fc2a-2d6d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=795&id=u193f1520&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1043&originWidth=1906&originalType=binary&ratio=1&rotation=0&showTitle=false&size=258798&status=done&style=none&taskId=u2bd05b5d-ac9f-42de-92ea-1e174685830&title=&width=1452.1904761904761" srcset="/img/loading.gif" lazyload alt="image.png"><br>更改进制：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1660441803910-96066ff6-a23d-47b3-9554-418f358bc8d5.png#clientId=u6d01fc2a-2d6d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=492&id=u4e9a4f64&margin=%5Bobject%20Object%5D&name=image.png&originHeight=646&originWidth=542&originalType=binary&ratio=1&rotation=0&showTitle=false&size=94517&status=done&style=none&taskId=u4d873aec-8005-4d4c-acee-da55cc49aec&title=&width=412.95238095238096" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h1 id="二、半加器"><a href="#二、半加器" class="headerlink" title="二、半加器"></a>二、半加器</h1><h2 id="1-半加器介绍"><a href="#1-半加器介绍" class="headerlink" title="1.半加器介绍"></a>1.半加器介绍</h2><p>加法器是数字电路中经常用到的一种基本器件，主要用于两个数或者多个数的加和，加法器又分为半加器(half adder)和全加器(full adder))半加器电路是指对两个输入数据位相加，输出一个结果位和进位，没有进位输入的加法器电路。是实现两个一位二进制数的加法运算电路。全加器是在半加器的基础上的升级版，除了加数和被加数加和外还要加上上一级传进来的进位信号。</p>
+<h2 id="2-实战演练-1"><a href="#2-实战演练-1" class="headerlink" title="2.实战演练"></a>2.实战演练</h2><h3 id="①工程文件的编写-1"><a href="#①工程文件的编写-1" class="headerlink" title="①工程文件的编写"></a>①工程文件的编写</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1660443264160-b863095d-3e22-42f6-b39d-5c69886e6d98.png#clientId=u6d01fc2a-2d6d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=274&id=u5c9cb76e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=359&originWidth=577&originalType=binary&ratio=1&rotation=0&showTitle=false&size=62212&status=done&style=none&taskId=uae8c234b-6e78-4a8a-bb18-fe301e09c43&title=&width=439.6190476190476" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-meta">`<span class="hljs-keyword">timescale</span> 1ns/1ns</span><br><br><span class="hljs-keyword">module</span> hard_adder<br>(<br>	<span class="hljs-keyword">input</span> <span class="hljs-keyword">wire</span> in_1,<br>	<span class="hljs-keyword">input</span> <span class="hljs-keyword">wire</span> in_2,<br>	<span class="hljs-keyword">output</span> <span class="hljs-keyword">wire</span> sum,<br>	<span class="hljs-keyword">output</span> <span class="hljs-keyword">wire</span> cout<br>);<br><br><span class="hljs-keyword">assign</span> &#123;cout,sum&#125;=in_1+in_2;<br><br><span class="hljs-keyword">endmodule</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1660445061403-7e355dfb-c194-4e09-9b8a-f28c8ca96ba2.png#clientId=u6d01fc2a-2d6d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=187&id=u6a23094a&margin=%5Bobject%20Object%5D&name=image.png&originHeight=246&originWidth=696&originalType=binary&ratio=1&rotation=0&showTitle=false&size=7982&status=done&style=none&taskId=u474935b5-da16-4d84-9626-7dba2d13d3d&title=&width=530.2857142857143" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="②仿真文件的编写-1"><a href="#②仿真文件的编写-1" class="headerlink" title="②仿真文件的编写"></a>②仿真文件的编写</h3><figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-meta">`<span class="hljs-keyword">timescale</span> 1ns/1ns</span><br><span class="hljs-keyword">module</span> tb_hard_adder();<br><span class="hljs-keyword">wire</span> sum;<br><span class="hljs-keyword">wire</span> cout;<br><span class="hljs-keyword">reg</span> in_1;<br><span class="hljs-keyword">reg</span> in_2;<br><br><span class="hljs-keyword">initial</span><br>    <span class="hljs-keyword">begin</span><br>        in_1&lt;=<span class="hljs-number">1&#x27;b0</span>;<br>        in_2&lt;=<span class="hljs-number">1&#x27;b0</span>;<br>    <span class="hljs-keyword">end</span><br> <br><span class="hljs-keyword">always</span> #<span class="hljs-number">10</span> in_1&lt;=&#123;<span class="hljs-built_in">$random</span>&#125;%<span class="hljs-number">2</span>;<br><span class="hljs-keyword">always</span> #<span class="hljs-number">10</span> in_2&lt;=&#123;<span class="hljs-built_in">$random</span>&#125;%<span class="hljs-number">2</span>;<br><br><span class="hljs-keyword">initial</span> <br>    <span class="hljs-keyword">begin</span><br>        $timescale(-<span class="hljs-number">9</span>,<span class="hljs-number">0</span>,<span class="hljs-string">&quot;ns&quot;</span>,<span class="hljs-number">6</span>);<br>        <span class="hljs-built_in">$monitor</span>(<span class="hljs-string">&quot;@time %t : in_1=%b in_2=%b sum=%b cout=%b&quot;</span>,<span class="hljs-built_in">$time</span>,in_1,in_2,sum,cout);<br>    <span class="hljs-keyword">end</span><br>    <br> hard_adder tb_hard_adder<br> (<br>    <span class="hljs-variable">.in_1</span>(in_1),<br>    <span class="hljs-variable">.in_2</span>(in_2),<br>    <span class="hljs-variable">.sum</span>(sum),<br>    <span class="hljs-variable">.cout</span>(cout)<br> );<br> <br> <span class="hljs-keyword">endmodule</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1660446027043-4026ec51-686e-45bd-a0d4-c5024016343c.png#clientId=u6d01fc2a-2d6d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=124&id=u91311f94&margin=%5Bobject%20Object%5D&name=image.png&originHeight=163&originWidth=979&originalType=binary&ratio=1&rotation=0&showTitle=false&size=26939&status=done&style=none&taskId=u5526b705-7059-4dde-bdec-d3e3f70f011&title=&width=745.9047619047619" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h1 id="三、知识补充"><a href="#三、知识补充" class="headerlink" title="三、知识补充"></a>三、知识补充</h1><h2 id="1-Verilog仿真时间尺度-96-timescale"><a href="#1-Verilog仿真时间尺度-96-timescale" class="headerlink" title="1.Verilog仿真时间尺度&#96;timescale"></a>1.Verilog仿真时间尺度&#96;timescale</h2><blockquote>
+<p>参考<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/386280235">https://zhuanlan.zhihu.com/p/386280235</a></p>
+</blockquote>
+<p>&#96;timescale 10ns&#x2F;100ps  ：<strong>时间单位10ns，时间精度100ps</strong></p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-keyword">initial</span> <span class="hljs-keyword">begin</span>     <br>    #<span class="hljs-number">5</span>;          <span class="hljs-comment">// 单位 10 ns，相当于延时 50 ns </span><br>    a = <span class="hljs-number">0</span>; <br>    #<span class="hljs-number">5</span><span class="hljs-variable">.2</span>;        <span class="hljs-comment">// 单位 10 ns，相当于延时 52 ns    </span><br>    a = <span class="hljs-number">1</span>;    <br>    #<span class="hljs-number">5</span><span class="hljs-variable">.22</span>;       <span class="hljs-comment">// 单位 10 ns，相当于延时 52.2 ns   </span><br>    a = <span class="hljs-number">0</span>;    <br>    #<span class="hljs-number">5</span><span class="hljs-variable">.222</span>;      <span class="hljs-comment">// 精度 100 ps，这里 52.22 ns，四舍五入 52.2 ns </span><br>    a = <span class="hljs-number">1</span>; <br>    #<span class="hljs-number">5</span><span class="hljs-variable">.225</span>;      <span class="hljs-comment">// 精度 100 ps，这里 52.25 ns，四舍五入 52.3 ns </span><br>    a = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">end</span> <br></code></pre></td></tr></table></figure>
+
+<h3 id="2-系统任务与系统函数"><a href="#2-系统任务与系统函数" class="headerlink" title="2.系统任务与系统函数"></a>2.系统任务与系统函数</h3><p>参考<a target="_blank" rel="noopener" href="https://www.cnblogs.com/mc2-xiangliangzi/p/12950548.html">https://www.cnblogs.com/mc2-xiangliangzi/p/12950548.html</a></p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs verilog"><span class="hljs-built_in">$display</span>    <span class="hljs-comment">//打印信息，自动换行 </span><br><span class="hljs-built_in">$write</span>        <span class="hljs-comment">//打印信息</span><br><span class="hljs-built_in">$strobe</span>        <span class="hljs-comment">//打印信息，自动换行，最后执行 </span><br><span class="hljs-built_in">$monitor</span>       <span class="hljs-comment">//监测变量 </span><br><span class="hljs-built_in">$stop</span>          <span class="hljs-comment">//暂停仿真 </span><br><span class="hljs-built_in">$finish</span>        <span class="hljs-comment">//结束仿真 </span><br><span class="hljs-built_in">$time</span>          <span class="hljs-comment">//时间函数 </span><br><span class="hljs-built_in">$random</span>        <span class="hljs-comment">//随机函数 </span><br><span class="hljs-built_in">$readmemb</span>     <span class="hljs-comment">//读文件函数</span><br></code></pre></td></tr></table></figure>
+
+<p>用到某个具体的函数时可以访问上面地链接，有案例总结。</p>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/FPGA%E5%AD%A6%E4%B9%A0/" class="category-chain-item">FPGA学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8D%8A%E5%8A%A0%E5%99%A8/">#半加器</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>FPGA学习9-简单组合逻辑--译码器和半加器</div>
+      <div>http://findm.cf/2022/08/14/27FPGA学习9-简单组合逻辑-译码器和半加器/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>马钏烽</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年8月14日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/08/10/26%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A06/" title="微信小程序学习6">
+                        <span class="hidden-mobile">微信小程序学习6</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>欢迎</span></a> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>访问</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
