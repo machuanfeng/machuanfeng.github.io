@@ -1,0 +1,707 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=light>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#3498db">
+  <meta name="author" content="马钏烽">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="本篇文章主要介绍了npm包的下载和使用方法以及使用Mobx包进行全局的数据共享。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信小程序学习9">
+<meta property="og:url" content="http://findm.cf/2022/08/27/31%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A09/index.html">
+<meta property="og:site_name" content="小马的个人博客">
+<meta property="og:description" content="本篇文章主要介绍了npm包的下载和使用方法以及使用Mobx包进行全局的数据共享。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://findm.cf/img/%E6%96%87%E7%AB%A0%E5%B0%81%E9%9D%A2/31.png">
+<meta property="article:published_time" content="2022-08-27T12:53:00.000Z">
+<meta property="article:modified_time" content="2022-08-27T12:58:50.168Z">
+<meta property="article:author" content="马钏烽">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://findm.cf/img/%E6%96%87%E7%AB%A0%E5%B0%81%E9%9D%A2/31.png">
+  
+  
+  
+  <title>微信小程序学习9 - 小马的个人博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"findm.cf","root":"/","version":"1.9.1","typing":{"enable":true,"typeSpeed":92,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>博客主页</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/%E6%96%87%E7%AB%A0%E9%A1%B5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="微信小程序学习9"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-08-27 20:53" pubdate>
+          2022年8月27日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          953 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          8 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">微信小程序学习9</h1>
+            
+            <div class="markdown-body">
+              
+              <meta name="referrer" content="no-referrer" />
+
+<h1 id="一、使用npm包"><a href="#一、使用npm包" class="headerlink" title="一、使用npm包"></a>一、使用npm包</h1><h2 id="小程序对npm的支持与限制"><a href="#小程序对npm的支持与限制" class="headerlink" title="小程序对npm的支持与限制"></a>小程序对npm的支持与限制</h2><p>目前，小程序中已经支持使用p安装第三方包，从而来提高小程序的开发效率。但是，在小程序中使用<br>npm包有如下3个限制：</p>
+<ol>
+<li>不支持依赖于Node.js内置库的包</li>
+<li>不支持依赖于浏览器内置对象的包</li>
+<li>不支持依赖于C++插件的包</li>
+</ol>
+<p>总结：npm上的包有很多，但是能供小程序使用的并不多</p>
+<h2 id="1-Vant-Weapp"><a href="#1-Vant-Weapp" class="headerlink" title="1.Vant Weapp"></a>1.Vant Weapp</h2><h3 id="1-什么是Vant-Weapp"><a href="#1-什么是Vant-Weapp" class="headerlink" title="1.什么是Vant Weapp"></a>1.什么是Vant Weapp</h3><p>Vant Weapp是有赞前端团队开源的一套小程序UI组件库，助力开发者快速搭建小程序应用。它所使用的是<br>MT开源许可协议，对商业使用比较友好。<br>官方文档地址：<a target="_blank" rel="noopener" href="https://youzan.github.io/vant-weapp">https:&#x2F;youzan.github.io&#x2F;vant-weapp</a></p>
+<h3 id="2-安装Vant-Weapp"><a href="#2-安装Vant-Weapp" class="headerlink" title="2.安装Vant Weapp"></a>2.安装Vant Weapp</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1661478144276-df19adf4-47ba-4e23-8bd2-d28171445a89.png#clientId=uf4005ba5-465a-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=138&id=u59a3e389&margin=%5Bobject%20Object%5D&name=image.png&originHeight=199&originWidth=631&originalType=binary&ratio=1&rotation=0&showTitle=false&size=64243&status=done&style=none&taskId=u28a24455-d82a-4907-a839-440b53f63c6&title=&width=437.0562698387993" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>Vant官方提供的快速上手教程：<br><a target="_blank" rel="noopener" href="https://youzan.github.io/vant-weapp/#/quickstart#an-zhuang">https://youzan.github.io/vant-weapp/#/quickstart#an-zhuang</a></p>
+<p><strong>步骤一：</strong><br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1661478681121-ed2fca79-997a-4227-a951-897fda62dbff.png#clientId=uf4005ba5-465a-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=335&id=u94eee9b8&margin=%5Bobject%20Object%5D&name=image.png&originHeight=484&originWidth=938&originalType=binary&ratio=1&rotation=0&showTitle=false&size=42203&status=done&style=none&taskId=u67a36f22-1504-4105-bfdc-9308223e742&title=&width=649.6969589679775" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p><strong>步骤二：</strong><br>将 app.json 中的 <strong>“style”: “v2”</strong> 去除，小程序的<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/reference/configuration/app.html#style">新版基础组件</a>强行加上了许多样式，难以覆盖，不关闭将造成部分组件样式混乱。<br><strong>步骤三：</strong></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1661478720215-ced4ee4c-6e24-46f9-bc67-58e1ed4502b1.png#clientId=uf4005ba5-465a-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=408&id=u76d0cd8c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=589&originWidth=246&originalType=binary&ratio=1&rotation=0&showTitle=false&size=34843&status=done&style=none&taskId=udd27912c-3abe-4eaa-a3bb-995de6fe06d&title=&width=170.3896075758235" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="3-使用Vant组件"><a href="#3-使用Vant组件" class="headerlink" title="3.使用Vant组件"></a>3.使用Vant组件</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1661478883559-00b4d2d2-8935-4c01-b66c-dd1773e0cd26.png#clientId=uf4005ba5-465a-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=272&id=ub555ed2c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=393&originWidth=1135&originalType=binary&ratio=1&rotation=0&showTitle=false&size=128044&status=done&style=none&taskId=udc2cebcf-4828-4766-a5e6-6409da3911f&title=&width=786.1471731648768" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h4 id="4-定制全局主题样式"><a href="#4-定制全局主题样式" class="headerlink" title="4.定制全局主题样式"></a>4.定制全局主题样式</h4><p>Vant Weapp使用CSS变量来实现定制主题。关于CSS变量的基本用法，请参考MDN文档：<br><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/Using_CSS_custom_properties">https://developer.mozilla.org/zh-CN/docs/Web/CSS/Using_CSS_custom_properties</a><br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1661479970615-53315ee1-d88b-44e7-ab9f-ae78a0541c26.png#clientId=uf4005ba5-465a-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=235&id=uded95e33&margin=%5Bobject%20Object%5D&name=image.png&originHeight=339&originWidth=857&originalType=binary&ratio=1&rotation=0&showTitle=false&size=90898&status=done&style=none&taskId=uf6efdf7e-f777-4b22-98e2-c432c57635e&title=&width=593.5930637905722" srcset="/img/loading.gif" lazyload alt="image.png"><br>上面的变量分别是danger按钮的背景颜色和边框颜色，具体的变量名称在这里查找：<br><a target="_blank" rel="noopener" href="https://github.com/vant-ui/vant-weapp/blob/dev/packages/common/style/var.less">https://github.com/vant-ui/vant-weapp/blob/dev/packages/common/style/var.less</a></p>
+<h2 id="1-API-Promise化"><a href="#1-API-Promise化" class="headerlink" title="1.API Promise化"></a>1.API Promise化</h2><h3 id="1-基于回调函数的异步api的缺点"><a href="#1-基于回调函数的异步api的缺点" class="headerlink" title="1.基于回调函数的异步api的缺点"></a>1.基于回调函数的异步api的缺点</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1661480502175-147c486c-3e2b-4944-9592-25fda8c8e2bd.png#clientId=uf4005ba5-465a-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=317&id=uc172a50a&margin=%5Bobject%20Object%5D&name=image.png&originHeight=458&originWidth=1140&originalType=binary&ratio=1&rotation=0&showTitle=false&size=129710&status=done&style=none&taskId=u163b9356-99e0-4512-ae58-ecf0a98036e&title=&width=789.6103765708895" srcset="/img/loading.gif" lazyload alt="image.png"><br>缺点：可能会造成回调地狱的问题，可维护性差</p>
+<h3 id="2-什么是API-Promise化"><a href="#2-什么是API-Promise化" class="headerlink" title="2.什么是API Promise化"></a>2.什么是API Promise化</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1661480641578-6f32be26-0282-485d-b260-9faa0dc4c6f0.png#clientId=uf4005ba5-465a-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=56&id=u51a745f7&margin=%5Bobject%20Object%5D&name=image.png&originHeight=81&originWidth=1039&originalType=binary&ratio=1&rotation=0&showTitle=false&size=89097&status=done&style=none&taskId=u74067d4c-4e32-41ec-8023-72fb6224b3b&title=&width=719.6536677694335" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="3-实现API-Promise化"><a href="#3-实现API-Promise化" class="headerlink" title="3.实现API Promise化"></a>3.实现API Promise化</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1661481397930-c02dcdec-2428-4ec4-9df8-1b49bfb9c592.png#clientId=ud49a66a0-d55c-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=364&id=u476e8ae2&margin=%5Bobject%20Object%5D&name=image.png&originHeight=525&originWidth=1125&originalType=binary&ratio=1&rotation=0&showTitle=false&size=190490&status=done&style=none&taskId=u375ef7b9-6b07-4674-bb13-1d66e91cdf5&title=&width=779.2207663528515" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="4-调用promise化之后的异步API"><a href="#4-调用promise化之后的异步API" class="headerlink" title="4.调用promise化之后的异步API"></a>4.调用promise化之后的异步API</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1661481740946-a09758ab-20e5-4591-bb76-0a1652d955e1.png#clientId=ud49a66a0-d55c-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=348&id=u92eb88c5&margin=%5Bobject%20Object%5D&name=image.png&originHeight=502&originWidth=832&originalType=binary&ratio=1&rotation=0&showTitle=false&size=140667&status=done&style=none&taskId=ud6503197-3443-44c5-a9de-ba8e029a73c&title=&width=576.2770467605088" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h1 id="三、全局数据共享"><a href="#三、全局数据共享" class="headerlink" title="三、全局数据共享"></a>三、全局数据共享</h1><h2 id="1-什么是全局数据共享"><a href="#1-什么是全局数据共享" class="headerlink" title="1.什么是全局数据共享"></a>1.什么是全局数据共享</h2><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1661482639486-cc45683f-941e-4182-aca8-3de0bb364ea0.png#clientId=ud49a66a0-d55c-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=69&id=ufdf55293&margin=%5Bobject%20Object%5D&name=image.png&originHeight=103&originWidth=765&originalType=binary&ratio=1&rotation=0&showTitle=false&size=65888&status=done&style=none&taskId=ud8887a21-de1c-45a1-88f8-ff9486a0452&title=&width=509.8701171875" srcset="/img/loading.gif" lazyload alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1661482665722-ed911241-7012-4dcc-9a10-c5934a675451.png#clientId=ud49a66a0-d55c-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=222&id=u57b61566&margin=%5Bobject%20Object%5D&name=image.png&originHeight=321&originWidth=604&originalType=binary&ratio=1&rotation=0&showTitle=false&size=129501&status=done&style=none&taskId=u84655308-1083-4397-a5af-88b58d3612f&title=&width=418.35497144633086" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="2-小程序中的全局数据共享方案"><a href="#2-小程序中的全局数据共享方案" class="headerlink" title="2.小程序中的全局数据共享方案"></a>2.小程序中的全局数据共享方案</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1661482803260-3a33cd71-7e4d-4d70-a249-b9b63bbe601d.png#clientId=ud49a66a0-d55c-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=77&id=ue4f26eac&margin=%5Bobject%20Object%5D&name=image.png&originHeight=136&originWidth=1102&originalType=binary&ratio=1&rotation=0&showTitle=false&size=121453&status=done&style=none&taskId=uce2061e3-91b6-4e62-b69e-d391e886c34&title=&width=620.0042724609375" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="3-安装mobx相关的包"><a href="#3-安装mobx相关的包" class="headerlink" title="3.安装mobx相关的包"></a>3.安装mobx相关的包</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1661482902422-7fb110b3-e276-4661-933e-3edb65b882a3.png#clientId=ud49a66a0-d55c-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=157&id=u6d2ec13e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=227&originWidth=981&originalType=binary&ratio=1&rotation=0&showTitle=false&size=106719&status=done&style=none&taskId=u28c3e495-929f-44c0-b167-f1db2a04971&title=&width=679.4805082596864" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="4-创建Mobx的Store实例"><a href="#4-创建Mobx的Store实例" class="headerlink" title="4.创建Mobx的Store实例"></a>4.创建Mobx的Store实例</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1661602314406-640fcc4a-a88e-4b5a-8117-8189186653a3.png#clientId=u10bad0e3-e5c4-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=532&id=u8e98ad0e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=614&originWidth=772&originalType=binary&ratio=1&rotation=0&showTitle=false&size=139564&status=done&style=none&taskId=uc2350c52-b106-4fc3-8535-8337ebf7a17&title=&width=668.3982849550029" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="5-将Store中的成员绑定到页面"><a href="#5-将Store中的成员绑定到页面" class="headerlink" title="5.将Store中的成员绑定到页面"></a>5.将Store中的成员绑定到页面</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1661601253082-7c210f03-81b5-4bfc-993e-1580b327834a.png#clientId=u10bad0e3-e5c4-4&crop=0&crop=0.0812&crop=1&crop=1&from=paste&height=595&id=ud8152374&margin=%5Bobject%20Object%5D&name=image.png&originHeight=687&originWidth=885&originalType=binary&ratio=1&rotation=0&showTitle=false&size=230326&status=done&style=none&taskId=udfc84efb-1726-436d-be29-e5c950f477a&title=&width=766" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="6-在页面上使用Store中的成员"><a href="#6-在页面上使用Store中的成员" class="headerlink" title="6.在页面上使用Store中的成员"></a>6.在页面上使用Store中的成员</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1661601508213-bc685ddf-59a7-4be0-ad6e-44e597f7bfdf.png#clientId=u10bad0e3-e5c4-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=547&id=u470bd82f&margin=%5Bobject%20Object%5D&name=image.png&originHeight=632&originWidth=1040&originalType=binary&ratio=1&rotation=0&showTitle=false&size=211041&status=done&style=none&taskId=u52d65604-5f84-419b-a367-4fd9233944c&title=&width=900.4329227373096" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="7-将Store中的成员绑定到组建中"><a href="#7-将Store中的成员绑定到组建中" class="headerlink" title="7.将Store中的成员绑定到组建中"></a>7.将Store中的成员绑定到组建中</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1661602860689-61dc2b9e-eaac-4e1a-8c94-696023955594.png#clientId=u10bad0e3-e5c4-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=530&id=ub2cf1359&margin=%5Bobject%20Object%5D&name=image.png&originHeight=612&originWidth=774&originalType=binary&ratio=1&rotation=0&showTitle=false&size=197234&status=done&style=none&taskId=u3eded8d6-a74c-4b73-a384-ffc06f99128&title=&width=670.1298867294977" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h3 id="8-在组件中使用Store中的成员"><a href="#8-在组件中使用Store中的成员" class="headerlink" title="8.在组件中使用Store中的成员"></a>8.在组件中使用Store中的成员</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/759833/1661603584925-af356a64-17f4-4b09-ac37-921c7eec3972.png#clientId=u10bad0e3-e5c4-4&crop=0&crop=0.0981&crop=1&crop=1&from=paste&height=408&id=uf4ebaac8&margin=%5Bobject%20Object%5D&name=image.png&originHeight=471&originWidth=636&originalType=binary&ratio=1&rotation=0&showTitle=false&size=102344&status=done&style=none&taskId=ue8cb58bf-07eb-4f88-ac38-b92ee51d8ef&title=&width=551" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A0/" class="category-chain-item">微信小程序学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>微信小程序学习9</div>
+      <div>http://findm.cf/2022/08/27/31微信小程序学习9/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>马钏烽</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年8月27日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/08/21/30%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A08/" title="微信小程序学习8">
+                        <span class="hidden-mobile">微信小程序学习8</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>欢迎</span></a> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>访问</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
